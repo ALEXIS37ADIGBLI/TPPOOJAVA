@@ -8,6 +8,8 @@ package gestion_restaurant;
  *
  * @author bossmrpk
  */
-public class mouvement_type_stock {
+public enum mouvement_type_stock {
+    ENTRÉE,
+    SORTIE
     
 }

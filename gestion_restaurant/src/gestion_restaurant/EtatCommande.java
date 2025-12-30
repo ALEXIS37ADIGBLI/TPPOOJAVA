@@ -8,6 +8,9 @@ package gestion_restaurant;
  *
  * @author bossmrpk
  */
-public class EtatCommande {
+public enum  EtatCommande {
+    EN_COURS,
+    VALIDEE,
+    ANNULEE
     
 }
