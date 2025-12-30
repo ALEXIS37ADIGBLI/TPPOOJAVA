@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gestion_restaurant;
+package models;
 
 /**
  *
@@ -10,16 +10,16 @@ package gestion_restaurant;
  */
 public class ligne_commande {
     private int id_ligne;
-    private commande id_commande;
-    private produit id_produit;
+    private commande commande;
+    private produit produit;
     private int quantite;
     private double prix_unitaire;
     private double montant_ligne;
 
     public ligne_commande(int id_ligne, commande id_commande, produit id_produit, int quantite, double prix_unitaire, double montant_ligne) {
         this.id_ligne = id_ligne;
-        this.id_commande = id_commande;
-        this.id_produit = id_produit;
+        this.commande = id_commande;
+        this.produit = id_produit;
         this.quantite = quantite;
         this.prix_unitaire = prix_unitaire;
         this.montant_ligne = montant_ligne;
@@ -33,20 +33,20 @@ public class ligne_commande {
         this.id_ligne = id_ligne;
     }
 
-    public commande getId_commande() {
-        return id_commande;
+    public commande getCommande() {
+        return commande;
     }
 
-    public void setId_commande(commande id_commande) {
-        this.id_commande = id_commande;
+    public void setCommande(commande id_commande) {
+        this.commande = id_commande;
     }
 
-    public produit getId_produit() {
-        return id_produit;
+    public produit getProduit() {
+        return produit;
     }
 
-    public void setId_produit(produit id_produit) {
-        this.id_produit = id_produit;
+    public void setProduit(produit id_produit) {
+        this.produit = id_produit;
     }
 
     public int getQuantite() {

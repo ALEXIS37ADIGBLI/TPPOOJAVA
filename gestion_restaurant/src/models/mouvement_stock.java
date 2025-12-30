@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gestion_restaurant;
+package models;
+
+import java.time.LocalDateTime;
 
 /**
  *
@@ -11,25 +13,18 @@ package gestion_restaurant;
 public class mouvement_stock {
     private int id_mouvement;
     private int id_produit;
-    private mouvement_type_stock type_mouvement;
+    private String type_mouvement;
     private int quantite;
-    private int date_mouvement;
+    private LocalDateTime date_mouvement;
     private String motif;
-
-    public mouvement_stock(int id_mouvement, int id_produit, mouvement_type_stock type_mouvement, int quantite, int date_mouvement, String motif) {
+    
+    public mouvement_stock(int id_mouvement, int id_produit, String type_mouvement, int quantite, LocalDateTime date_mouvement, String motif) {
         this.id_mouvement = id_mouvement;
         this.id_produit = id_produit;
         this.type_mouvement = type_mouvement;
         this.quantite = quantite;
         this.date_mouvement = date_mouvement;
         this.motif = motif;
-    }
-    
-    public mouvement_type_stock getType_mouvement(){
-        return type_mouvement;
-    }
-    public void setType_mouvement(mouvement_type_stock type_mouvement){
-        this.type_mouvement = type_mouvement;
     }
 
     public int getId_mouvement() {
@@ -48,6 +43,14 @@ public class mouvement_stock {
         this.id_produit = id_produit;
     }
 
+    public String getType_mouvement() {
+        return type_mouvement;
+    }
+
+    public void setType_mouvement(String type_mouvement) {
+        this.type_mouvement = type_mouvement;
+    }
+
     public int getQuantite() {
         return quantite;
     }
@@ -56,11 +59,11 @@ public class mouvement_stock {
         this.quantite = quantite;
     }
 
-    public int getDate_mouvement() {
+    public LocalDateTime getDate_mouvement() {
         return date_mouvement;
     }
 
-    public void setDate_mouvement(int date_mouvement) {
+    public void setDate_mouvement(LocalDateTime date_mouvement) {
         this.date_mouvement = date_mouvement;
     }
 
@@ -71,5 +74,10 @@ public class mouvement_stock {
     public void setMotif(String motif) {
         this.motif = motif;
     }
+    
+    
+
+   
+    
     
 }

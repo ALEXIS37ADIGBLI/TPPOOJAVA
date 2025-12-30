@@ -2,7 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gestion_restaurant;
+package models;
+
+import java.time.LocalDateTime;
 
 /**
  *
@@ -10,38 +12,36 @@ package gestion_restaurant;
  */
 public class commande {
     private int id_commande;
-    private int  date_commande;
-    private EtatCommande etat;
+    private LocalDateTime date_commande; 
+    private String etat ;
     
-    public commande(int id_commande, int date_commande,EtatCommande etat ){
+    public commande(int id_commande, LocalDateTime date_commande,String etat ){
         this.id_commande = id_commande;
         this.date_commande = date_commande;
-        this.etat = EtatCommande.EN_COURS;
+        this.etat = etat;
     }
 
     public int getId_commande() {
         return id_commande;
     }
     
-    //modification pour réparer le soucis
-
     public void setId_commande(int id_commande) {
         this.id_commande = id_commande;
     }
 
-    public int getDate_commande() {
+    public LocalDateTime getDate_commande() {
         return date_commande;
     }
 
-    public void setDate_commande(int date_commande) {
+    public void setDate_commande(LocalDateTime date_commande) { 
         this.date_commande = date_commande;
     }
     
-    public EtatCommande getEtat(){
+    public String getEtat(){
         return etat;
     }
     
-    public void  setEtat(EtatCommande etat){
+    public void  setEtat(String etat){
         this.etat = etat;
     }
 
