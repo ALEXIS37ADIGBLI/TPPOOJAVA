@@ -22,6 +22,8 @@ public class commande {
     public int getId_commande() {
         return id_commande;
     }
+    
+    //modification pour réparer le soucis
 
     public void setId_commande(int id_commande) {
         this.id_commande = id_commande;
