@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gestion_restaurant;
+package models;
 
 /**
  *
@@ -14,15 +14,15 @@ public class produit {
     private double prix_vente;
     private int stock_actuel;
     private int seuil_alerte;
-    private int id_categorie;
+    private categorie categorie;
 
-    public produit(int id_produit, String nom, double prix_vente, int stock_actuel, int seuil_alerte, int id_categorie) {
+    public produit(int id_produit, String nom, double prix_vente, int stock_actuel, int seuil_alerte, categorie id_categorie) {
         this.id_produit = id_produit;
         this.nom = nom;
         this.prix_vente = prix_vente;
         this.stock_actuel = stock_actuel;
         this.seuil_alerte = seuil_alerte;
-        this.id_categorie = id_categorie;
+        this.categorie = id_categorie;
     }
     
     public int getId_produit(){
@@ -45,8 +45,8 @@ public class produit {
         return seuil_alerte;
     }
     
-    public int getId_categorie() {
-        return id_categorie;
+    public categorie getCategorie() {
+        return categorie;
     }
     
     public void setId_produit(int id_produit){
@@ -69,8 +69,8 @@ public class produit {
         this.seuil_alerte = seuil_alerte;
     }
 
-    public void setId_categorie(int id_categorie) {
-        this.id_categorie = id_categorie;
+    public void setCategorie(categorie id_categorie) {
+        this.categorie = id_categorie;
     }
     
 
