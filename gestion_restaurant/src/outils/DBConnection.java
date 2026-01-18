@@ -10,15 +10,17 @@ import java.sql.*;
  *
  * @author Xisclever
  */
-public class DbConnection {
-    //test de modification
+
+public class DBConnection {
+    
+
     private static Connection connection= null;
     
     private static final String URL = "jdbc:mysql://localhost:3306/gestion_restaurant";
     private static final String USER = "root";
     private static final String PASSWORD = "";
     
-    private DbConnection(){}
+    private DBConnection(){}
     public static Connection getConnection() throws DBException {
         try{
             //verifie si la connection n'existe pas encore ou est ferme

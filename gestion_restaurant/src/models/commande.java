@@ -15,9 +15,9 @@ public class commande {
     private LocalDateTime date_commande; 
     private String etat ;
     
-    public commande(int id_commande, LocalDateTime date_commande,String etat ){
+    public commande(int id_commande, LocalDateTime date, String etat){
         this.id_commande = id_commande;
-        this.date_commande = date_commande;
+        this.date_commande = date;
         this.etat = etat;
     }
 

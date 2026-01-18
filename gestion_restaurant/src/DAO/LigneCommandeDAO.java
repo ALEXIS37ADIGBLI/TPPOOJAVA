@@ -9,7 +9,7 @@ import models.categorie;
 import models.ligne_commande;
 import models.commande;
 import models.produit;
-import outils.DbConnection;
+import outils.DBConnection;
 import outils.DBException;
 
 /**
@@ -21,7 +21,7 @@ public class LigneCommandeDAO {
     public void ajouter(ligne_commande lc) throws DBException {
         String query = "INSERT INTO LIGNE_COMMANDE (id_commande, id_produit, quantite, prix_unitaire, montant_ligne) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conn = DbConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, lc.getCommande().getId_commande());
@@ -49,7 +49,7 @@ public class LigneCommandeDAO {
                        "JOIN CATEGORIE cat ON p.id_categorie = cat.id_categorie " +
                        "WHERE lc.id_commande = ?";
 
-        try (Connection conn = DbConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             
             pstmt.setInt(1, idCommandeSelectionnee);
@@ -97,7 +97,7 @@ public class LigneCommandeDAO {
     public void modifier(ligne_commande lc) throws DBException {
         String query = "UPDATE LIGNE_COMMANDE SET id_commande = ?, id_produit = ?, quantite = ?, prix_unitaire = ?, montant_ligne = ? WHERE id_ligne = ?";
 
-        try (Connection conn = DbConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, lc.getCommande().getId_commande());
@@ -116,7 +116,7 @@ public class LigneCommandeDAO {
     public void supprimer(int idLigne) throws DBException {
         String query = "DELETE FROM LIGNE_COMMANDE WHERE id_ligne = ?";
 
-        try (Connection conn = DbConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, idLigne);
@@ -137,7 +137,7 @@ public class LigneCommandeDAO {
                        "JOIN CATEGORIE cat ON p.id_categorie = cat.id_categorie " +
                        "WHERE lc.id_ligne = ?";
 
-        try (Connection conn = DbConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
             
             pstmt.setInt(1, idLigne);

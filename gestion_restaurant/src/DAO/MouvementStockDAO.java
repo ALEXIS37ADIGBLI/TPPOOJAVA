@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import models.mouvement_stock;
-import outils.DbConnection;
+import outils.DBConnection;
 import outils.DBException;
 
 /**
@@ -19,7 +19,7 @@ public class MouvementStockDAO {
     public void ajouter(mouvement_stock m) throws DBException {
         String query = "INSERT INTO MOUVEMENT_STOCK (id_produit, type_mouvement, quantite, motif) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DbConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, m.getId_produit());
@@ -37,7 +37,7 @@ public class MouvementStockDAO {
         List<mouvement_stock> liste = new ArrayList<>();
         String query = "SELECT * FROM MOUVEMENT_STOCK ORDER BY date_mouvement DESC";
 
-        try (Connection conn = DbConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -61,7 +61,7 @@ public class MouvementStockDAO {
     public void modifier(mouvement_stock m) throws DBException {
         String query = "UPDATE MOUVEMENT_STOCK SET id_produit = ?, type_mouvement = ?, quantite = ?, motif = ? WHERE id_mouvement = ?";
 
-        try (Connection conn = DbConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, m.getId_produit());
@@ -79,7 +79,7 @@ public class MouvementStockDAO {
     public void supprimer(int idMouvement) throws DBException {
         String query = "DELETE FROM MOUVEMENT_STOCK WHERE id_mouvement = ?";
 
-        try (Connection conn = DbConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, idMouvement);
@@ -92,7 +92,7 @@ public class MouvementStockDAO {
     public mouvement_stock chercherParId(int idMouvement) throws DBException {
         String query = "SELECT * FROM MOUVEMENT_STOCK WHERE id_mouvement = ?";
 
-        try (Connection conn = DbConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, idMouvement);
@@ -119,7 +119,7 @@ public class MouvementStockDAO {
         List<mouvement_stock> liste = new ArrayList<>();
         String query = "SELECT * FROM MOUVEMENT_STOCK WHERE id_produit = ? ORDER BY date_mouvement DESC";
 
-        try (Connection conn = DbConnection.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, idProduit);
