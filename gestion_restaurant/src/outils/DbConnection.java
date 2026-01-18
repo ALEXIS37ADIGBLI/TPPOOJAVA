@@ -11,7 +11,7 @@ import java.sql.*;
  * @author Xisclever
  */
 public class DbConnection {
-    
+    //test de modification
     private static Connection connection= null;
     
     private static final String URL = "jdbc:mysql://localhost:3306/gestion_restaurant";
