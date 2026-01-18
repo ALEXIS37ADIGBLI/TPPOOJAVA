@@ -28,11 +28,6 @@ public class MouvementStockDAO {
             pstmt.setString(4, m.getMotif());
 
             pstmt.executeUpdate();
-<<<<<<< HEAD
-=======
-            
-            
->>>>>>> 70b715b6ecb080aa11f68333e542aeedf0c61743
         } catch (SQLException e) {
             throw new DBException("Erreur lors de l'ajout du mouvement : " + e.getMessage());
         }
