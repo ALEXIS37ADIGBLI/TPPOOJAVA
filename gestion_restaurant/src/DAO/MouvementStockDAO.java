@@ -31,7 +31,7 @@ public class MouvementStockDAO {
             pstmt.setString(4, m.getMotif());
 
             pstmt.executeUpdate();
-            // Note : Si vous avez un Trigger MySQL, le stock du produit sera mis à jour automatiquement
+            
             
         } catch (SQLException e) {
             throw new DBException("Erreur lors de l'ajout du mouvement : " + e.getMessage());
@@ -53,7 +53,7 @@ public class MouvementStockDAO {
                     rs.getInt("id_produit"),
                     rs.getString("type_mouvement"),
                     rs.getInt("quantite"),
-                    rs.getTimestamp("date_mouvement").toLocalDateTime(), // Conversion SQL Timestamp -> LocalDateTime
+                    rs.getTimestamp("date_mouvement").toLocalDateTime(),
                     rs.getString("motif")
                 );
                 
