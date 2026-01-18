@@ -10,7 +10,7 @@ import java.sql.*;
  *
  * @author Xisclever
  */
-public class DbConnection {
+public class DBConnection {
     
     private static Connection connection= null;
     
@@ -18,7 +18,7 @@ public class DbConnection {
     private static final String USER = "root";
     private static final String PASSWORD = "";
     
-    private DbConnection(){}
+    private DBConnection(){}
     public static Connection getConnection() throws DBException {
         try{
             //verifie si la connection n'existe pas encore ou est ferme
