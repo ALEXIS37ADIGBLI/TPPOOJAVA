@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package dao;
+package DAO;
 /**
  *
  * @author obed
  */
 import models.categorie;
-import outils.DbConnection;
+import outils.DBConnection;
 import outils.DBException;
 
 import java.sql.*;
@@ -21,7 +21,7 @@ public class CategorieDAO {
     public void ajouter(categorie cat) throws DBException {
         String sql = "INSERT INTO categorie(libelle) VALUES (?)";
 
-        try (Connection con = DbConnection.getConnection();
+        try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, cat.getLibelle());
@@ -37,7 +37,7 @@ public class CategorieDAO {
         List<categorie> liste = new ArrayList<>();
         String sql = "SELECT * FROM categorie";
 
-        try (Connection con = DbConnection.getConnection();
+        try (Connection con = DBConnection.getConnection();
              Statement st = con.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
 
@@ -60,7 +60,7 @@ public class CategorieDAO {
         String sql = "UPDATE categorie SET libelle=? WHERE id_categorie=?";
 
         try {
-            Connection con = DbConnection.getConnection();
+            Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setString(1, cat.getLibelle());
@@ -76,7 +76,7 @@ public class CategorieDAO {
         String sql = "DELETE FROM categorie WHERE id_categorie=?";
 
         try {
-            Connection con = DbConnection.getConnection();
+            Connection con = DBConnection.getConnection();
             PreparedStatement ps = con.prepareStatement(sql);
 
             ps.setInt(1, idCategorie);
