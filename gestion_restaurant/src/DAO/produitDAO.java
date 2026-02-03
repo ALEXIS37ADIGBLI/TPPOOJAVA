@@ -125,6 +125,26 @@ public class produitDAO {
         ps.executeUpdate();
     }
     
+    
+    public static int countLowStock() throws DBException, SQLException {
+    String sql = "SELECT COUNT(*) FROM produit WHERE stock_actuel <= seuil_alerte";
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) return rs.getInt(1);
+    }
+    return 0;
+}
+
+public static int countTotalProducts() throws DBException, SQLException {
+    String sql = "SELECT COUNT(*) FROM produit";
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+        if (rs.next()) return rs.getInt(1);
+    }
+    return 0;
+}
             
             
     

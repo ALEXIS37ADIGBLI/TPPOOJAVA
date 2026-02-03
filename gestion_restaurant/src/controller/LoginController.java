@@ -10,6 +10,11 @@ import models.utilisateur;
 import outils.DBException;
 import vue.LoginView;
 
+
+/**
+ *
+ * @author Xisclever
+ */
 public class LoginController {
     private LoginView view;
 
@@ -49,6 +54,7 @@ public class LoginController {
                 Timer timer = new Timer(1500, (e) -> {
                     view.dispose(); 
                     vue.MainMenuView  menu = new vue.MainMenuView();
+                    new controller.DashboardController(menu);
                     menu.setVisible(true);
                     System.out.println("Ouverture du menu principal...");
                 });
