@@ -14,7 +14,9 @@ public class Gestion_restaurant {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        vue.LoginView loginView = new vue.LoginView();
+    new controller.LoginController(loginView);
+    loginView.setVisible(true);
     }
     
 }

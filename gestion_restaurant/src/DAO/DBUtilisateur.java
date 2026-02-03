@@ -89,5 +89,19 @@ public class DBUtilisateur {
         ps.executeUpdate();  
          
     }
+    
+    public static utilisateur authentifier(String login, String password) throws DBException, SQLException {
+    String SQLQuery = "SELECT * FROM utilisateur WHERE login=? AND mot_de_passe=?";
+    Connection con = DBConnection.getConnection();
+    PreparedStatement ps = con.prepareStatement(SQLQuery);
+    ps.setString(1, login);
+    ps.setString(2, password);
+    ResultSet rs = ps.executeQuery();
+
+    if (rs.next()) {
+        return new utilisateur(rs.getInt("id_utilisateur"), rs.getString("login"), rs.getString("mot_de_passe"));
+    }
+    return null; // Retourne null si les identifiants sont faux
+}
    
 }
