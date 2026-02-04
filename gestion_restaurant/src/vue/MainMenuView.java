@@ -4,7 +4,7 @@
  */
 package vue;
 
-import com.formdev.flatlaf.extras.FlatSVGIcon;
+import java.awt.CardLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -19,53 +19,93 @@ public class MainMenuView extends javax.swing.JFrame {
      */
     public MainMenuView() {
         initComponents();
-        // --- Configuration commune ---
-int iconSize = 18; 
-java.awt.Color menuTextColor = new java.awt.Color(75, 85, 99);
-// Marge pour décoller l'icône du bord gauche du bouton
-javax.swing.border.Border margin = javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 0);
+        
+        // 1. MAXIMISER ET NETTOYER
+        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        jPanel3.removeAll(); // On enlève tout ce que NetBeans a mis en vrac
+        jPanel3.setLayout(new java.awt.CardLayout());
 
-// 1. Dashboard (Bouton actif)
-com.formdev.flatlaf.extras.FlatSVGIcon dashIcon = new com.formdev.flatlaf.extras.FlatSVGIcon("images/layout-dashboard.svg", iconSize, iconSize);
-dashIcon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> java.awt.Color.WHITE));
-jButton1.setIcon(dashIcon);
-jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING); // Règle le chevauchement
-jButton1.setIconTextGap(15);
-jButton1.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton1.getBorder(), margin));
+        // 2. RECONSTRUCTION DE LA PAGE DASHBOARD (Propre et alignée)
+        javax.swing.JPanel dashboardPage = new javax.swing.JPanel();
+        dashboardPage.setLayout(new java.awt.BorderLayout(0, 25)); // Espace entre le haut et le bas
+        dashboardPage.setBackground(new java.awt.Color(243, 244, 246));
+        dashboardPage.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-// 2. Produits
-com.formdev.flatlaf.extras.FlatSVGIcon prodIcon = new com.formdev.flatlaf.extras.FlatSVGIcon("images/package.svg", iconSize, iconSize);
-prodIcon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> menuTextColor));
-jButton2.setIcon(prodIcon);
-jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEADING); // Règle le chevauchement
-jButton2.setIconTextGap(15);
-jButton2.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton2.getBorder(), margin));
+        // On regroupe le titre et les cartes de stats au centre
+        javax.swing.JPanel centerPanel = new javax.swing.JPanel(new java.awt.BorderLayout(0, 15));
+        centerPanel.setOpaque(false);
+        jLabel11.setText("Dashboard Overview"); // On réutilise ton label
+        centerPanel.add(jLabel11, java.awt.BorderLayout.NORTH);
+        centerPanel.add(jPanel4, java.awt.BorderLayout.CENTER); // Tes 4 cartes de stats
 
-// 3. Catégorie (Correction texte)
-jButton3.setText("Catégories");
-com.formdev.flatlaf.extras.FlatSVGIcon catIcon = new com.formdev.flatlaf.extras.FlatSVGIcon("images/folder-open.svg", iconSize, iconSize);
-catIcon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> menuTextColor));
-jButton3.setIcon(catIcon);
-jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEADING); // Règle le chevauchement
-jButton3.setIconTextGap(15);
-jButton3.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton3.getBorder(), margin));
+        dashboardPage.add(centerPanel, java.awt.BorderLayout.CENTER);
+        dashboardPage.add(jPanel9, java.awt.BorderLayout.SOUTH); // L'alerte jaune tout en bas
 
-// 4. Stocks (Correction de "Sotcks")
-jButton4.setText("Stocks");
-com.formdev.flatlaf.extras.FlatSVGIcon stockIcon = new com.formdev.flatlaf.extras.FlatSVGIcon("images/warehouse.svg", iconSize, iconSize);
-stockIcon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> menuTextColor));
-jButton4.setIcon(stockIcon);
-jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-jButton4.setIconTextGap(15);
-jButton4.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton4.getBorder(), margin));
+        // 3. AJOUT DES PAGES AU CARDLAYOUT
+        jPanel3.add(dashboardPage, "cardDashboard");
+        ProduitView produitPage = new ProduitView();
+        jPanel3.add(produitPage, "cardProduit");
+        
 
-// 5. Logout (Correction du nom "jButton8")
-jButton8.setText("Déconnexion");
-com.formdev.flatlaf.extras.FlatSVGIcon logIcon = new com.formdev.flatlaf.extras.FlatSVGIcon("images/log-out.svg", iconSize, iconSize);
-jButton8.setIcon(logIcon);
-jButton8.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-jButton8.setIconTextGap(15);
-jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBorder(), margin));
+        // 4. CONFIGURATION DES BOUTONS DU MENU (Design & Icônes)
+        int iconSize = 18; 
+        java.awt.Color menuTextColor = new java.awt.Color(75, 85, 99);
+        javax.swing.border.Border margin = javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 0);
+
+        // Bouton Dashboard
+        setupMenuButton(jButton1, "images/layout-dashboard.svg", iconSize, true, margin);
+        jButton1.addActionListener(e -> {
+            ((java.awt.CardLayout) jPanel3.getLayout()).show(jPanel3, "cardDashboard");
+        });
+
+        // Bouton Produits
+        setupMenuButton(jButton2, "images/package.svg", iconSize, false, margin);
+        // L'action est déjà gérée par NetBeans dans jButton2ActionPerformed
+
+        // Bouton Catégories
+        jButton3.setText("Catégories");
+        setupMenuButton(jButton3, "images/folder-open.svg", iconSize, false, margin);
+        
+        // Bouton Stocks
+        jButton4.setText("Stocks");
+        setupMenuButton(jButton4, "images/warehouse.svg", iconSize, false, margin);
+        
+        // Bouton commande
+        jButton4.setText("Stocks");
+        setupMenuButton(jButton5, "images/shopping-cart.svg", iconSize, false, margin);
+        
+        // Bouton commande
+        jButton4.setText("Stocks");
+        setupMenuButton(jButton6, "images/chart-column.svg", iconSize, false, margin);
+        
+        // Bouton commande
+        jButton4.setText("Stocks");
+        setupMenuButton(jButton7, "images/users.svg", iconSize, false, margin);
+
+        // Bouton Logout
+        jButton8.setText("Déconnexion");
+        setupMenuButton(jButton8, "images/log-out.svg", iconSize, false, margin);
+
+        // 5. FINALISATION
+        java.awt.CardLayout cl = (java.awt.CardLayout) jPanel3.getLayout();
+        cl.show(jPanel3, "cardDashboard"); // On force l'affichage du dashboard
+        
+        jPanel3.revalidate();
+        jPanel3.repaint();
+    }
+
+    // Petite méthode utilitaire pour éviter de répéter le code des icônes
+    private void setupMenuButton(javax.swing.JButton btn, String iconPath, int size, boolean isActive, javax.swing.border.Border margin) {
+        com.formdev.flatlaf.extras.FlatSVGIcon icon = new com.formdev.flatlaf.extras.FlatSVGIcon(iconPath, size, size);
+        if(!isActive) {
+            icon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(75, 85, 99)));
+        } else {
+            icon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> java.awt.Color.WHITE));
+        }
+        btn.setIcon(icon);
+        btn.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btn.setIconTextGap(15);
+        btn.setBorder(javax.swing.BorderFactory.createCompoundBorder(btn.getBorder(), margin));
     }
 
     /**
@@ -77,12 +117,12 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -96,7 +136,7 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        com.formdev.flatlaf.extras.FlatSVGIcon icon16 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/package.svg", 40, 40);
+        com.formdev.flatlaf.extras.FlatSVGIcon icon16 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/package.svg", 50, 50);
         icon16.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(59, 130, 246)));
         jLabel16.setIcon(icon16);
         jLabel16.setText("");
@@ -104,7 +144,7 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        com.formdev.flatlaf.extras.FlatSVGIcon icon17 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/triangle-alert.svg", 40, 40);
+        com.formdev.flatlaf.extras.FlatSVGIcon icon17 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/triangle-alert.svg", 50, 50);
         icon17.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(239, 68, 68)));
         jLabel17.setIcon(icon17);
         jLabel17.setText("");
@@ -112,7 +152,7 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
-        com.formdev.flatlaf.extras.FlatSVGIcon icon20 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/shopping-cart.svg", 40, 40);
+        com.formdev.flatlaf.extras.FlatSVGIcon icon20 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/shopping-cart.svg", 50, 50);
         icon20.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(34, 197, 94)));
         jLabel20.setIcon(icon20);
         jLabel20.setText("");
@@ -120,9 +160,20 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
-        com.formdev.flatlaf.extras.FlatSVGIcon icon23 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/dollar-sign.svg", 40, 40); icon23.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(245, 158, 11))); jLabel23.setIcon(icon23); jLabel23.setText("");
+        com.formdev.flatlaf.extras.FlatSVGIcon icon23 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/dollar-sign.svg", 50, 50); icon23.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(245, 158, 11))); jLabel23.setIcon(icon23); jLabel23.setText("");
         jPanel9 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
+
+        jButton2.setBackground(new java.awt.Color(255, 255, 255));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(75, 85, 99));
+        jButton2.setText("Produits");
+        jButton2.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,7 +194,7 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 454, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 847, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addContainerGap())
         );
@@ -168,20 +219,23 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Dashboard");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton1);
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(75, 85, 99));
-        jButton2.setText("Produits");
-        jButton2.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        jPanel1.add(jButton2);
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(75, 85, 99));
         jButton3.setText("Catégorie");
         jButton3.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton3);
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
@@ -212,7 +266,11 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jButton7.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         jPanel1.add(jButton7);
 
-        jButton8.setText("jButton8");
+        jButton8.setBackground(new java.awt.Color(255, 255, 255));
+        jButton8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(75, 85, 99));
+        jButton8.setText("Se deconnecter");
+        jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
         jPanel1.add(jButton8);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.WEST);
@@ -221,12 +279,12 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 30, 30, 30));
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         jLabel11.setText("Dashboard");
         jPanel3.add(jLabel11, java.awt.BorderLayout.PAGE_START);
 
         jPanel4.setBackground(new java.awt.Color(245, 246, 248));
-        jPanel4.setLayout(new java.awt.GridLayout(2, 2, 25, 25));
+        jPanel4.setLayout(new java.awt.GridLayout(3, 2, 40, 40));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -237,18 +295,20 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jLabel12.setText("Total produits");
         jPanel6.add(jLabel12, java.awt.BorderLayout.NORTH);
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 40)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(31, 41, 55));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("0");
-        jLabel13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel6.add(jLabel13, java.awt.BorderLayout.CENTER);
 
-        jLabel16.setBackground(new java.awt.Color(224, 242, 254));
+        jLabel16.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 8)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel16.setIconTextGap(0);
+        jLabel16.setName(""); // NOI18N
         jLabel16.setOpaque(true);
-        jLabel16.setPreferredSize(new java.awt.Dimension(45, 45));
+        jLabel16.setPreferredSize(new java.awt.Dimension(50, 50));
         jPanel6.add(jLabel16, java.awt.BorderLayout.EAST);
 
         jPanel4.add(jPanel6);
@@ -263,18 +323,18 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jPanel7.add(jLabel14, java.awt.BorderLayout.NORTH);
 
         jLabel15.setBackground(new java.awt.Color(31, 41, 55));
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 40)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(31, 41, 55));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("0");
-        jLabel15.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel7.add(jLabel15, java.awt.BorderLayout.CENTER);
 
-        jLabel17.setBackground(new java.awt.Color(254, 242, 242));
+        jLabel17.setBackground(new java.awt.Color(255, 255, 255));
         jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel17.setIconTextGap(0);
         jLabel17.setOpaque(true);
-        jLabel17.setPreferredSize(new java.awt.Dimension(45, 45));
+        jLabel17.setPreferredSize(new java.awt.Dimension(100, 100));
         jPanel7.add(jLabel17, java.awt.BorderLayout.LINE_END);
 
         jPanel4.add(jPanel7);
@@ -288,18 +348,18 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jLabel18.setText("Vente d'aujourd'hui");
         jPanel5.add(jLabel18, java.awt.BorderLayout.NORTH);
 
-        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Segoe UI", 1, 40)); // NOI18N
         jLabel19.setForeground(new java.awt.Color(31, 41, 55));
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel19.setText("0");
-        jLabel19.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel5.add(jLabel19, java.awt.BorderLayout.CENTER);
 
-        jLabel20.setBackground(new java.awt.Color(224, 242, 254));
+        jLabel20.setBackground(new java.awt.Color(255, 255, 255));
         jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel20.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel20.setIconTextGap(0);
         jLabel20.setOpaque(true);
-        jLabel20.setPreferredSize(new java.awt.Dimension(45, 145));
+        jLabel20.setPreferredSize(new java.awt.Dimension(100, 100));
         jPanel5.add(jLabel20, java.awt.BorderLayout.LINE_END);
 
         jPanel4.add(jPanel5);
@@ -313,23 +373,22 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jLabel21.setText("Revenue total");
         jPanel8.add(jLabel21, java.awt.BorderLayout.NORTH);
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 40)); // NOI18N
         jLabel22.setForeground(new java.awt.Color(31, 41, 55));
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel22.setText("0");
-        jLabel22.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel8.add(jLabel22, java.awt.BorderLayout.CENTER);
 
-        jLabel23.setBackground(new java.awt.Color(224, 242, 254));
+        jLabel23.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel23.setForeground(new java.awt.Color(244, 180, 0));
         jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel23.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jLabel23.setIconTextGap(0);
         jLabel23.setOpaque(true);
-        jLabel23.setPreferredSize(new java.awt.Dimension(45, 46));
+        jLabel23.setPreferredSize(new java.awt.Dimension(100, 100));
         jPanel8.add(jLabel23, java.awt.BorderLayout.EAST);
 
         jPanel4.add(jPanel8);
-
-        jPanel3.add(jPanel4, java.awt.BorderLayout.CENTER);
 
         jPanel9.setBackground(new java.awt.Color(255, 244, 206));
         jPanel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(244, 180, 0)));
@@ -339,39 +398,55 @@ jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBo
         jLabel24.setForeground(new java.awt.Color(244, 180, 0));
         jLabel24.setText("<html><b>⚠ Low Stock Alert</b><br/>2 product(s) are running low on stock.</html>");
         jLabel24.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 20, 10, 20));
-        jPanel9.add(jLabel24, java.awt.BorderLayout.CENTER);
+        jPanel9.add(jLabel24, java.awt.BorderLayout.PAGE_START);
 
-        jPanel3.add(jPanel9, java.awt.BorderLayout.SOUTH);
+        jPanel4.add(jPanel9);
+
+        jPanel3.add(jPanel4, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        CardLayout cl = (CardLayout) jPanel3.getLayout();
+    cl.show(jPanel3, "cardProduit");
+    setActiveButton(jButton3);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        setActiveButton(jButton1);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Remplace tes getters actuels par ceux-ci dans MainMenuView.java
-public JLabel getLblTotalProduits() {
-    return jLabel13; 
-}
+    public JLabel getLblTotalProduits() {
+        return jLabel13;
+    }
 
-public JLabel getLblStockFaible() {
-    return jLabel15;
-}
+    public JLabel getLblStockFaible() {
+        return jLabel15;
+    }
 
-public javax.swing.JPanel getPanelAlerte() {
-    return jPanel9;
-}
+    public javax.swing.JPanel getPanelAlerte() {
+        return jPanel9;
+    }
 
-public JLabel getLblMessageAlerte() {
-    return jLabel24;
-}
+    public JLabel getLblMessageAlerte() {
+        return jLabel24;
+    }
 
-public JButton getBtnProduits() {
-    return jButton2;
-}
+    public JButton getBtnProduits() {
+        return jButton2;
+    }
 
-public JButton getBtnLogout() {
-    return jButton8;
-}
+    public JButton getBtnLogout() {
+        return jButton8;
+    }
 
     /**
      * @param args the command line arguments
@@ -407,6 +482,46 @@ public JButton getBtnLogout() {
             }
         });
     }
+    
+    
+    private void setActiveButton(javax.swing.JButton activeBtn) {
+    // 1. Liste de tous tes boutons de menu
+    javax.swing.JButton[] buttons = {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7};
+    
+    // 2. Couleurs
+    java.awt.Color activeBack = new java.awt.Color(13, 79, 139); // Bleu foncé
+    java.awt.Color activeText = java.awt.Color.WHITE;
+    java.awt.Color idleBack = java.awt.Color.WHITE;
+    java.awt.Color idleText = new java.awt.Color(75, 85, 99);   // Gris
+
+    for (javax.swing.JButton btn : buttons) {
+        if (btn == activeBtn) {
+            // Style du bouton cliqué
+            btn.setBackground(activeBack);
+            btn.setForeground(activeText);
+            // On change aussi l'icône en blanc (on réutilise ta logique setup)
+            updateIconColor(btn, true); 
+        } else {
+            // Style des autres boutons
+            btn.setBackground(idleBack);
+            btn.setForeground(idleText);
+            updateIconColor(btn, false);
+        }
+    }
+}
+
+// Petite méthode pour changer la couleur de l'icône dynamiquement
+private void updateIconColor(javax.swing.JButton btn, boolean isActive) {
+    if (btn.getIcon() instanceof com.formdev.flatlaf.extras.FlatSVGIcon) {
+        com.formdev.flatlaf.extras.FlatSVGIcon icon = (com.formdev.flatlaf.extras.FlatSVGIcon) btn.getIcon();
+        if (isActive) {
+            icon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> java.awt.Color.WHITE));
+        } else {
+            icon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(75, 85, 99)));
+        }
+        btn.repaint();
+    }
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
