@@ -25,25 +25,28 @@ public class DashboardController {
     }
 
     private void chargerStatistiques() {
-        try {
-            // 1. Nombre total de produits
-            int totalProduits = produitDAO.countTotalProducts();
-            view.getLblTotalProduits().setText(String.valueOf(totalProduits));
+    try {
+        // 1. Nombre total de produits
+        int totalProduits = produitDAO.countTotalProducts();
+        view.getLblTotalProduits().setText(String.valueOf(totalProduits));
 
-            // 2. Produits en stock faible
-            int stockFaible = produitDAO.countLowStock();
-            view.getLblStockFaible().setText(String.valueOf(stockFaible));
+        // 2. Produits en stock faible
+        int stockFaible = produitDAO.countLowStock();
+        view.getLblStockFaible().setText(String.valueOf(stockFaible));
 
-            // 3. Ventes (A adapter selon vos DAO de commande)
-            // view.getLblVentesAujourdhui().setText("15"); 
-            
-            // 4. Revenu (A adapter selon vos DAO de commande)
-            // view.getLblRevenueTotal().setText("$ 450.00");
+        // 3. Ventes d'aujourd'hui (APPEL NOUVELLE MÉTHODE)
+        int ventes = DAO.DBCommande.countSalesToday();
+        view.getLblVentesAujourdhui().setText(String.valueOf(ventes));
 
-        } catch (DBException | SQLException ex) {
-            Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        // 4. Revenu total (APPEL NOUVELLE MÉTHODE)
+        double revenu = DAO.DBCommande.getTotalRevenue();
+        // Formatage en monnaie (ex: 1 250.50 €)
+        view.getLblRevenueTotal().setText(String.format("%.2f FCFA", revenu));
+
+    } catch (DBException | SQLException ex) {
+        Logger.getLogger(DashboardController.class.getName()).log(Level.SEVERE, null, ex);
     }
+}
 
     private void verifierAlertes() {
         try {

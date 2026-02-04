@@ -19,7 +19,7 @@ public class MainMenuView extends javax.swing.JFrame {
      */
     public MainMenuView() {
         initComponents();
-        
+
         // 1. MAXIMISER ET NETTOYER
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         jPanel3.removeAll(); // On enlève tout ce que NetBeans a mis en vrac
@@ -43,12 +43,11 @@ public class MainMenuView extends javax.swing.JFrame {
 
         // 3. AJOUT DES PAGES AU CARDLAYOUT
         jPanel3.add(dashboardPage, "cardDashboard");
-        ProduitView produitPage = new ProduitView();
+        Produit produitPage = new Produit();
         jPanel3.add(produitPage, "cardProduit");
-        
 
         // 4. CONFIGURATION DES BOUTONS DU MENU (Design & Icônes)
-        int iconSize = 18; 
+        int iconSize = 18;
         java.awt.Color menuTextColor = new java.awt.Color(75, 85, 99);
         javax.swing.border.Border margin = javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 0);
 
@@ -65,19 +64,19 @@ public class MainMenuView extends javax.swing.JFrame {
         // Bouton Catégories
         jButton3.setText("Catégories");
         setupMenuButton(jButton3, "images/folder-open.svg", iconSize, false, margin);
-        
+
         // Bouton Stocks
         jButton4.setText("Stocks");
         setupMenuButton(jButton4, "images/warehouse.svg", iconSize, false, margin);
-        
+
         // Bouton commande
         jButton4.setText("Stocks");
         setupMenuButton(jButton5, "images/shopping-cart.svg", iconSize, false, margin);
-        
+
         // Bouton commande
         jButton4.setText("Stocks");
         setupMenuButton(jButton6, "images/chart-column.svg", iconSize, false, margin);
-        
+
         // Bouton commande
         jButton4.setText("Stocks");
         setupMenuButton(jButton7, "images/users.svg", iconSize, false, margin);
@@ -89,7 +88,7 @@ public class MainMenuView extends javax.swing.JFrame {
         // 5. FINALISATION
         java.awt.CardLayout cl = (java.awt.CardLayout) jPanel3.getLayout();
         cl.show(jPanel3, "cardDashboard"); // On force l'affichage du dashboard
-        
+
         jPanel3.revalidate();
         jPanel3.repaint();
     }
@@ -97,7 +96,7 @@ public class MainMenuView extends javax.swing.JFrame {
     // Petite méthode utilitaire pour éviter de répéter le code des icônes
     private void setupMenuButton(javax.swing.JButton btn, String iconPath, int size, boolean isActive, javax.swing.border.Border margin) {
         com.formdev.flatlaf.extras.FlatSVGIcon icon = new com.formdev.flatlaf.extras.FlatSVGIcon(iconPath, size, size);
-        if(!isActive) {
+        if (!isActive) {
             icon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(75, 85, 99)));
         } else {
             icon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> java.awt.Color.WHITE));
@@ -415,8 +414,8 @@ public class MainMenuView extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         CardLayout cl = (CardLayout) jPanel3.getLayout();
-    cl.show(jPanel3, "cardProduit");
-    setActiveButton(jButton3);
+        cl.show(jPanel3, "cardProduit");
+        setActiveButton(jButton3);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -482,46 +481,53 @@ public class MainMenuView extends javax.swing.JFrame {
             }
         });
     }
-    
-    
-    private void setActiveButton(javax.swing.JButton activeBtn) {
-    // 1. Liste de tous tes boutons de menu
-    javax.swing.JButton[] buttons = {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7};
-    
-    // 2. Couleurs
-    java.awt.Color activeBack = new java.awt.Color(13, 79, 139); // Bleu foncé
-    java.awt.Color activeText = java.awt.Color.WHITE;
-    java.awt.Color idleBack = java.awt.Color.WHITE;
-    java.awt.Color idleText = new java.awt.Color(75, 85, 99);   // Gris
 
-    for (javax.swing.JButton btn : buttons) {
-        if (btn == activeBtn) {
-            // Style du bouton cliqué
-            btn.setBackground(activeBack);
-            btn.setForeground(activeText);
-            // On change aussi l'icône en blanc (on réutilise ta logique setup)
-            updateIconColor(btn, true); 
-        } else {
-            // Style des autres boutons
-            btn.setBackground(idleBack);
-            btn.setForeground(idleText);
-            updateIconColor(btn, false);
+    private void setActiveButton(javax.swing.JButton activeBtn) {
+        // 1. Liste de tous tes boutons de menu
+        javax.swing.JButton[] buttons = {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7};
+
+        // 2. Couleurs
+        java.awt.Color activeBack = new java.awt.Color(13, 79, 139); // Bleu foncé
+        java.awt.Color activeText = java.awt.Color.WHITE;
+        java.awt.Color idleBack = java.awt.Color.WHITE;
+        java.awt.Color idleText = new java.awt.Color(75, 85, 99);   // Gris
+
+        for (javax.swing.JButton btn : buttons) {
+            if (btn == activeBtn) {
+                // Style du bouton cliqué
+                btn.setBackground(activeBack);
+                btn.setForeground(activeText);
+                // On change aussi l'icône en blanc (on réutilise ta logique setup)
+                updateIconColor(btn, true);
+            } else {
+                // Style des autres boutons
+                btn.setBackground(idleBack);
+                btn.setForeground(idleText);
+                updateIconColor(btn, false);
+            }
         }
     }
-}
 
 // Petite méthode pour changer la couleur de l'icône dynamiquement
-private void updateIconColor(javax.swing.JButton btn, boolean isActive) {
-    if (btn.getIcon() instanceof com.formdev.flatlaf.extras.FlatSVGIcon) {
-        com.formdev.flatlaf.extras.FlatSVGIcon icon = (com.formdev.flatlaf.extras.FlatSVGIcon) btn.getIcon();
-        if (isActive) {
-            icon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> java.awt.Color.WHITE));
-        } else {
-            icon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(75, 85, 99)));
+    private void updateIconColor(javax.swing.JButton btn, boolean isActive) {
+        if (btn.getIcon() instanceof com.formdev.flatlaf.extras.FlatSVGIcon) {
+            com.formdev.flatlaf.extras.FlatSVGIcon icon = (com.formdev.flatlaf.extras.FlatSVGIcon) btn.getIcon();
+            if (isActive) {
+                icon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> java.awt.Color.WHITE));
+            } else {
+                icon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(75, 85, 99)));
+            }
+            btn.repaint();
         }
-        btn.repaint();
     }
-}
+
+    public JLabel getLblVentesAujourdhui() {
+        return jLabel19; // Le label au centre de jPanel5
+    }
+
+    public JLabel getLblRevenueTotal() {
+        return jLabel22; // Le label au centre de jPanel8
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

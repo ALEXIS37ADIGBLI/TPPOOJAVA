@@ -93,4 +93,28 @@ public class DBCommande {
         ps.executeUpdate();  
          
     }
+    
+
+    // Pour obtenir le nombre de ventes aujourd'hui
+    public static int countSalesToday() throws DBException, SQLException {
+        String sql = "SELECT COUNT(*) FROM COMMANDE WHERE CAST(date_commande AS DATE) = CURRENT_DATE";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getInt(1);
+        }
+        return 0;
+    }
+
+    // Pour obtenir le revenu total (somme de tous les montants des lignes)
+    public static double getTotalRevenue() throws DBException, SQLException {
+        String sql = "SELECT SUM(montant_ligne) FROM LIGNE_COMMANDE";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) return rs.getDouble(1);
+        }
+        return 0.0;
+    }
+
 }
