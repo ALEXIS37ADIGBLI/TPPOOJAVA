@@ -4,11 +4,11 @@
  */
 package gestion_restaurant;
 
+import com.formdev.flatlaf.FlatLightLaf; // Import pour le thème clair moderne
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 
 /**
- * Classe principale pour lancer l'application de gestion de restaurant.
+ * Classe principale pour lancer l'application avec FlatLaf.
  * @author Xisclever
  */
 public class Gestion_restaurant {
@@ -17,28 +17,28 @@ public class Gestion_restaurant {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // Appliquer l'apparence "Nimbus" ou celle du système pour un rendu moderne
+        // Activation de FlatLaf pour un rendu identique à la maquette Figma
         try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
-            // Si Nimbus n'est pas disponible, on garde le style par défaut
-            System.err.println("Impossible de charger le Look and Feel : " + e.getMessage());
+            // FlatLightLaf est parfait pour le style clair et épuré de votre interface
+            FlatLightLaf.setup(); 
+            
+            // Optionnel : Personnalisation pour arrondir les coins des composants (boutons, etc.)
+            UIManager.put("Button.arc", 10);
+            UIManager.put("Component.arc", 10);
+            
+        } catch (Exception e) {
+            System.err.println("Échec de l'initialisation de FlatLaf, passage au style par défaut.");
         }
 
-        // Lancement de l'interface graphique dans le thread approprié (Event Dispatch Thread)
+        // Lancement de l'interface graphique
         java.awt.EventQueue.invokeLater(() -> {
             // 1. Initialisation de la vue de connexion
             vue.LoginView loginView = new vue.LoginView();
             
-            // 2. Initialisation du contrôleur (il gère la logique de connexion)
+            // 2. Initialisation du contrôleur
             new controller.LoginController(loginView);
             
-            // 3. Affichage de la fenêtre de login
+            // 3. Affichage
             loginView.setVisible(true);
         });
     }

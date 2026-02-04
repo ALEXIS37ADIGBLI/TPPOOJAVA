@@ -4,6 +4,7 @@
  */
 package vue;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -18,7 +19,53 @@ public class MainMenuView extends javax.swing.JFrame {
      */
     public MainMenuView() {
         initComponents();
-        setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
+        // --- Configuration commune ---
+int iconSize = 18; 
+java.awt.Color menuTextColor = new java.awt.Color(75, 85, 99);
+// Marge pour décoller l'icône du bord gauche du bouton
+javax.swing.border.Border margin = javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 0);
+
+// 1. Dashboard (Bouton actif)
+com.formdev.flatlaf.extras.FlatSVGIcon dashIcon = new com.formdev.flatlaf.extras.FlatSVGIcon("images/layout-dashboard.svg", iconSize, iconSize);
+dashIcon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> java.awt.Color.WHITE));
+jButton1.setIcon(dashIcon);
+jButton1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING); // Règle le chevauchement
+jButton1.setIconTextGap(15);
+jButton1.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton1.getBorder(), margin));
+
+// 2. Produits
+com.formdev.flatlaf.extras.FlatSVGIcon prodIcon = new com.formdev.flatlaf.extras.FlatSVGIcon("images/package.svg", iconSize, iconSize);
+prodIcon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> menuTextColor));
+jButton2.setIcon(prodIcon);
+jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEADING); // Règle le chevauchement
+jButton2.setIconTextGap(15);
+jButton2.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton2.getBorder(), margin));
+
+// 3. Catégorie (Correction texte)
+jButton3.setText("Catégories");
+com.formdev.flatlaf.extras.FlatSVGIcon catIcon = new com.formdev.flatlaf.extras.FlatSVGIcon("images/folder-open.svg", iconSize, iconSize);
+catIcon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> menuTextColor));
+jButton3.setIcon(catIcon);
+jButton3.setHorizontalAlignment(javax.swing.SwingConstants.LEADING); // Règle le chevauchement
+jButton3.setIconTextGap(15);
+jButton3.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton3.getBorder(), margin));
+
+// 4. Stocks (Correction de "Sotcks")
+jButton4.setText("Stocks");
+com.formdev.flatlaf.extras.FlatSVGIcon stockIcon = new com.formdev.flatlaf.extras.FlatSVGIcon("images/warehouse.svg", iconSize, iconSize);
+stockIcon.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> menuTextColor));
+jButton4.setIcon(stockIcon);
+jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+jButton4.setIconTextGap(15);
+jButton4.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton4.getBorder(), margin));
+
+// 5. Logout (Correction du nom "jButton8")
+jButton8.setText("Déconnexion");
+com.formdev.flatlaf.extras.FlatSVGIcon logIcon = new com.formdev.flatlaf.extras.FlatSVGIcon("images/log-out.svg", iconSize, iconSize);
+jButton8.setIcon(logIcon);
+jButton8.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+jButton8.setIconTextGap(15);
+jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(jButton8.getBorder(), margin));
     }
 
     /**
@@ -49,18 +96,31 @@ public class MainMenuView extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
+        com.formdev.flatlaf.extras.FlatSVGIcon icon16 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/package.svg", 40, 40);
+        icon16.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(59, 130, 246)));
+        jLabel16.setIcon(icon16);
+        jLabel16.setText("");
         jPanel7 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        com.formdev.flatlaf.extras.FlatSVGIcon icon17 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/triangle-alert.svg", 40, 40);
+        icon17.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(239, 68, 68)));
+        jLabel17.setIcon(icon17);
+        jLabel17.setText("");
         jPanel5 = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        com.formdev.flatlaf.extras.FlatSVGIcon icon20 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/shopping-cart.svg", 40, 40);
+        icon20.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(34, 197, 94)));
+        jLabel20.setIcon(icon20);
+        jLabel20.setText("");
         jPanel8 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         jLabel23 = new javax.swing.JLabel();
+        com.formdev.flatlaf.extras.FlatSVGIcon icon23 = new com.formdev.flatlaf.extras.FlatSVGIcon("images/dollar-sign.svg", 40, 40); icon23.setColorFilter(new com.formdev.flatlaf.extras.FlatSVGIcon.ColorFilter(color -> new java.awt.Color(245, 158, 11))); jLabel23.setIcon(icon23); jLabel23.setText("");
         jPanel9 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
 
@@ -115,7 +175,6 @@ public class MainMenuView extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(75, 85, 99));
         jButton2.setText("Produits");
         jButton2.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(jButton2);
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
@@ -123,7 +182,6 @@ public class MainMenuView extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(75, 85, 99));
         jButton3.setText("Catégorie");
         jButton3.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel1.add(jButton3);
 
         jButton4.setBackground(new java.awt.Color(255, 255, 255));
@@ -186,9 +244,9 @@ public class MainMenuView extends javax.swing.JFrame {
         jPanel6.add(jLabel13, java.awt.BorderLayout.CENTER);
 
         jLabel16.setBackground(new java.awt.Color(224, 242, 254));
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(59, 130, 246));
-        jLabel16.setText("📦");
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel16.setIconTextGap(0);
         jLabel16.setOpaque(true);
         jLabel16.setPreferredSize(new java.awt.Dimension(45, 45));
         jPanel6.add(jLabel16, java.awt.BorderLayout.EAST);
@@ -212,7 +270,9 @@ public class MainMenuView extends javax.swing.JFrame {
         jPanel7.add(jLabel15, java.awt.BorderLayout.CENTER);
 
         jLabel17.setBackground(new java.awt.Color(254, 242, 242));
-        jLabel17.setText("jLabel17");
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel17.setIconTextGap(0);
         jLabel17.setOpaque(true);
         jLabel17.setPreferredSize(new java.awt.Dimension(45, 45));
         jPanel7.add(jLabel17, java.awt.BorderLayout.LINE_END);
@@ -234,8 +294,10 @@ public class MainMenuView extends javax.swing.JFrame {
         jLabel19.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel5.add(jLabel19, java.awt.BorderLayout.CENTER);
 
-        jLabel20.setBackground(new java.awt.Color(240, 253, 244));
-        jLabel20.setText("jLabel20");
+        jLabel20.setBackground(new java.awt.Color(224, 242, 254));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel20.setIconTextGap(0);
         jLabel20.setOpaque(true);
         jLabel20.setPreferredSize(new java.awt.Dimension(45, 145));
         jPanel5.add(jLabel20, java.awt.BorderLayout.LINE_END);
@@ -257,8 +319,10 @@ public class MainMenuView extends javax.swing.JFrame {
         jLabel22.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jPanel8.add(jLabel22, java.awt.BorderLayout.CENTER);
 
-        jLabel23.setBackground(new java.awt.Color(255, 251, 235));
-        jLabel23.setText("jLabel23");
+        jLabel23.setBackground(new java.awt.Color(224, 242, 254));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel23.setIconTextGap(0);
         jLabel23.setOpaque(true);
         jLabel23.setPreferredSize(new java.awt.Dimension(45, 46));
         jPanel8.add(jLabel23, java.awt.BorderLayout.EAST);
