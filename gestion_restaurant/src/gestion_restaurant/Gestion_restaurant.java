@@ -8,7 +8,6 @@ import com.formdev.flatlaf.FlatLightLaf; // Import pour le thème clair moderne
 import javax.swing.UIManager;
 
 /**
- * Classe principale pour lancer l'application avec FlatLaf.
  * @author Xisclever
  */
 public class Gestion_restaurant {
