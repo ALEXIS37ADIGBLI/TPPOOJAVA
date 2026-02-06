@@ -187,4 +187,15 @@ public class Produit extends javax.swing.JPanel {
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
+    
+    public static void main(String[] args) {
+    // Permet de lancer le panel seul dans une fenêtre pour test
+    javax.swing.JFrame frame = new javax.swing.JFrame("Test du Panel");
+    frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+    frame.setContentPane(new Produit()); // On met leur panel dans la fenêtre
+    frame.pack();
+    frame.setVisible(true);
 }
+    
+}
+
