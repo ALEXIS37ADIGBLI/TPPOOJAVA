@@ -16,9 +16,9 @@ public class DBConnection {
 
     private static Connection connection= null;
     
-    private static final String URL = "jdbc:mysql://localhost:3306/gestion_restaurant";
+    private static final String URL = "jdbc:mysql://localhost:3307/gestion_restaurant";
     private static final String USER = "root";
-    private static final String PASSWORD = "";
+    private static final String PASSWORD = "will";
     
     private DBConnection(){}
     public static Connection getConnection() throws DBException {

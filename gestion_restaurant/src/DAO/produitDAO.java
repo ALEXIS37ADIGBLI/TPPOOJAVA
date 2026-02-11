@@ -34,17 +34,13 @@ public class produitDAO {
            /*Constituer le produit*/
            categorie c  = new categorie(id_categorie,libelle);
            c.setId_categorie(id_categorie);
-           produit p = new produit(id_produit, nom, prix_vente, stock_actuel, seuil_alerte, c);
+           produit p = new produit(id_produit, nom, prix_vente, stock_actuel, seuil_alerte, id_categorie);
            p.setId_produit(id_produit);
            p.setNom(nom);
            p.setPrix_vente(prix_vente);
            p.setStock_actuel(stock_actuel);
            p.setSeuil_alerte(seuil_alerte);
-           
-
-           c.setLibelle(libelle);
-           
-           p.setCategorie(c);
+           p.setCategorie(id_categorie);
            produit.add(p);
            
        }
@@ -54,7 +50,7 @@ public class produitDAO {
     }
     public static produit get(String produitnom) throws 
             DBException,SQLException{
-                String sql = "SELECT p.*, c.libelle FROM produit p JOIN categorie c ON p.id_categorie = c.id_categorie WHERE p.nom = ?";
+                String sql = "SELECT p.* FROM produit p JOIN categorie c ON p.id_categorie = c.id_categorie WHERE p.nom = ?";
                 Connection connection;
                 connection = DBConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(sql);
@@ -67,21 +63,9 @@ public class produitDAO {
                     int stock_actuel = rs.getInt("stock_actuel");
                     int seuil_alerte = rs.getInt("seuil_alerte");
                     int id_categorie = rs.getInt("id_categorie");
-                    String libelle = rs.getString("libelle");
                     rs.close();
-                    categorie c  = new categorie(id_categorie,libelle);
-                    c.setId_categorie(id_categorie);
-                    produit p = new produit(id_produit, nom, prix_vente, stock_actuel, seuil_alerte, c);
-                    p.setId_produit(id_produit);
-                    p.setNom(nom);
-                    p.setPrix_vente(prix_vente);
-                    p.setStock_actuel(stock_actuel);
-                    p.setSeuil_alerte(seuil_alerte);
-           
-
-                    c.setLibelle(libelle);
-           
-                    p.setCategorie(c);
+                    produit p = new produit(id_produit, nom, prix_vente, stock_actuel, seuil_alerte, id_categorie);
+                   
                     return p;
                     
                 }else{
@@ -89,6 +73,7 @@ public class produitDAO {
                    return null;
                 }
             }
+    
     public static void addproduit(produit p )
             throws DBException,SQLException{
         String sql = "INSERT INTO produit (nom,prix_vente,stock_actuel,seuil_alerte,id_categorie)"+" VALUES(?,?,?,?,?)";
@@ -98,7 +83,7 @@ public class produitDAO {
         ps.setDouble(2,p.getPrix_vente());
         ps.setInt(3,p.getStock_actuel());
         ps.setInt(4,p.getSeuil_alerte());
-        ps.setInt(5,p.getCategorie().getId_categorie());
+        ps.setInt(5,p.getCategorie());
         ps.executeUpdate();
     }
     
@@ -111,7 +96,7 @@ public class produitDAO {
         ps.setDouble(2,p.getPrix_vente());
         ps.setInt(3,p.getStock_actuel());
         ps.setInt(4,p.getSeuil_alerte());
-        ps.setInt(5,p.getCategorie().getId_categorie());
+        ps.setInt(5,p.getCategorie());
         ps.setInt(6,p.getId_produit());
         ps.executeUpdate();
        

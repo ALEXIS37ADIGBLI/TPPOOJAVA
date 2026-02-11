@@ -73,7 +73,7 @@ public class LigneCommandeDAO {
                         rs.getDouble("prix_vente"),
                         rs.getInt("stock_actuel"),
                         rs.getInt("seuil_alerte"),
-                        cat
+                        rs.getInt("id_categorie")
                     );
 
                     ligne_commande lc = new ligne_commande(
@@ -161,7 +161,7 @@ public class LigneCommandeDAO {
                         rs.getDouble("prix_vente"),
                         rs.getInt("stock_actuel"),
                         rs.getInt("seuil_alerte"),
-                        cat
+                        rs.getInt("id_categorie")
                     );
 
                     return new ligne_commande(

@@ -68,18 +68,18 @@ public class DBUtilisateur {
     
      public static void updateUser(utilisateur user) throws DBException, SQLException {
         String sql="UPDATE utilisateur SET "
-                +"login=?, "
-                +"mot_de_passe=? ,"
+                +"login=? "
+                +"mot_de_passe=? "
                 +" WHERE id_utilisateur=?";
         Connection con=DBConnection.getConnection();
         PreparedStatement ps=con.prepareStatement(sql);
         ps.setString(1,user.getLogin());
         ps.setString(2,user.getMot_de_passe());
-        ps.setDouble(3,user.getId_utilisateur());
+        ps.setInt(3,user.getId_utilisateur());
         ps.executeUpdate();               
     }
      
-    public static void deleteLivre(utilisateur user) throws DBException, SQLException {
+    public static void deleteUser(utilisateur user) throws DBException, SQLException {
         String SQLQuery="DELETE FROM utilisateur "
                 +" WHERE id_utilisateur=?";
         
