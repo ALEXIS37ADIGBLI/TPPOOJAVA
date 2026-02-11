@@ -3,8 +3,8 @@ package controller;
 import DAO.DBUtilisateur;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener; // Correction : Utiliser ActionListener
-import java.sql.SQLException; // Ajout de l'import manquant
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import javax.swing.Timer;
 import models.utilisateur;
 import outils.DBException;
