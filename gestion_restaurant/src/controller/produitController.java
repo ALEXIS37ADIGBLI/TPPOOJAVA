@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package controllers;
+package controller;
 
 import DAO.produitDAO;
 import DAO.CategorieDAO;
@@ -16,7 +16,7 @@ import javax.swing.JComboBox;
 import models.categorie;
 import models.produit;
 import outils.DBException;
-import ui.UIProduit;
+import vue.UIProduit;
 
 /**
  *

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package view;
+package vue;
 
 import DAO.MouvementStockDAO;
 import java.awt.HeadlessException;
@@ -25,16 +25,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     public Mouvement_stockPanel() {
         initComponents();
     }
-    public static void main(String[] args) {
-    javax.swing.SwingUtilities.invokeLater(() -> {
-        javax.swing.JFrame frame = new javax.swing.JFrame("Test du Panel");
-        frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(new Mouvement_stockPanel());
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    });
-}
+
 
     /**
      * This method is called from within the constructor to initialize the form.

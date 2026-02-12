@@ -8,6 +8,7 @@ import java.awt.CardLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
+
 /**
  *
  * @author Xisclever
@@ -43,8 +44,19 @@ public class MainMenuView extends javax.swing.JFrame {
 
         // 3. AJOUT DES PAGES AU CARDLAYOUT
         jPanel3.add(dashboardPage, "cardDashboard");
-        Produit produitPage = new Produit();
-        jPanel3.add(produitPage, "cardProduit");
+        commande_1 produitPage = new commande_1();
+        jPanel3.add(produitPage, "cardCommande");
+        
+        CategoriePanel categoriepage = new CategoriePanel();
+        jPanel3.add(categoriepage, "cardCategorie");
+        
+        Mouvement_stockPanel mvstockPage = new Mouvement_stockPanel();
+        jPanel3.add(mvstockPage, "cardMv");
+        
+        Utilisateurs userPage = new Utilisateurs();
+        jPanel3.add(userPage, "cardUser");
+        
+        
 
         // 4. CONFIGURATION DES BOUTONS DU MENU (Design & Icônes)
         int iconSize = 18;
@@ -122,6 +134,7 @@ public class MainMenuView extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -225,6 +238,18 @@ public class MainMenuView extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1);
 
+        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton9.setForeground(new java.awt.Color(75, 85, 99));
+        jButton9.setText("Produits");
+        jButton9.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton9);
+
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setForeground(new java.awt.Color(75, 85, 99));
@@ -242,6 +267,11 @@ public class MainMenuView extends javax.swing.JFrame {
         jButton4.setForeground(new java.awt.Color(75, 85, 99));
         jButton4.setText("Sotcks");
         jButton4.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton4);
 
         jButton5.setBackground(new java.awt.Color(255, 255, 255));
@@ -249,6 +279,11 @@ public class MainMenuView extends javax.swing.JFrame {
         jButton5.setForeground(new java.awt.Color(75, 85, 99));
         jButton5.setText("Commande");
         jButton5.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton5);
 
         jButton6.setBackground(new java.awt.Color(255, 255, 255));
@@ -263,6 +298,11 @@ public class MainMenuView extends javax.swing.JFrame {
         jButton7.setForeground(new java.awt.Color(75, 85, 99));
         jButton7.setText("Utilisateurs");
         jButton7.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton7);
 
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
@@ -414,13 +454,37 @@ public class MainMenuView extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         CardLayout cl = (CardLayout) jPanel3.getLayout();
-        cl.show(jPanel3, "cardProduit");
+        cl.show(jPanel3, "cardCategorie");
         setActiveButton(jButton3);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         setActiveButton(jButton1);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        //CardLayout cl = (CardLayout) jPanel3.getLayout();
+        //cl.show(jPanel3, "Commande");
+        //setActiveButton(jButton9);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        CardLayout cl = (CardLayout) jPanel3.getLayout(); 
+    cl.show(jPanel3, "cardMv");
+    setActiveButton(jButton4);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        CardLayout cl = (CardLayout) jPanel3.getLayout();
+        cl.show(jPanel3, "cardCommande");
+        setActiveButton(jButton5);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        CardLayout cl = (CardLayout) jPanel3.getLayout();
+        cl.show(jPanel3, "cardUser");
+        setActiveButton(jButton7);
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     // Remplace tes getters actuels par ceux-ci dans MainMenuView.java
     public JLabel getLblTotalProduits() {
@@ -484,7 +548,7 @@ public class MainMenuView extends javax.swing.JFrame {
 
     private void setActiveButton(javax.swing.JButton activeBtn) {
         // 1. Liste de tous tes boutons de menu
-        javax.swing.JButton[] buttons = {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7};
+        javax.swing.JButton[] buttons = {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7, jButton9};
 
         // 2. Couleurs
         java.awt.Color activeBack = new java.awt.Color(13, 79, 139); // Bleu foncé
@@ -538,6 +602,7 @@ public class MainMenuView extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

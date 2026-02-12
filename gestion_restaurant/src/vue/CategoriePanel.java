@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package view;
+package vue;
 
 import DAO.CategorieDAO;
 import java.awt.HeadlessException;
@@ -32,16 +32,6 @@ public class CategoriePanel extends javax.swing.JPanel {
         chargerTableCategorie();
         ajouterEvenements();
     }
-public static void main(String[] args) {
-    javax.swing.SwingUtilities.invokeLater(() -> {
-        javax.swing.JFrame frame = new javax.swing.JFrame("Test du Panel");
-        frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(new CategoriePanel());
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
-    });
-}
 
 
     /**
@@ -149,7 +139,6 @@ public static void main(String[] args) {
             }
         });
         jTable1.setShowGrid(true);
-        jTable1.setSize(new java.awt.Dimension(5, 7));
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout TableLayout = new javax.swing.GroupLayout(Table);

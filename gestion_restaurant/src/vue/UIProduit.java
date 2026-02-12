@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
-package ui;
+package vue;
 import models.produit;
 import java.util.List;
-import controllers.produitController;
+import controller.produitController;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import outils.DBException;
@@ -365,12 +365,5 @@ public class UIProduit extends javax.swing.JPanel {
 
 
 
-public static void main(String[] args) {
-    // Permet de lancer le panel seul dans une fenêtre pour test
-    javax.swing.JFrame frame = new javax.swing.JFrame("Test du Panel");
-    frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-    frame.setContentPane(new UIProduit()); // On met leur panel dans la fenêtre
-    frame.pack();
-    frame.setVisible(true);
-}
+
 }
