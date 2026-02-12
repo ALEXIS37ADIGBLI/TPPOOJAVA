@@ -15,6 +15,28 @@ public class Utilisateurs extends javax.swing.JPanel {
      */
     public Utilisateurs() {
         initComponents();
+        // 1. Titre Principal
+        jLabel1.putClientProperty("FlatLaf.style", "font: semibold +8");
+
+        // 2. Transformer le panel en "Carte" (Blanc, arrondi, bordure fine)
+        String cardStyle = "arc: 15; background: #FFFFFF; border: 1,1,1,1,#E0E0E0";
+        jPanel2.putClientProperty("FlatLaf.style", cardStyle);
+
+        // 3. Style du Tableau (Comme sur la maquette)
+        TableauUtilisateurs.setRowHeight(40); // Lignes plus hautes
+        TableauUtilisateurs.putClientProperty("FlatLaf.style", "showHorizontalLines: true; intercellSpacing: 0,1; selectionBackground: #f5f5f5");
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+
+        // 4. Style des Boutons
+        // Bouton Ajouter (Bleu foncé)
+        jButton1.setBackground(new java.awt.Color(3, 79, 132));
+        jButton1.setForeground(java.awt.Color.WHITE);
+        jButton1.putClientProperty("JButton.buttonType", "roundRect");
+
+        // Bouton Supprimer (Rouge contour)
+        BoutonSupprimerUtilisateur.putClientProperty("JButton.buttonType", "roundRect");
+        BoutonSupprimerUtilisateur.setBackground(java.awt.Color.WHITE);
+        BoutonSupprimerUtilisateur.setForeground(new java.awt.Color(200, 0, 0));
     }
 
     /**
@@ -36,11 +58,13 @@ public class Utilisateurs extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(245, 245, 245));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Gestion des Utilisateurs");
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Utilisateurs systeme", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         TableauUtilisateurs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -114,7 +138,7 @@ public class Utilisateurs extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         add(jPanel1, java.awt.BorderLayout.CENTER);

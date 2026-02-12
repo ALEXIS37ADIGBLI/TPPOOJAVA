@@ -8,7 +8,6 @@ import java.awt.CardLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-
 /**
  *
  * @author Xisclever
@@ -46,17 +45,15 @@ public class MainMenuView extends javax.swing.JFrame {
         jPanel3.add(dashboardPage, "cardDashboard");
         commande_1 produitPage = new commande_1();
         jPanel3.add(produitPage, "cardCommande");
-        
+
         CategoriePanel categoriepage = new CategoriePanel();
         jPanel3.add(categoriepage, "cardCategorie");
-        
+
         Mouvement_stockPanel mvstockPage = new Mouvement_stockPanel();
         jPanel3.add(mvstockPage, "cardMv");
-        
+
         Utilisateurs userPage = new Utilisateurs();
         jPanel3.add(userPage, "cardUser");
-        
-        
 
         // 4. CONFIGURATION DES BOUTONS DU MENU (Design & Icônes)
         int iconSize = 18;
@@ -469,9 +466,9 @@ public class MainMenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        CardLayout cl = (CardLayout) jPanel3.getLayout(); 
-    cl.show(jPanel3, "cardMv");
-    setActiveButton(jButton4);
+        CardLayout cl = (CardLayout) jPanel3.getLayout();
+        cl.show(jPanel3, "cardMv");
+        setActiveButton(jButton4);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

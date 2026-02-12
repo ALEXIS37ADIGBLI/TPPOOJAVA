@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
  */
 package vue;
+
 import models.produit;
 import java.util.List;
 import controller.produitController;
@@ -20,7 +21,7 @@ public class UIProduit extends javax.swing.JPanel {
      * Creates new form UIProduit
      */
     private List<produit> ListP = null;
-    
+
     public UIProduit() {
         try {
             initComponents();
@@ -31,9 +32,7 @@ public class UIProduit extends javax.swing.JPanel {
         } catch (SQLException ex) {
             System.getLogger(UIProduit.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
-            
-       
-        
+
     }
 
     /**
@@ -275,45 +274,42 @@ public class UIProduit extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    
-    
+
     private void prixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prixActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_prixActionPerformed
 
-    
-    
+
     private void stock_actuelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stock_actuelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_stock_actuelActionPerformed
 
-    
-    
+
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
         if (produitNom.getText().trim().isEmpty() || prix.getText().trim().isEmpty() || stock_actuel.getText().trim().isEmpty() || seuil_alerte.getText().trim().isEmpty() || categorie.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(null,"Vous n'avez pas renseigné une information sur le produit");
+            JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné une information sur le produit");
             return;
         }
         if (!produitController.ControlString(produitNom)) {
-            JOptionPane.showMessageDialog(null,"Vous avez mal saisie le nom du produit");
+            JOptionPane.showMessageDialog(null, "Vous avez mal saisie le nom du produit");
             return;
         }
         if (!produitController.ControleDouble(prix)) {
-            JOptionPane.showMessageDialog(null,"Vous avez mal saisie le prix du produit");
+            JOptionPane.showMessageDialog(null, "Vous avez mal saisie le prix du produit");
             return;
         }
         if (!produitController.ControlInt(stock_actuel)) {
-            JOptionPane.showMessageDialog(null,"Vous avez mal saisie le stock du produit");
+            JOptionPane.showMessageDialog(null, "Vous avez mal saisie le stock du produit");
             return;
         }
         if (!produitController.ControlInt(seuil_alerte)) {
-            JOptionPane.showMessageDialog(null,"Vous avez mal saisie le seuil du produit");
+            JOptionPane.showMessageDialog(null, "Vous avez mal saisie le seuil du produit");
             return;
         }
-        
+
         try {
-            produitController.AddProduit(produitNom.getText(), Double.parseDouble(prix.getText()),  Integer.parseInt(stock_actuel.getText()), Integer.parseInt(seuil_alerte.getText()), (String)categorie.getSelectedItem());
-            JOptionPane.showMessageDialog(null, produitNom.getText()+" ajoute avec succes.");
+            produitController.AddProduit(produitNom.getText(), Double.parseDouble(prix.getText()), Integer.parseInt(stock_actuel.getText()), Integer.parseInt(seuil_alerte.getText()), (String) categorie.getSelectedItem());
+            JOptionPane.showMessageDialog(null, produitNom.getText() + " ajoute avec succes.");
             produitController.effacerEcran(produitNom, prix, categorie, stock_actuel, seuil_alerte);
             produitController.remplirTableau(listeProduit);
         } catch (DBException ex) {
@@ -325,8 +321,7 @@ public class UIProduit extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_addBtnActionPerformed
 
-    
-    
+
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteBtnActionPerformed
@@ -362,8 +357,5 @@ public class UIProduit extends javax.swing.JPanel {
     private javax.swing.JTextField stock_actuel;
     private javax.swing.JButton updateBtn;
     // End of variables declaration//GEN-END:variables
-
-
-
 
 }

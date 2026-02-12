@@ -11,11 +11,12 @@ import java.time.LocalDateTime;
  * @author bossmrpk
  */
 public class commande {
+
     private int id_commande;
-    private LocalDateTime date_commande; 
-    private String etat ;
-    
-    public commande(int id_commande, LocalDateTime date, String etat){
+    private LocalDateTime date_commande;
+    private String etat;
+
+    public commande(int id_commande, LocalDateTime date, String etat) {
         this.id_commande = id_commande;
         this.date_commande = date;
         this.etat = etat;
@@ -24,7 +25,7 @@ public class commande {
     public int getId_commande() {
         return id_commande;
     }
-    
+
     public void setId_commande(int id_commande) {
         this.id_commande = id_commande;
     }
@@ -33,15 +34,15 @@ public class commande {
         return date_commande;
     }
 
-    public void setDate_commande(LocalDateTime date_commande) { 
+    public void setDate_commande(LocalDateTime date_commande) {
         this.date_commande = date_commande;
     }
-    
-    public String getEtat(){
+
+    public String getEtat() {
         return etat;
     }
-    
-    public void  setEtat(String etat){
+
+    public void setEtat(String etat) {
         this.etat = etat;
     }
 

@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import java.util.List;
 import outils.DBConnection;
 import outils.DBException;
+
 /**
  *
  * @author bossmrpk
@@ -25,7 +26,6 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     public Mouvement_stockPanel() {
         initComponents();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.

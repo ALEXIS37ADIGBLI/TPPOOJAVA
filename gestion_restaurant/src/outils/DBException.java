@@ -9,14 +9,16 @@ package outils;
  * @author Xisclever
  */
 public class DBException extends Exception {
-    DBException(){}
-    
-    DBException(Exception e){
+
+    DBException() {
+    }
+
+    DBException(Exception e) {
         super(e);
     }
-    
+
     public DBException(String message) {
         super(message);
     }
-    
+
 }

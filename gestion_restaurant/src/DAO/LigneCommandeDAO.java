@@ -1,4 +1,5 @@
 package DAO;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,8 +22,7 @@ public class LigneCommandeDAO {
     public void ajouter(ligne_commande lc) throws DBException {
         String query = "INSERT INTO LIGNE_COMMANDE (id_commande, id_produit, quantite, prix_unitaire, montant_ligne) VALUES (?, ?, ?, ?, ?)";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, lc.getCommande().getId_commande());
             pstmt.setInt(2, lc.getProduit().getId_produit());
@@ -38,53 +38,52 @@ public class LigneCommandeDAO {
 
     public List<ligne_commande> listerParCommande(int idCommandeSelectionnee) throws DBException {
         List<ligne_commande> liste = new ArrayList<>();
-        
-        String query = "SELECT lc.*, " +
-                       "cmd.date_commande, cmd.etat, " +
-                       "p.nom, p.prix_vente, p.stock_actuel, p.seuil_alerte, " +
-                       "cat.id_categorie, cat.libelle " +
-                       "FROM LIGNE_COMMANDE lc " +
-                       "JOIN COMMANDE cmd ON lc.id_commande = cmd.id_commande " +
-                       "JOIN PRODUIT p ON lc.id_produit = p.id_produit " +
-                       "JOIN CATEGORIE cat ON p.id_categorie = cat.id_categorie " +
-                       "WHERE lc.id_commande = ?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            
+        String query = "SELECT lc.*, "
+                + "cmd.date_commande, cmd.etat, "
+                + "p.nom, p.prix_vente, p.stock_actuel, p.seuil_alerte, "
+                + "cat.id_categorie, cat.libelle "
+                + "FROM LIGNE_COMMANDE lc "
+                + "JOIN COMMANDE cmd ON lc.id_commande = cmd.id_commande "
+                + "JOIN PRODUIT p ON lc.id_produit = p.id_produit "
+                + "JOIN CATEGORIE cat ON p.id_categorie = cat.id_categorie "
+                + "WHERE lc.id_commande = ?";
+
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
             pstmt.setInt(1, idCommandeSelectionnee);
-            
+
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     commande cmd = new commande(
-                        rs.getInt("id_commande"),
-                        rs.getTimestamp("date_commande").toLocalDateTime(),
-                        rs.getString("etat")
+                            rs.getInt("id_commande"),
+                            rs.getTimestamp("date_commande").toLocalDateTime(),
+                            rs.getString("etat")
                     );
 
                     categorie cat = new categorie(
-                        rs.getInt("id_categorie"),
-                        rs.getString("libelle")
+                            rs.getInt("id_categorie"),
+                            rs.getString("libelle")
                     );
 
                     produit prod = new produit(
-                        rs.getInt("id_produit"),
-                        rs.getString("nom"),
-                        rs.getDouble("prix_vente"),
-                        rs.getInt("stock_actuel"),
-                        rs.getInt("seuil_alerte"),
-                        rs.getInt("id_categorie")
+                            rs.getInt("id_produit"),
+                            rs.getString("nom"),
+                            rs.getDouble("prix_vente"),
+                            rs.getInt("stock_actuel"),
+                            rs.getInt("seuil_alerte"),
+                            rs.getInt("id_categorie")
                     );
 
                     ligne_commande lc = new ligne_commande(
-                        rs.getInt("id_ligne"),
-                        cmd,
-                        prod,
-                        rs.getInt("quantite"),
-                        rs.getDouble("prix_unitaire"),
-                        rs.getDouble("montant_ligne")
+                            rs.getInt("id_ligne"),
+                            cmd,
+                            prod,
+                            rs.getInt("quantite"),
+                            rs.getDouble("prix_unitaire"),
+                            rs.getDouble("montant_ligne")
                     );
-                    
+
                     liste.add(lc);
                 }
             }
@@ -97,8 +96,7 @@ public class LigneCommandeDAO {
     public void modifier(ligne_commande lc) throws DBException {
         String query = "UPDATE LIGNE_COMMANDE SET id_commande = ?, id_produit = ?, quantite = ?, prix_unitaire = ?, montant_ligne = ? WHERE id_ligne = ?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, lc.getCommande().getId_commande());
             pstmt.setInt(2, lc.getProduit().getId_produit());
@@ -116,8 +114,7 @@ public class LigneCommandeDAO {
     public void supprimer(int idLigne) throws DBException {
         String query = "DELETE FROM LIGNE_COMMANDE WHERE id_ligne = ?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setInt(1, idLigne);
             pstmt.executeUpdate();
@@ -127,50 +124,49 @@ public class LigneCommandeDAO {
     }
 
     public ligne_commande chercherParId(int idLigne) throws DBException {
-        String query = "SELECT lc.*, " +
-                       "cmd.date_commande, cmd.etat, " +
-                       "p.nom, p.prix_vente, p.stock_actuel, p.seuil_alerte, " +
-                       "cat.id_categorie, cat.libelle " +
-                       "FROM LIGNE_COMMANDE lc " +
-                       "JOIN COMMANDE cmd ON lc.id_commande = cmd.id_commande " +
-                       "JOIN PRODUIT p ON lc.id_produit = p.id_produit " +
-                       "JOIN CATEGORIE cat ON p.id_categorie = cat.id_categorie " +
-                       "WHERE lc.id_ligne = ?";
+        String query = "SELECT lc.*, "
+                + "cmd.date_commande, cmd.etat, "
+                + "p.nom, p.prix_vente, p.stock_actuel, p.seuil_alerte, "
+                + "cat.id_categorie, cat.libelle "
+                + "FROM LIGNE_COMMANDE lc "
+                + "JOIN COMMANDE cmd ON lc.id_commande = cmd.id_commande "
+                + "JOIN PRODUIT p ON lc.id_produit = p.id_produit "
+                + "JOIN CATEGORIE cat ON p.id_categorie = cat.id_categorie "
+                + "WHERE lc.id_ligne = ?";
 
-        try (Connection conn = DBConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(query)) {
-            
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+
             pstmt.setInt(1, idLigne);
-            
+
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
                     commande cmd = new commande(
-                        rs.getInt("id_commande"),
-                        rs.getTimestamp("date_commande").toLocalDateTime(),
-                        rs.getString("etat")
+                            rs.getInt("id_commande"),
+                            rs.getTimestamp("date_commande").toLocalDateTime(),
+                            rs.getString("etat")
                     );
 
                     categorie cat = new categorie(
-                        rs.getInt("id_categorie"),
-                        rs.getString("libelle")
+                            rs.getInt("id_categorie"),
+                            rs.getString("libelle")
                     );
 
                     produit prod = new produit(
-                        rs.getInt("id_produit"),
-                        rs.getString("nom"),
-                        rs.getDouble("prix_vente"),
-                        rs.getInt("stock_actuel"),
-                        rs.getInt("seuil_alerte"),
-                        rs.getInt("id_categorie")
+                            rs.getInt("id_produit"),
+                            rs.getString("nom"),
+                            rs.getDouble("prix_vente"),
+                            rs.getInt("stock_actuel"),
+                            rs.getInt("seuil_alerte"),
+                            rs.getInt("id_categorie")
                     );
 
                     return new ligne_commande(
-                        rs.getInt("id_ligne"),
-                        cmd,
-                        prod,
-                        rs.getInt("quantite"),
-                        rs.getDouble("prix_unitaire"),
-                        rs.getDouble("montant_ligne")
+                            rs.getInt("id_ligne"),
+                            cmd,
+                            prod,
+                            rs.getInt("quantite"),
+                            rs.getDouble("prix_unitaire"),
+                            rs.getDouble("montant_ligne")
                     );
                 }
             }

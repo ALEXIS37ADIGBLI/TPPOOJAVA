@@ -10,17 +10,17 @@ import models.utilisateur;
 import outils.DBException;
 import vue.LoginView;
 
-
 /**
  *
  * @author Xisclever
  */
 public class LoginController {
+
     private LoginView view;
 
     public LoginController(LoginView view) {
         this.view = view;
-        
+
         // Cacher le message au démarrage
         this.view.getLblMessage().setVisible(false);
 
@@ -50,17 +50,17 @@ public class LoginController {
             if (user != null) {
                 // SUCCÈS
                 afficherAlerte("Connexion réussie ! Bienvenue " + user.getLogin(), new Color(220, 252, 231), new Color(22, 101, 52));
-                
+
                 Timer timer = new Timer(1500, (e) -> {
-                    view.dispose(); 
-                    vue.MainMenuView  menu = new vue.MainMenuView();
+                    view.dispose();
+                    vue.MainMenuView menu = new vue.MainMenuView();
                     new controller.DashboardController(menu);
                     menu.setVisible(true);
                     System.out.println("Ouverture du menu principal...");
                 });
                 timer.setRepeats(false);
                 timer.start();
-                
+
             } else {
                 // ÉCHEC
                 afficherAlerte("Login ou mot de passe incorrect.", new Color(254, 226, 226), new Color(153, 27, 27));

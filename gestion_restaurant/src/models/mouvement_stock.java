@@ -11,13 +11,14 @@ import java.time.LocalDateTime;
  * @author bossmrpk
  */
 public class mouvement_stock {
+
     private int id_mouvement;
     private int id_produit;
     private String type_mouvement;
     private int quantite;
     private LocalDateTime date_mouvement;
     private String motif;
-    
+
     public mouvement_stock(int id_mouvement, int id_produit, String type_mouvement, int quantite, LocalDateTime date_mouvement, String motif) {
         this.id_mouvement = id_mouvement;
         this.id_produit = id_produit;
@@ -74,10 +75,5 @@ public class mouvement_stock {
     public void setMotif(String motif) {
         this.motif = motif;
     }
-    
-    
 
-   
-    
-    
 }

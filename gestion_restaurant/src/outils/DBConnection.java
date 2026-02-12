@@ -10,44 +10,44 @@ import java.sql.*;
  *
  * @author Xisclever
  */
-
 public class DBConnection {
-    
 
-    private static Connection connection= null;
-    
+    private static Connection connection = null;
+
     private static final String URL = "jdbc:mysql://localhost:3306/gestion_restaurant";
     private static final String USER = "root";
     private static final String PASSWORD = "";
-    
-    private DBConnection(){}
+
+    private DBConnection() {
+    }
+
     public static Connection getConnection() throws DBException {
-        try{
+        try {
             //verifie si la connection n'existe pas encore ou est ferme
-            if (connection == null || connection.isClosed()){
-            
+            if (connection == null || connection.isClosed()) {
+
                 // Chargement du pilote JDBC Mysql
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                
+
                 //creation de la connexion
                 connection = DriverManager.getConnection(URL, USER, PASSWORD);
             }
-            
-        } catch (ClassNotFoundException e){
+
+        } catch (ClassNotFoundException e) {
             throw new DBException("Error : MySQL driver not found (mysql-connector).");
-        } catch (SQLException e){
-            throw new DBException("SQL Network connexion Error : "+e.getMessage());
+        } catch (SQLException e) {
+            throw new DBException("SQL Network connexion Error : " + e.getMessage());
         }
         return connection;
-    }  
-    
+    }
+
     public static void closeConnection() throws DBException {
         try {
             if (connection != null && !connection.isClosed()) {
                 connection.close();
             }
         } catch (SQLException e) {
-            throw new DBException("SQL Network connexion Error : "+e.getMessage());
+            throw new DBException("SQL Network connexion Error : " + e.getMessage());
         }
     }
 }

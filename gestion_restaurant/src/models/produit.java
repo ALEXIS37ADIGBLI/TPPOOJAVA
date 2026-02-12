@@ -9,6 +9,7 @@ package models;
  * @author bossmrpk
  */
 public class produit {
+
     private int id_produit;
     private String nom;
     private double prix_vente;
@@ -17,7 +18,7 @@ public class produit {
     private int categorie;
 
     public produit(int id_produit, String nom, double prix_vente,
-                   int stock_actuel, int seuil_alerte, int categorie) {
+            int stock_actuel, int seuil_alerte, int categorie) {
         this.id_produit = id_produit;
         this.nom = nom;
         this.prix_vente = prix_vente;
@@ -25,9 +26,9 @@ public class produit {
         this.seuil_alerte = seuil_alerte;
         this.categorie = categorie;
     }
-    
+
     public produit(String nom, double prix_vente,
-                   int stock_actuel, int seuil_alerte, int categorie) {
+            int stock_actuel, int seuil_alerte, int categorie) {
         this.nom = nom;
         this.prix_vente = prix_vente;
         this.stock_actuel = stock_actuel;

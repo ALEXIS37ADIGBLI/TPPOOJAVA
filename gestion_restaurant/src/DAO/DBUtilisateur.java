@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package DAO;
+
 import models.utilisateur;
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,93 +16,93 @@ import outils.DBException;
  * @author wilfried
  */
 public class DBUtilisateur {
-    
-    public static List<utilisateur> getAll() throws DBException, SQLException{
+
+    public static List<utilisateur> getAll() throws DBException, SQLException {
         List<utilisateur> users = new ArrayList<>();
         String SQLQuery = "SELECT * FROM utilisateur ORDER BY id_utilisateur";
         Connection con = DBConnection.getConnection();
         PreparedStatement ps = con.prepareStatement(SQLQuery);
         ResultSet rs = ps.executeQuery();
-        
-        while(rs.next()){
+
+        while (rs.next()) {
             int id = rs.getInt("id_utilisateur");
             String login = rs.getString("login");
             String pw = rs.getString("mot_de_passe");
-            
+
             utilisateur user = new utilisateur(id, login, pw);
-            users.add(user);  
+            users.add(user);
         }
         con.close();
         return users;
     }
-    
-   public static utilisateur getUser(int user_id) throws DBException, SQLException{
-       String SQLQuery = "SELECT * FROM utilisateur WHERE id_utilisateur=?";
-       Connection con = DBConnection.getConnection();
-       PreparedStatement ps = con.prepareStatement(SQLQuery);
-       ps.setInt(1, user_id);
-       ResultSet rs = ps.executeQuery();
-       
-       if(rs.next()){
+
+    public static utilisateur getUser(int user_id) throws DBException, SQLException {
+        String SQLQuery = "SELECT * FROM utilisateur WHERE id_utilisateur=?";
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(SQLQuery);
+        ps.setInt(1, user_id);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
             int id = rs.getInt("id_utilisateur");
             String login = rs.getString("login");
             String pw = rs.getString("mot_de_passe");
-            
+
             rs.close();
-            utilisateur user = new utilisateur(id, login, pw); 
+            utilisateur user = new utilisateur(id, login, pw);
             return user;
-            
+
         } else {
-           rs.close();
-           return null;
-       }
-   }
-    
-    public static void addUser(utilisateur user) throws DBException, SQLException{
-        String SQLQuery="INSERT INTO utilisateur (login,mot_de_passe)"+" VALUES(?,?)";
-        Connection con =DBConnection.getConnection();
-        PreparedStatement ps= con.prepareStatement(SQLQuery);
+            rs.close();
+            return null;
+        }
+    }
+
+    public static void addUser(utilisateur user) throws DBException, SQLException {
+        String SQLQuery = "INSERT INTO utilisateur (login,mot_de_passe)" + " VALUES(?,?)";
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(SQLQuery);
         ps.setString(1, user.getLogin());
         ps.setString(2, user.getMot_de_passe());
         ps.executeUpdate();
     }
-    
-     public static void updateUser(utilisateur user) throws DBException, SQLException {
-        String sql="UPDATE utilisateur SET "
-                +"login=? "
-                +"mot_de_passe=? "
-                +" WHERE id_utilisateur=?";
-        Connection con=DBConnection.getConnection();
-        PreparedStatement ps=con.prepareStatement(sql);
-        ps.setString(1,user.getLogin());
-        ps.setString(2,user.getMot_de_passe());
-        ps.setInt(3,user.getId_utilisateur());
-        ps.executeUpdate();               
-    }
-     
-    public static void deleteUser(utilisateur user) throws DBException, SQLException {
-        String SQLQuery="DELETE FROM utilisateur "
-                +" WHERE id_utilisateur=?";
-        
-        Connection con=DBConnection.getConnection();
-        PreparedStatement ps=con.prepareStatement(SQLQuery);
-        ps.setLong(1, user.getId_utilisateur());
-        ps.executeUpdate();  
-         
-    }
-    
-    public static utilisateur authentifier(String login, String password) throws DBException, SQLException {
-    String SQLQuery = "SELECT * FROM utilisateur WHERE login=? AND mot_de_passe=?";
-    Connection con = DBConnection.getConnection();
-    PreparedStatement ps = con.prepareStatement(SQLQuery);
-    ps.setString(1, login);
-    ps.setString(2, password);
-    ResultSet rs = ps.executeQuery();
 
-    if (rs.next()) {
-        return new utilisateur(rs.getInt("id_utilisateur"), rs.getString("login"), rs.getString("mot_de_passe"));
+    public static void updateUser(utilisateur user) throws DBException, SQLException {
+        String sql = "UPDATE utilisateur SET "
+                + "login=? "
+                + "mot_de_passe=? "
+                + " WHERE id_utilisateur=?";
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setString(1, user.getLogin());
+        ps.setString(2, user.getMot_de_passe());
+        ps.setInt(3, user.getId_utilisateur());
+        ps.executeUpdate();
     }
-    return null; // Retourne null si les identifiants sont faux
-}
-   
+
+    public static void deleteUser(utilisateur user) throws DBException, SQLException {
+        String SQLQuery = "DELETE FROM utilisateur "
+                + " WHERE id_utilisateur=?";
+
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(SQLQuery);
+        ps.setLong(1, user.getId_utilisateur());
+        ps.executeUpdate();
+
+    }
+
+    public static utilisateur authentifier(String login, String password) throws DBException, SQLException {
+        String SQLQuery = "SELECT * FROM utilisateur WHERE login=? AND mot_de_passe=?";
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement(SQLQuery);
+        ps.setString(1, login);
+        ps.setString(2, password);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            return new utilisateur(rs.getInt("id_utilisateur"), rs.getString("login"), rs.getString("mot_de_passe"));
+        }
+        return null; // Retourne null si les identifiants sont faux
+    }
+
 }

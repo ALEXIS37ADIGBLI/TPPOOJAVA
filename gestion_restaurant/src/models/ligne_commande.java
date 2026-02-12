@@ -9,6 +9,7 @@ package models;
  * @author bossmrpk
  */
 public class ligne_commande {
+
     private int id_ligne;
     private commande commande;
     private produit produit;
@@ -72,6 +73,5 @@ public class ligne_commande {
     public void setMontant_ligne(double montant_ligne) {
         this.montant_ligne = montant_ligne;
     }
-    
-    
+
 }

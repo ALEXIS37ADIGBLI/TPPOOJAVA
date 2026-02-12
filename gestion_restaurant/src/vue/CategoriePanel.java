@@ -19,7 +19,7 @@ import outils.DBException;
  * @author bossmrpk
  */
 public class CategoriePanel extends javax.swing.JPanel {
-    
+
     DefaultTableModel model;
     CategorieDAO categorieDAO = new CategorieDAO();
     int idCategorieSelectionnee = -1;
@@ -31,8 +31,44 @@ public class CategoriePanel extends javax.swing.JPanel {
         initComponents();
         chargerTableCategorie();
         ajouterEvenements();
-    }
 
+        // --- DEBUT DE LA MODERNISATION ---
+        // 1. Fond du panel principal (Gris clair de la maquette)
+        this.setBackground(new java.awt.Color(242, 242, 242));
+
+        // 2. Correction des titres (On remplace les bordures coupées par des labels)
+        jLabel1.putClientProperty("FlatLaf.style", "font: semibold +10; foreground: #333333");
+
+        // Style "Card" : Blanc, coins arrondis, et petite bordure grise
+        String cardStyle = "arc: 20; background: #FFFFFF; border: 10,10,10,10,#FFFFFF";
+
+        Formulaire.putClientProperty("FlatLaf.style", cardStyle);
+        Table.putClientProperty("FlatLaf.style", cardStyle);
+
+        // 3. Champs de saisie
+        jLabel2.putClientProperty("FlatLaf.style", "font: semibold; foreground: #666666");
+        textLibelle.putClientProperty("JTextField.placeholderText", "Nom de la catégorie...");
+        textLibelle.putClientProperty("JComponent.roundRect", true);
+
+        // 4. Correction du Tableau (Pour qu'il ne soit pas coupé)
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        jScrollPane1.setViewportBorder(null);
+        jTable1.setRowHeight(35);
+        jTable1.setShowGrid(false);
+        jTable1.putClientProperty("FlatLaf.style", "showHorizontalLines: true; intercellSpacing: 0,1; selectionBackground: #E8F0FE");
+
+        // 5. Boutons style Maquette (Gris clair, texte sombre)
+        String btnStyle = "arc: 10; background: #E0E0E0; foreground: #333333; font: bold; borderWidth: 0";
+        AjouterBoutton.putClientProperty("FlatLaf.style", btnStyle);
+        ModifierBoutton.putClientProperty("FlatLaf.style", btnStyle);
+        SupprimerBoutton.putClientProperty("FlatLaf.style", btnStyle);
+        NettoyerBoutton.putClientProperty("FlatLaf.style", btnStyle);
+
+        // Force la mise à jour visuelle pour éviter les éléments coupés
+        this.revalidate();
+        this.repaint();
+        // --- FIN DE LA MODERNISATION ---
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -58,9 +94,11 @@ public class CategoriePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        setBackground(new java.awt.Color(240, 240, 240));
+
         jLabel1.setText("Gestion des Catégories");
 
-        Formulaire.setBorder(javax.swing.BorderFactory.createTitledBorder("Categorie Type"));
+        Formulaire.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setText("Nom des Categories");
 
@@ -110,14 +148,15 @@ public class CategoriePanel extends javax.swing.JPanel {
                 .addGroup(FormulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(AjouterBoutton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ModifierBoutton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addGroup(FormulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(SupprimerBoutton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(NettoyerBoutton, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(43, 43, 43))
         );
 
-        Table.setBorder(javax.swing.BorderFactory.createTitledBorder("Listes des Categories"));
+        Table.setBackground(new java.awt.Color(255, 255, 255));
+        Table.setPreferredSize(new java.awt.Dimension(600, 400));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -148,7 +187,7 @@ public class CategoriePanel extends javax.swing.JPanel {
             .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(TableLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 588, Short.MAX_VALUE)
                 .addContainerGap())
         );
         TableLayout.setVerticalGroup(
@@ -169,7 +208,7 @@ public class CategoriePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(Formulaire, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(197, 197, 197)
+                .addGap(59, 59, 59)
                 .addComponent(Table, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -182,89 +221,87 @@ public class CategoriePanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Formulaire, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void AjouterBouttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AjouterBouttonActionPerformed
         String libelle = textLibelle.getText();
-        if(libelle.isEmpty() || !libelle.matches("[a-zA-ZÀ-ÿ\\s]+") ){
+        if (libelle.isEmpty() || !libelle.matches("[a-zA-ZÀ-ÿ\\s]+")) {
             JOptionPane.showMessageDialog(this, "Veuillez entrer le nom de la categorie");
             return;
         }
-        categorie cat = new categorie(0,libelle);
-        
-        try{
-        categorieDAO.ajouter(cat);
-        chargerTableCategorie();
-        textLibelle.setText("");
-        idCategorieSelectionnee = -1;
-        JOptionPane.showMessageDialog(this,
-                "catégorie ajouter avec succès",
+        categorie cat = new categorie(0, libelle);
+
+        try {
+            categorieDAO.ajouter(cat);
+            chargerTableCategorie();
+            textLibelle.setText("");
+            idCategorieSelectionnee = -1;
+            JOptionPane.showMessageDialog(this,
+                    "catégorie ajouter avec succès",
                     "succès",
                     JOptionPane.INFORMATION_MESSAGE);
-        }catch(HeadlessException | DBException e){
-            JOptionPane.showMessageDialog(this,"Erreur :" +e.getMessage());
+        } catch (HeadlessException | DBException e) {
+            JOptionPane.showMessageDialog(this, "Erreur :" + e.getMessage());
         }
-
-
 
         // TODO add your handling code here:
     }//GEN-LAST:event_AjouterBouttonActionPerformed
 
     private void SupprimerBouttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SupprimerBouttonActionPerformed
-            if(idCategorieSelectionnee == -1){
-               JOptionPane.showMessageDialog(this, "Veuillez sélectionner une categorie");
-            return; 
-            }
-            int confirmation = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer cette catégorie ?",
-                    "Confirmation",
-                    JOptionPane.YES_NO_OPTION);
-            if(confirmation !=JOptionPane.YES_OPTION){
-                return;
-            }
-        try{
+        if (idCategorieSelectionnee == -1) {
+            JOptionPane.showMessageDialog(this, "Veuillez sélectionner une categorie");
+            return;
+        }
+        int confirmation = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer cette catégorie ?",
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION);
+        if (confirmation != JOptionPane.YES_OPTION) {
+            return;
+        }
+        try {
             categorieDAO.supprimer(idCategorieSelectionnee);
             chargerTableCategorie();
             textLibelle.setText("");
             idCategorieSelectionnee = -1;
             JOptionPane.showMessageDialog(this,
-                "catégorie supprimer avec succès",
+                    "catégorie supprimer avec succès",
                     "succès",
                     JOptionPane.INFORMATION_MESSAGE);
 
-            }catch(HeadlessException e){
-          JOptionPane.showMessageDialog(this,"Erreur :" +e.getMessage());  
+        } catch (HeadlessException e) {
+            JOptionPane.showMessageDialog(this, "Erreur :" + e.getMessage());
         } catch (DBException ex) {
             System.getLogger(CategoriePanel.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
     }//GEN-LAST:event_SupprimerBouttonActionPerformed
 
     private void ModifierBouttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ModifierBouttonActionPerformed
-        if(idCategorieSelectionnee == -1){
+        if (idCategorieSelectionnee == -1) {
             JOptionPane.showMessageDialog(this, "Veuillez sélectionner une categorie");
             return;
-        } 
+        }
         String libelle = textLibelle.getText();
-        if(libelle.isEmpty()|| !libelle.matches("[a-zA-ZÀ-ÿ\\s]+")){
-                JOptionPane.showMessageDialog(this, "Le nom ne peut pas être vide !");
+        if (libelle.isEmpty() || !libelle.matches("[a-zA-ZÀ-ÿ\\s]+")) {
+            JOptionPane.showMessageDialog(this, "Le nom ne peut pas être vide !");
             return;
         }
-        categorie cat = new categorie(idCategorieSelectionnee,libelle);
-        try{
-                categorieDAO.modifier(cat);
-                chargerTableCategorie();
-                textLibelle.setText("");
-                idCategorieSelectionnee = -1;
-                JOptionPane.showMessageDialog(this,
-                "catégorie modifier avec succès",
+        categorie cat = new categorie(idCategorieSelectionnee, libelle);
+        try {
+            categorieDAO.modifier(cat);
+            chargerTableCategorie();
+            textLibelle.setText("");
+            idCategorieSelectionnee = -1;
+            JOptionPane.showMessageDialog(this,
+                    "catégorie modifier avec succès",
                     "succès",
                     JOptionPane.INFORMATION_MESSAGE);
-                
-                }catch(HeadlessException | DBException e){
-            JOptionPane.showMessageDialog(this,"Erreur :" +e.getMessage());
+
+        } catch (HeadlessException | DBException e) {
+            JOptionPane.showMessageDialog(this, "Erreur :" + e.getMessage());
         }
- 
+
     }//GEN-LAST:event_ModifierBouttonActionPerformed
 
     private void NettoyerBouttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NettoyerBouttonActionPerformed
@@ -273,9 +310,9 @@ public class CategoriePanel extends javax.swing.JPanel {
         jTable1.clearSelection();
         textLibelle.requestFocus();
         JOptionPane.showMessageDialog(this,
-        "formulaire nettoyé");
-        
-        
+                "formulaire nettoyé");
+
+
     }//GEN-LAST:event_NettoyerBouttonActionPerformed
 
 
@@ -297,42 +334,38 @@ public class CategoriePanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void chargerTableCategorie() {
-           model = (DefaultTableModel) jTable1.getModel();
-           model.setRowCount(0);
-           
-           try{
-               List<categorie> liste = categorieDAO.lister();
-               for(categorie cat :liste){
-                   model.addRow(new Object[]{
-                       cat.getId_categorie(),
-                       cat.getLibelle()
-                   });
-               }
-           
-           }catch(DBException e){
-               JOptionPane.showMessageDialog(this, e.getMessage());
-           }
-        
+        model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
 
+        try {
+            List<categorie> liste = categorieDAO.lister();
+            for (categorie cat : liste) {
+                model.addRow(new Object[]{
+                    cat.getId_categorie(),
+                    cat.getLibelle()
+                });
+            }
+
+        } catch (DBException e) {
+            JOptionPane.showMessageDialog(this, e.getMessage());
+        }
 
 // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     private void ajouterEvenements() {
-    
+
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
-            
-            public void mouseClicked(java.awt.event.MouseEvent evt){
+
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
                 int ligne = jTable1.getSelectedRow();
-                if(ligne >=0){
-                    idCategorieSelectionnee = (int)model.getValueAt(ligne,0);
-                    String libelle = model.getValueAt(ligne,1).toString();
+                if (ligne >= 0) {
+                    idCategorieSelectionnee = (int) model.getValueAt(ligne, 0);
+                    String libelle = model.getValueAt(ligne, 1).toString();
                     textLibelle.setText(libelle);
                 }
             }
         });
-        
-        
 
 // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

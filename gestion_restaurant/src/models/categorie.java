@@ -9,6 +9,7 @@ package models;
  * @author bossmrpk
  */
 public class categorie {
+
     private int id_categorie;
     private String libelle;
 
@@ -32,5 +33,5 @@ public class categorie {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
-    
+
 }

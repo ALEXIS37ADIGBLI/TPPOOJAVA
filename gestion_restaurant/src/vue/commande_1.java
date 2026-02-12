@@ -15,6 +15,49 @@ public class commande_1 extends javax.swing.JPanel {
      */
     public commande_1() {
         initComponents();
+
+        // 1. Style du titre principal
+        jLabel1.putClientProperty("FlatLaf.style", "font: semibold +8");
+
+        // 2. Style "Carte Blanche" pour les deux sections principales
+        String sectionStyle = "arc: 15; background: #FFFFFF; border: 1,1,1,1,#E0E0E0";
+        jPanel2.putClientProperty("FlatLaf.style", sectionStyle);
+        jPanel3.putClientProperty("FlatLaf.style", sectionStyle);
+
+        // 3. Arrondir les champs de saisie
+        ComboBoxProduit.putClientProperty("JComponent.roundRect", true);
+        TextFieldQuantité.putClientProperty("JComponent.roundRect", true);
+
+        // 4. Coloration des boutons selon la maquette
+        // Bouton Valider (Bleu Foncé)
+        BoutonValiderCommande.setBackground(new java.awt.Color(3, 79, 132));
+        BoutonValiderCommande.setForeground(java.awt.Color.WHITE);
+        BoutonValiderCommande.putClientProperty("JButton.buttonType", "roundRect");
+
+        // Bouton Annuler (Style contour rouge)
+        BoutonAnnulerCommande.putClientProperty("JButton.buttonType", "roundRect");
+        BoutonAnnulerCommande.setBackground(java.awt.Color.WHITE);
+        BoutonAnnulerCommande.setForeground(new java.awt.Color(200, 0, 0));
+
+        // 1. Espacement des lignes (très important pour le look)
+        TableauCommande.setRowHeight(35);
+
+// 2. Style FlatLaf pour le tableau
+        TableauCommande.putClientProperty("FlatLaf.style", "showHorizontalLines: true; intercellSpacing: 0,1; selectionBackground: #f0f0f0");
+
+// 3. Supprimer la bordure du scroll pane pour qu'il se fonde dans le panel blanc
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        jScrollPane1.getViewport().setBackground(java.awt.Color.WHITE);
+
+// 4. Augmenter la hauteur des champs de saisie
+        ComboBoxProduit.putClientProperty("JTextField.padding", new java.awt.Insets(5, 10, 5, 10));
+        TextFieldQuantité.putClientProperty("JTextField.padding", new java.awt.Insets(5, 10, 5, 10));
+
+// 5. Placeholder pour la quantité (texte d'aide gris)
+        TextFieldQuantité.putClientProperty("JTextField.placeholderText", "0");
+
+// 6. Style du texte "Total" pour qu'il ressorte (bleu foncé comme la maquette)
+        jLabel4.putClientProperty("FlatLaf.style", "font: bold +4; foreground: #034F84");
     }
 
     /**
@@ -44,11 +87,13 @@ public class commande_1 extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
+        jPanel1.setBackground(new java.awt.Color(245, 245, 245));
+
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Gestion des commandes");
 
-        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Créer nouvelle commande", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         jLabel2.setText("Produit ");
 
@@ -97,8 +142,8 @@ public class commande_1 extends javax.swing.JPanel {
                 .addContainerGap(12, Short.MAX_VALUE))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Détails de la commande", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 18))); // NOI18N
+        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         TableauCommande.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -134,7 +179,7 @@ public class commande_1 extends javax.swing.JPanel {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 509, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jLabel4)

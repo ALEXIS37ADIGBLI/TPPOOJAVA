@@ -19,12 +19,12 @@ public class Gestion_restaurant {
         // Activation de FlatLaf pour un rendu identique à la maquette Figma
         try {
             // FlatLightLaf est parfait pour le style clair et épuré de votre interface
-            FlatLightLaf.setup(); 
-            
+            FlatLightLaf.setup();
+
             // Optionnel : Personnalisation pour arrondir les coins des composants (boutons, etc.)
             UIManager.put("Button.arc", 10);
             UIManager.put("Component.arc", 10);
-            
+
         } catch (Exception e) {
             System.err.println("Échec de l'initialisation de FlatLaf, passage au style par défaut.");
         }
@@ -33,14 +33,14 @@ public class Gestion_restaurant {
         java.awt.EventQueue.invokeLater(() -> {
             // 1. Initialisation de la vue de connexion
             vue.LoginView loginView = new vue.LoginView();
-            
+
             // 2. Initialisation du contrôleur
             new controller.LoginController(loginView);
-            
+
             // 3. Affichage
             loginView.setVisible(true);
         });
     }
-    
+
     //test
 }
