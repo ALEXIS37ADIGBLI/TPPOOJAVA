@@ -20,26 +20,23 @@ public class MainMenuView extends javax.swing.JFrame {
     public MainMenuView() {
         initComponents();
 
-        // 1. MAXIMISER ET NETTOYER
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-        jPanel3.removeAll(); // On enlève tout ce que NetBeans a mis en vrac
+        jPanel3.removeAll();
         jPanel3.setLayout(new java.awt.CardLayout());
 
-        // 2. RECONSTRUCTION DE LA PAGE DASHBOARD (Propre et alignée)
         javax.swing.JPanel dashboardPage = new javax.swing.JPanel();
-        dashboardPage.setLayout(new java.awt.BorderLayout(0, 25)); // Espace entre le haut et le bas
+        dashboardPage.setLayout(new java.awt.BorderLayout(0, 25));
         dashboardPage.setBackground(new java.awt.Color(243, 244, 246));
         dashboardPage.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // On regroupe le titre et les cartes de stats au centre
         javax.swing.JPanel centerPanel = new javax.swing.JPanel(new java.awt.BorderLayout(0, 15));
         centerPanel.setOpaque(false);
-        jLabel11.setText("Dashboard Overview"); // On réutilise ton label
+        jLabel11.setText("Dashboard");
         centerPanel.add(jLabel11, java.awt.BorderLayout.NORTH);
-        centerPanel.add(jPanel4, java.awt.BorderLayout.CENTER); // Tes 4 cartes de stats
+        centerPanel.add(jPanel4, java.awt.BorderLayout.CENTER);
 
         dashboardPage.add(centerPanel, java.awt.BorderLayout.CENTER);
-        dashboardPage.add(jPanel9, java.awt.BorderLayout.SOUTH); // L'alerte jaune tout en bas
+        dashboardPage.add(jPanel9, java.awt.BorderLayout.SOUTH);
 
         // 3. AJOUT DES PAGES AU CARDLAYOUT
         jPanel3.add(dashboardPage, "cardDashboard");
@@ -57,7 +54,7 @@ public class MainMenuView extends javax.swing.JFrame {
 
         // 4. CONFIGURATION DES BOUTONS DU MENU (Design & Icônes)
         int iconSize = 18;
-        java.awt.Color menuTextColor = new java.awt.Color(75, 85, 99);
+
         javax.swing.border.Border margin = javax.swing.BorderFactory.createEmptyBorder(0, 15, 0, 0);
 
         // Bouton Dashboard
@@ -78,16 +75,8 @@ public class MainMenuView extends javax.swing.JFrame {
         jButton4.setText("Stocks");
         setupMenuButton(jButton4, "images/warehouse.svg", iconSize, false, margin);
 
-        // Bouton commande
-        jButton4.setText("Stocks");
         setupMenuButton(jButton5, "images/shopping-cart.svg", iconSize, false, margin);
-
-        // Bouton commande
-        jButton4.setText("Stocks");
         setupMenuButton(jButton6, "images/chart-column.svg", iconSize, false, margin);
-
-        // Bouton commande
-        jButton4.setText("Stocks");
         setupMenuButton(jButton7, "images/users.svg", iconSize, false, margin);
 
         // Bouton Logout
@@ -307,6 +296,11 @@ public class MainMenuView extends javax.swing.JFrame {
         jButton8.setForeground(new java.awt.Color(75, 85, 99));
         jButton8.setText("Se deconnecter");
         jButton8.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton8);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.WEST);
@@ -460,9 +454,7 @@ public class MainMenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        //CardLayout cl = (CardLayout) jPanel3.getLayout();
-        //cl.show(jPanel3, "Commande");
-        //setActiveButton(jButton9);
+
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -482,6 +474,16 @@ public class MainMenuView extends javax.swing.JFrame {
         cl.show(jPanel3, "cardUser");
         setActiveButton(jButton7);
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // Fermer le menu principal
+        this.dispose();
+
+        // Ouvrir la page de login
+        vue.LoginView loginPage = new vue.LoginView();
+        new controller.LoginController(loginPage);
+        loginPage.setVisible(true);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     // Remplace tes getters actuels par ceux-ci dans MainMenuView.java
     public JLabel getLblTotalProduits() {
@@ -544,10 +546,8 @@ public class MainMenuView extends javax.swing.JFrame {
     }
 
     private void setActiveButton(javax.swing.JButton activeBtn) {
-        // 1. Liste de tous tes boutons de menu
         javax.swing.JButton[] buttons = {jButton1, jButton2, jButton3, jButton4, jButton5, jButton6, jButton7, jButton9};
 
-        // 2. Couleurs
         java.awt.Color activeBack = new java.awt.Color(13, 79, 139); // Bleu foncé
         java.awt.Color activeText = java.awt.Color.WHITE;
         java.awt.Color idleBack = java.awt.Color.WHITE;
@@ -558,7 +558,7 @@ public class MainMenuView extends javax.swing.JFrame {
                 // Style du bouton cliqué
                 btn.setBackground(activeBack);
                 btn.setForeground(activeText);
-                // On change aussi l'icône en blanc (on réutilise ta logique setup)
+                // On change aussi l'icône en blanc
                 updateIconColor(btn, true);
             } else {
                 // Style des autres boutons
@@ -583,11 +583,11 @@ public class MainMenuView extends javax.swing.JFrame {
     }
 
     public JLabel getLblVentesAujourdhui() {
-        return jLabel19; // Le label au centre de jPanel5
+        return jLabel19;
     }
 
     public JLabel getLblRevenueTotal() {
-        return jLabel22; // Le label au centre de jPanel8
+        return jLabel22;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

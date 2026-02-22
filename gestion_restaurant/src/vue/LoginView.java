@@ -15,33 +15,70 @@ public class LoginView extends javax.swing.JFrame {
      */
     public LoginView() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null); // ← centré à l'écran
 
-        // 1. Fond et bordures arrondies pour le container blanc (jPanel2)
-        jPanel1.setBackground(new java.awt.Color(243, 244, 246)); // Gris clair
-        jPanel2.putClientProperty("FlatLaf.style", "arc: 40; background: #FFFFFF");
+        // === COULEURS IDENTIQUES À L'APPLICATION ===
+        java.awt.Color bleuFonce = new java.awt.Color(11, 58, 102);
+        java.awt.Color bleuBtn = new java.awt.Color(13, 79, 139);
+        java.awt.Color blanc = new java.awt.Color(255, 255, 255);
+        java.awt.Color grisClaire = new java.awt.Color(243, 244, 246);
+        java.awt.Color grisTexte = new java.awt.Color(107, 114, 128);
+        java.awt.Color texteSombre = new java.awt.Color(17, 24, 39);
 
-        // 2. Modernisation des champs de texte
-        txtLogin.putClientProperty("JTextField.placeholderText", "Nom d'utilisateur");
-        txtLogin.putClientProperty("JComponent.roundRect", true);
-        txtPassword.putClientProperty("JTextField.placeholderText", "Mot de passe");
-        txtPassword.putClientProperty("JComponent.roundRect", true);
+        // Fond principal
+        jPanel1.setBackground(grisClaire);
 
-        // 3. Modernisation du bouton Login (Bleu comme la maquette)
-        btnLogin.putClientProperty("FlatLaf.style", "arc: 15; background: #004a73; foreground: #FFFFFF; font: bold");
+        // Card blanche
+        jPanel2.setBackground(blanc);
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(
+                new java.awt.Color(229, 231, 235), 1));
 
-        // 4. Ajout du lien d'inscription (Label cliquable)
+        // Titre
+        jLabel1.setText(" Gestion Restaurant");
+        jLabel1.setForeground(bleuFonce);
+        jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 24));
+
+        // Sous-titre
+        jLabel3.setForeground(grisTexte);
+        jLabel3.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+
+        // Labels champs
+        jLabel4.setForeground(texteSombre);
+        jLabel4.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        jLabel5.setForeground(texteSombre);
+        jLabel5.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+
+        // Champ login
+        txtLogin.setBackground(blanc);
+        txtLogin.setForeground(texteSombre);
+        txtLogin.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(
+                new java.awt.Color(209, 213, 219), 1));
+        txtLogin.putClientProperty("JTextField.placeholderText", "Nom d'utilisateur...");
+
+        // Champ password
+        txtPassword.setBackground(blanc);
+        txtPassword.setForeground(texteSombre);
+        txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(
+                new java.awt.Color(209, 213, 219), 1));
+        txtPassword.putClientProperty("JTextField.placeholderText", "Mot de passe...");
+
+        // Bouton Login
+        btnLogin.setText("Se connecter");
+        btnLogin.setBackground(bleuBtn);
+        btnLogin.setForeground(blanc);
+        btnLogin.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
+        btnLogin.setOpaque(true);
+        btnLogin.setFocusPainted(false);
+        btnLogin.setBorderPainted(false);
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.putClientProperty("FlatLaf.style", "");
+
+        // Lien inscription
         createRegisterLink();
-        txtLogin.setText("Entrez votre login...");
-        txtLogin.setForeground(java.awt.Color.GRAY);
-        txtLogin.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                if (txtLogin.getText().equals("Entrez votre login...")) {
-                    txtLogin.setText("");
-                    txtLogin.setForeground(java.awt.Color.BLACK);
-                }
-            }
-        });
+
+        this.revalidate();
+        this.repaint();
     }
 
     /**
@@ -212,8 +249,9 @@ public class LoginView extends javax.swing.JFrame {
         // Action au clic
         lblRegister.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                // Ouvrir la page d'inscription
-                new RegisterView().setVisible(true);
+                RegisterView registerPage = new RegisterView();
+                new controller.RegisterController(registerPage);
+                registerPage.setVisible(true);
                 dispose(); // Ferme la page de login
             }
         });

@@ -17,31 +17,27 @@ public class DashboardController {
     public DashboardController(MainMenuView view) {
         this.view = view;
 
-        // Initialisation des données dynamiques
+        // Chargement des statistiques et vérification des alertes au démarrage
         chargerStatistiques();
         verifierAlertes();
 
-        // Ecouteurs pour la navigation (Exemple)
+        // Configuration des boutons de navigation
         initNavigation();
     }
 
+    // Récupère les données depuis la BDD et les affiche dans les cartes du dashboard
     private void chargerStatistiques() {
         try {
-            // 1. Nombre total de produits
             int totalProduits = produitDAO.countTotalProducts();
             view.getLblTotalProduits().setText(String.valueOf(totalProduits));
 
-            // 2. Produits en stock faible
             int stockFaible = produitDAO.countLowStock();
             view.getLblStockFaible().setText(String.valueOf(stockFaible));
 
-            // 3. Ventes d'aujourd'hui (APPEL NOUVELLE MÉTHODE)
             int ventes = DAO.DBCommande.countSalesToday();
             view.getLblVentesAujourdhui().setText(String.valueOf(ventes));
 
-            // 4. Revenu total (APPEL NOUVELLE MÉTHODE)
             double revenu = DAO.DBCommande.getTotalRevenue();
-            // Formatage en monnaie (ex: 1 250.50 €)
             view.getLblRevenueTotal().setText(String.format("%.2f FCFA", revenu));
 
         } catch (DBException | SQLException ex) {
@@ -49,32 +45,34 @@ public class DashboardController {
         }
     }
 
+    // Affiche ou cache le panneau d'alerte selon le nombre de produits en stock faible
     private void verifierAlertes() {
         try {
             int stockFaible = produitDAO.countLowStock();
+
             if (stockFaible > 0) {
                 view.getPanelAlerte().setVisible(true);
                 view.getLblMessageAlerte().setText("<html><b>⚠ Alerte de Stock</b><br/>"
-                        + stockFaible + " produit(s) sont en dessous du seuil. Vérifiez les stocks.</html>");
+                    + stockFaible + " produit(s) sont en dessous du seuil. Vérifiez les stocks.</html>");
             } else {
                 view.getPanelAlerte().setVisible(false);
             }
+
         } catch (DBException | SQLException ex) {
+            // En cas d'erreur, on cache simplement l'alerte
             view.getPanelAlerte().setVisible(false);
         }
     }
 
+    // Configure les actions des boutons de navigation du menu
     private void initNavigation() {
-        // Exemple : Action sur le bouton "Produits"
-        this.view.getBtnProduits().addActionListener(e -> {
-            System.out.println("Navigation vers la gestion des produits...");
-            // Logique pour changer de vue ou de panel ici
-        });
 
-        // Action sur le bouton "Déconnexion" (jButton8 dans votre code)
+        // Bouton Déconnexion : ferme le menu et retourne au login
         this.view.getBtnLogout().addActionListener(e -> {
             view.dispose();
-            // Logique pour réouvrir le LoginView
+            vue.LoginView loginPage = new vue.LoginView();
+            new controller.LoginController(loginPage);
+            loginPage.setVisible(true);
         });
     }
 }

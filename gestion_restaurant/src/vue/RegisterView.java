@@ -15,6 +15,95 @@ public class RegisterView extends javax.swing.JFrame {
      */
     public RegisterView() {
         initComponents();
+        this.setLocationRelativeTo(null); // centré à l'écran
+
+        // Case à cocher admin — positionnée entre le password et le bouton
+        javax.swing.JCheckBox chkAdmin = new javax.swing.JCheckBox("Compte administrateur");
+        chkAdmin.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        chkAdmin.setBackground(getContentPane().getBackground());
+        chkAdmin.setName("chkAdmin");
+        chkAdmin.setBounds(38, 308, 250, 25); // ← juste sous le champ password
+        getContentPane().add(chkAdmin);
+        chkAdmin.getParent().setComponentZOrder(chkAdmin, 0); // ← passe au premier plan
+
+        java.awt.Color bleuFonce = new java.awt.Color(11, 58, 102);
+        java.awt.Color bleuBtn = new java.awt.Color(13, 79, 139);
+        java.awt.Color blanc = new java.awt.Color(255, 255, 255);
+        java.awt.Color grisClaire = new java.awt.Color(243, 244, 246);
+        java.awt.Color grisTexte = new java.awt.Color(107, 114, 128);
+        java.awt.Color texteSombre = new java.awt.Color(17, 24, 39);
+
+        // Fond principal
+        getContentPane().setBackground(grisClaire);
+
+        // Titre
+        jLabel1.setText("✎ Inscription");
+        jLabel1.setForeground(bleuFonce);
+        jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 26));
+
+        // Sous-titre
+        jLabel3.setForeground(grisTexte);
+        jLabel3.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+
+        // Labels champs
+        jLabel4.setForeground(texteSombre);
+        jLabel4.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        jLabel5.setForeground(texteSombre);
+        jLabel5.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+
+        // Champ login
+        txtLogin.setBackground(blanc);
+        txtLogin.setForeground(texteSombre);
+        txtLogin.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(
+                new java.awt.Color(209, 213, 219), 1));
+        txtLogin.putClientProperty("JTextField.placeholderText", "Choisissez un login...");
+
+        // Champ password
+        txtPassword.setBackground(blanc);
+        txtPassword.setForeground(texteSombre);
+        txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(
+                new java.awt.Color(209, 213, 219), 1));
+        txtPassword.putClientProperty("JTextField.placeholderText", "Choisissez un mot de passe...");
+
+        // Bouton S'inscrire
+        btnLogin.setText("✚  Créer mon compte");
+        btnLogin.setBackground(bleuBtn);
+        btnLogin.setForeground(blanc);
+        btnLogin.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
+        btnLogin.setOpaque(true);
+        btnLogin.setFocusPainted(false);
+        btnLogin.setBorderPainted(false);
+        btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogin.putClientProperty("FlatLaf.style", "");
+
+        // Lien retour login
+        creerLienRetourLogin();
+
+        this.revalidate();
+        this.repaint();
+    }
+
+// Méthode pour ajouter un lien "Déjà un compte ?" dans RegisterView
+    private void creerLienRetourLogin() {
+        javax.swing.JLabel lblLogin = new javax.swing.JLabel("Déjà un compte ? Se connecter");
+        lblLogin.setForeground(new java.awt.Color(13, 79, 139));
+        lblLogin.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+        lblLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        lblLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                vue.LoginView loginPage = new vue.LoginView();
+                new controller.LoginController(loginPage);
+                loginPage.setVisible(true);
+                dispose();
+            }
+        });
+
+        // Ajout dans le layout — position sous le bouton
+        getContentPane().setLayout(null); // garde AbsoluteLayout
+        lblLogin.setBounds(55, 435, 280, 20);
+        getContentPane().add(lblLogin);
     }
 
     /**
@@ -40,7 +129,7 @@ public class RegisterView extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(17, 24, 39));
-        jLabel1.setText("Gestion restaurant");
+        jLabel1.setText("INSCRIPTION");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(107, 114, 128));
@@ -72,7 +161,7 @@ public class RegisterView extends javax.swing.JFrame {
         btnLogin.setBackground(new java.awt.Color(153, 153, 255));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(17, 24, 39));
-        btnLogin.setText("Login");
+        btnLogin.setText("S'inscrire");
         btnLogin.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(209, 213, 219), 1, true));
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +279,11 @@ public class RegisterView extends javax.swing.JFrame {
         });
     }
 
+    public javax.swing.JLabel getLblMessage() {
+        return lblMessage;
+
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnLogin;
     private javax.swing.JLabel jLabel1;
@@ -200,4 +294,5 @@ public class RegisterView extends javax.swing.JFrame {
     public javax.swing.JTextField txtLogin;
     public javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
+    public javax.swing.JCheckBox chkAdmin;
 }
