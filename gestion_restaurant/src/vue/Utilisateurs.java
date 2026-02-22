@@ -8,6 +8,7 @@ package vue;
  *
  * @author agbeb
  */
+import controller.UtilisateurController;
 public class Utilisateurs extends javax.swing.JPanel {
 
     /**
@@ -26,7 +27,23 @@ public class Utilisateurs extends javax.swing.JPanel {
         TableauUtilisateurs.setRowHeight(40); // Lignes plus hautes
         TableauUtilisateurs.putClientProperty("FlatLaf.style", "showHorizontalLines: true; intercellSpacing: 0,1; selectionBackground: #f5f5f5");
         jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        
+        
+        // 4. Configurer les colonnes correctes (ID, Login, Mot de passe)
+        javax.swing.table.DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(
+            new Object[][] {},
+            new String[] { "ID", "Login", "Mot de passe" }
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Tableau en lecture seule
+            }
+        };
+        TableauUtilisateurs.setModel(tableModel);
+        TableauUtilisateurs.getColumnModel().getColumn(0).setMaxWidth(60);
 
+        // 5. Chargement initial des données depuis la BDD
+        UtilisateurController.remplirTableau(TableauUtilisateurs);
         // 4. Style des Boutons
         // Bouton Ajouter (Bleu foncé)
         jButton1.setBackground(new java.awt.Color(3, 79, 132));
@@ -144,12 +161,15 @@ public class Utilisateurs extends javax.swing.JPanel {
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    // </editor-fold>//GEN-END:initComponents
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+         UtilisateurController.ajouterUtilisateur(TableauUtilisateurs);
+// TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void BoutonSupprimerUtilisateurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonSupprimerUtilisateurActionPerformed
-        // TODO add your handling code here:
+         UtilisateurController.supprimerUtilisateur(TableauUtilisateurs);
+// TODO add your handling code here:
     }//GEN-LAST:event_BoutonSupprimerUtilisateurActionPerformed
 
 
