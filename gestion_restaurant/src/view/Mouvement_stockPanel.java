@@ -5,35 +5,57 @@
 package view;
 
 import DAO.MouvementStockDAO;
+import DAO.produitDAO;
+import models.produit;
 import java.awt.HeadlessException;
 import models.mouvement_stock;
 import java.sql.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 import java.util.List;
+
 import outils.DBConnection;
 import outils.DBException;
+
 /**
  *
  * @author bossmrpk
  */
-public class Mouvement_stockPanel extends javax.swing.JPanel {
 
+public class Mouvement_stockPanel extends javax.swing.JPanel {
+    private boolean alertVisible = false;
+    produitDAO produitDAO = new produitDAO();
+    List<produit> listeproduit;
+    
     /**
      * Creates new form Mouvement_stockPanel
      */
-    public Mouvement_stockPanel() {
+    public Mouvement_stockPanel() throws DBException, SQLException {
         initComponents();
+        LabelSeuilAlert.setVisible(false);
+        jSeparator2.setVisible(false);
+        chargerproduitBox();
+        chargerHistorique();
     }
     public static void main(String[] args) {
     javax.swing.SwingUtilities.invokeLater(() -> {
         javax.swing.JFrame frame = new javax.swing.JFrame("Test du Panel");
         frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(new Mouvement_stockPanel());
+        try {
+            frame.setContentPane(new Mouvement_stockPanel());
+        } catch (DBException ex) {
+            System.getLogger(Mouvement_stockPanel.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        } catch (SQLException ex) {
+            System.getLogger(Mouvement_stockPanel.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+        }
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     });
+    
+
+    
+   
 }
 
     /**
@@ -63,6 +85,8 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         Tablehisto = new javax.swing.JTable();
         BouttonSeuil = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JSeparator();
+        LabelSeuilAlert = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -72,6 +96,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
         jLabel3.setText("Produit");
 
         produitBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        produitBox.addActionListener(this::produitBoxActionPerformed);
 
         jLabel4.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
         jLabel4.setText("Type ");
@@ -85,6 +110,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
         jLabel7.setText("Motif");
 
         BouttonEnregistrer.setText("Enregistrer le Stock");
+        BouttonEnregistrer.addActionListener(this::BouttonEnregistrerActionPerformed);
 
         BouttonNettoye.setText("Nettoyé");
 
@@ -99,17 +125,17 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(produitBox, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                            .addComponent(produitBox, 0, 159, Short.MAX_VALUE))
+                        .addGap(16, 16, 16)
                         .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(typeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(66, 66, 66)
+                            .addComponent(typeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(QuantitéSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addGap(105, 105, 105)
-                        .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel6)
+                            .addComponent(QuantitéSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(formulaireLayout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(148, 148, 148))
@@ -127,7 +153,6 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
             .addGroup(formulaireLayout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(formulaireLayout.createSequentialGroup()
                         .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -138,16 +163,24 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel3)
                                 .addComponent(jLabel4)))
                         .addGap(18, 18, 18)
-                        .addComponent(produitBox, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(textMotif, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(QuantitéSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(typeBox, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(produitBox, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
+                    .addGroup(formulaireLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addGroup(formulaireLayout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(textMotif, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                            .addGroup(formulaireLayout.createSequentialGroup()
+                                .addGap(7, 7, 7)
+                                .addComponent(QuantitéSpinner, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
+                            .addGroup(formulaireLayout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addComponent(typeBox, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)))))
                 .addGap(18, 18, 18)
                 .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(BouttonEnregistrer, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BouttonNettoye, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addGap(23, 23, 23))
         );
 
         jLabel1.setText("Mouvement de stock");
@@ -176,6 +209,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(Tablehisto);
 
         BouttonSeuil.setText("seuil d’alerte");
+        BouttonSeuil.addActionListener(this::BouttonSeuilActionPerformed);
 
         javax.swing.GroupLayout HistoriqueLayout = new javax.swing.GroupLayout(Historique);
         Historique.setLayout(HistoriqueLayout);
@@ -185,15 +219,21 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(BouttonSeuil, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addComponent(jScrollPane1)
+            .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(LabelSeuilAlert, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         HistoriqueLayout.setVerticalGroup(
             HistoriqueLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HistoriqueLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(BouttonSeuil, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100))
+                .addGap(7, 7, 7)
+                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(LabelSeuilAlert, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -221,12 +261,124 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
         add(jPanel1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void produitBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produitBoxActionPerformed
+          
+    }//GEN-LAST:event_produitBoxActionPerformed
+
+    private void BouttonEnregistrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BouttonEnregistrerActionPerformed
+        try {
+            int id_produit = getProduitSelectionneId();
+            String type  = typeBox.getSelectedItem().toString();
+            int quantite = (int)QuantitéSpinner.getValue();
+            String motif  = textMotif.getText();
+            
+            
+        if (quantite <=0){
+                    JOptionPane.showMessageDialog(this,
+                "La quantité ne doit pas être inférieur ou égale a  0",
+                    "erreur",
+                    JOptionPane.INFORMATION_MESSAGE);
+                    return;
+        }
+        if (motif.isEmpty()|| !motif.matches("[a-zA-ZÀ-ÿ\\s]+")){
+                 JOptionPane.showMessageDialog(this,
+                "Veuillez entrer le motif",
+                    "erreur",
+                    JOptionPane.INFORMATION_MESSAGE);
+                 return;
+        }
+        if(produitBox.getSelectedIndex() == -1){
+            JOptionPane.showMessageDialog(this,
+                "Veuillez sélectionner le produit",
+                    "erreur",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        mouvement_stock m = new mouvement_stock(
+                0,
+                id_produit,
+                type,
+                quantite,
+                java.time.LocalDateTime.now(), 
+                motif
+                
+        );
+        
+        MouvementStockDAO dao = new MouvementStockDAO();
+        dao.ajouter(m);
+        chargerHistorique();
+
+        textMotif.setText("");
+        QuantitéSpinner.setValue(0);
+        produitBox.setSelectedIndex(0);
+        typeBox.setSelectedIndex(0);
+        
+        
+        JOptionPane.showMessageDialog(this, "Mouvement enregistré avec succès !");
+        
+        } catch (Exception e) {
+            e.printStackTrace(); // Très important : tu verras la vraie cause dans la console
+            JOptionPane.showMessageDialog(this, e.getMessage());
+}
+
+    }//GEN-LAST:event_BouttonEnregistrerActionPerformed
+
+    private void BouttonSeuilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BouttonSeuilActionPerformed
+              
+        try{
+            if(!alertVisible){
+              int count  = produitDAO.countLowStock();
+              List<produit> listeseuil = produitDAO.getProduitAlert();
+              StringBuilder message = new StringBuilder();
+              message.append("⚠ Produits en alerte : ").append(count).append("\n\n");
+              for (produit p : listeseuil){
+                    message.append("- ")
+                   .append(p.getNom())
+                   .append(" : ")
+                   .append(p.getStock_actuel())
+                   .append(" unités (Seuil : ")
+                   .append(p.getSeuil_alerte())
+                   .append(")\n");
+              }
+              LabelSeuilAlert.setText("<html>" + message.toString().replace("\n", "<br>") + "</html>");
+              if (count == 0) {
+                LabelSeuilAlert.setText("Aucun produit en alerte ");
+            }
+            LabelSeuilAlert.setVisible(true);
+            jSeparator2.setVisible(true);
+            BouttonSeuil.setText("Masquer les alertes");
+
+            alertVisible = true;
+            }else{ LabelSeuilAlert.setVisible(false);
+            jSeparator2.setVisible(false);
+            BouttonSeuil.setText("Seuil d’alerte");
+
+            alertVisible = false;
+            }
+            revalidate();
+            repaint();
+
+              
+             } catch (SQLException | DBException e) {
+                 JOptionPane.showMessageDialog(this,
+                "Erreur lors du chargement des alertes !");
+             }
+              
+    }//GEN-LAST:event_BouttonSeuilActionPerformed
+    public int getProduitSelectionneId() throws DBException, SQLException{
+            String nomChoisi = produitBox.getSelectedItem().toString();
+            produit p = produitDAO.get(nomChoisi);
+           return p.getId_produit();
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BouttonEnregistrer;
     private javax.swing.JButton BouttonNettoye;
     private javax.swing.JButton BouttonSeuil;
     private javax.swing.JPanel Historique;
+    private javax.swing.JLabel LabelSeuilAlert;
     private javax.swing.JSpinner QuantitéSpinner;
     private javax.swing.JTable Tablehisto;
     private javax.swing.JPanel formulaire;
@@ -238,8 +390,57 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JComboBox<String> produitBox;
     private javax.swing.JTextField textMotif;
     private javax.swing.JComboBox<String> typeBox;
     // End of variables declaration//GEN-END:variables
+
+    private void chargerproduitBox() throws DBException, SQLException {
+        produitBox.removeAllItems();
+        listeproduit = produitDAO.getAll();
+        for(produit p : listeproduit){
+           produitBox.addItem(p.getNom());
+        }
+        
+    }
+
+private void chargerHistorique() {
+    try {
+        MouvementStockDAO dao = new MouvementStockDAO();
+        List<mouvement_stock> mouvements = dao.listerTout(); 
+
+        DefaultTableModel model = (DefaultTableModel) Tablehisto.getModel();
+        model.setRowCount(0);
+
+        for (mouvement_stock m : mouvements) {
+
+            String nomProduit = "";
+
+            for (produit p : listeproduit) {
+                if (p.getId_produit() == m.getId_produit()) {
+                    nomProduit = p.getNom();
+                    break;
+                }
+            }
+
+            Object[] row;
+            row = new Object[]{
+                m.getId_mouvement(),
+                nomProduit,
+                m.getType_mouvement(),
+                m.getQuantite(),
+                m.getDate_mouvement(),
+                m.getMotif()
+            };
+
+            model.addRow(row);
+        }
+
+    } catch (DBException e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this,
+                "Erreur lors du chargement de l'historique !");
+    }
+}
 }
