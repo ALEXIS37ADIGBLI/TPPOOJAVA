@@ -18,13 +18,13 @@ public class RegisterView extends javax.swing.JFrame {
         this.setLocationRelativeTo(null); // centré à l'écran
 
         // Case à cocher admin — positionnée entre le password et le bouton
-        javax.swing.JCheckBox chkAdmin = new javax.swing.JCheckBox("Compte administrateur");
-        chkAdmin.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
-        chkAdmin.setBackground(getContentPane().getBackground());
-        chkAdmin.setName("chkAdmin");
-        chkAdmin.setBounds(38, 308, 250, 25); // ← juste sous le champ password
-        getContentPane().add(chkAdmin);
-        chkAdmin.getParent().setComponentZOrder(chkAdmin, 0); // ← passe au premier plan
+        //javax.swing.JCheckBox chkAdmin = new javax.swing.JCheckBox("Compte administrateur");
+        //chkAdmin.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        //chkAdmin.setBackground(getContentPane().getBackground());
+        //chkAdmin.setName("chkAdmin");
+        //chkAdmin.setBounds(38, 308, 250, 25); // ← juste sous le champ password
+        //getContentPane().add(chkAdmin);
+        //chkAdmin.getParent().setComponentZOrder(chkAdmin, 0); // ← passe au premier plan
 
         java.awt.Color bleuFonce = new java.awt.Color(11, 58, 102);
         java.awt.Color bleuBtn = new java.awt.Color(13, 79, 139);
@@ -37,7 +37,7 @@ public class RegisterView extends javax.swing.JFrame {
         getContentPane().setBackground(grisClaire);
 
         // Titre
-        jLabel1.setText("✎ Inscription");
+        jLabel1.setText("Inscription");
         jLabel1.setForeground(bleuFonce);
         jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 26));
 
@@ -67,7 +67,7 @@ public class RegisterView extends javax.swing.JFrame {
         txtPassword.putClientProperty("JTextField.placeholderText", "Choisissez un mot de passe...");
 
         // Bouton S'inscrire
-        btnLogin.setText("✚  Créer mon compte");
+        btnLogin.setText(" Créer mon compte");
         btnLogin.setBackground(bleuBtn);
         btnLogin.setForeground(blanc);
         btnLogin.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
@@ -294,5 +294,5 @@ public class RegisterView extends javax.swing.JFrame {
     public javax.swing.JTextField txtLogin;
     public javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
-    public javax.swing.JCheckBox chkAdmin;
+    //public javax.swing.JCheckBox chkAdmin;
 }

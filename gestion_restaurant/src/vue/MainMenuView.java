@@ -40,17 +40,25 @@ public class MainMenuView extends javax.swing.JFrame {
 
         // 3. AJOUT DES PAGES AU CARDLAYOUT
         jPanel3.add(dashboardPage, "cardDashboard");
-        commande_1 produitPage = new commande_1();
-        jPanel3.add(produitPage, "cardCommande");
 
-        CategoriePanel categoriepage = new CategoriePanel();
-        jPanel3.add(categoriepage, "cardCategorie");
+        // APRÈS — les exceptions sont gérées
+        try {
+            commande_1 produitPage = new commande_1();
+            jPanel3.add(produitPage, "cardCommande");
 
-        Mouvement_stockPanel mvstockPage = new Mouvement_stockPanel();
-        jPanel3.add(mvstockPage, "cardMv");
+            CategoriePanel categoriepage = new CategoriePanel();
+            jPanel3.add(categoriepage, "cardCategorie");
 
-        Utilisateurs userPage = new Utilisateurs();
-        jPanel3.add(userPage, "cardUser");
+            Mouvement_stockPanel mvstockPage = new Mouvement_stockPanel();
+            jPanel3.add(mvstockPage, "cardMv");
+
+            Utilisateurs userPage = new Utilisateurs();
+            jPanel3.add(userPage, "cardUser");
+
+        } catch (Exception e) {
+            javax.swing.JOptionPane.showMessageDialog(this,
+                    "Erreur lors du chargement des pages : " + e.getMessage());
+        }
 
         // 4. CONFIGURATION DES BOUTONS DU MENU (Design & Icônes)
         int iconSize = 18;

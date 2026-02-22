@@ -29,19 +29,13 @@ public class CategoriePanel extends javax.swing.JPanel {
      */
     public CategoriePanel() {
         initComponents();
-        
-        
-        
-        
-        
+
         jTable1.getTableHeader().setBackground(new java.awt.Color(30, 58, 95));
-jTable1.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
-jTable1.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
+        jTable1.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
+        jTable1.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
         chargerTableCategorie();
         ajouterEvenements();
-        
-        
 
         // --- DEBUT DE LA MODERNISATION ---
         // 1. Fond du panel principal (Gris clair de la maquette)
@@ -282,7 +276,7 @@ jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Table, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Formulaire, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(424, Short.MAX_VALUE))
+                .addContainerGap(412, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -292,7 +286,7 @@ jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
         jTable1.clearSelection();
         textLibelle.requestFocus();
         JOptionPane.showMessageDialog(this,
-            "formulaire nettoyé");
+                "formulaire nettoyé");
 
     }//GEN-LAST:event_NettoyerBouttonActionPerformed
 
@@ -313,9 +307,9 @@ jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
             textLibelle.setText("");
             idCategorieSelectionnee = -1;
             JOptionPane.showMessageDialog(this,
-                "catégorie modifier avec succès",
-                "succès",
-                JOptionPane.INFORMATION_MESSAGE);
+                    "catégorie modifier avec succès",
+                    "succès",
+                    JOptionPane.INFORMATION_MESSAGE);
 
         } catch (HeadlessException | DBException e) {
             JOptionPane.showMessageDialog(this, "Erreur :" + e.getMessage());
@@ -328,8 +322,8 @@ jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
             return;
         }
         int confirmation = JOptionPane.showConfirmDialog(this, "Voulez-vous vraiment supprimer cette catégorie ?",
-            "Confirmation",
-            JOptionPane.YES_NO_OPTION);
+                "Confirmation",
+                JOptionPane.YES_NO_OPTION);
         if (confirmation != JOptionPane.YES_OPTION) {
             return;
         }
@@ -339,9 +333,9 @@ jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
             textLibelle.setText("");
             idCategorieSelectionnee = -1;
             JOptionPane.showMessageDialog(this,
-                "catégorie supprimer avec succès",
-                "succès",
-                JOptionPane.INFORMATION_MESSAGE);
+                    "catégorie supprimer avec succès",
+                    "succès",
+                    JOptionPane.INFORMATION_MESSAGE);
 
         } catch (HeadlessException e) {
             JOptionPane.showMessageDialog(this, "Erreur :" + e.getMessage());
@@ -364,9 +358,9 @@ jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
             textLibelle.setText("");
             idCategorieSelectionnee = -1;
             JOptionPane.showMessageDialog(this,
-                "catégorie ajouter avec succès",
-                "succès",
-                JOptionPane.INFORMATION_MESSAGE);
+                    "catégorie ajouter avec succès",
+                    "succès",
+                    JOptionPane.INFORMATION_MESSAGE);
         } catch (HeadlessException | DBException e) {
             JOptionPane.showMessageDialog(this, "Erreur :" + e.getMessage());
         }
