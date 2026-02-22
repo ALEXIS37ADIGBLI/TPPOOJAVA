@@ -4,6 +4,7 @@
  */
 package DAO;
 
+import com.toedter.calendar.JDateChooser;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -116,5 +117,39 @@ public class DBCommande {
         }
         return 0.0;
     }
+    
+    public static double getTotatRevenueDay() throws DBException, SQLException {
+        String sql = "SELECT SUM(total) FROM commande WHERE DATE(date_commande) = CURDATE() AND etat = 'VALIDÉE'";
+        Connection conn = DBConnection.getConnection(); 
+              PreparedStatement ps = conn.prepareStatement(sql); 
+              ResultSet rs = ps.executeQuery(); 
+              if (rs.next()) {
+                return rs.getDouble(1);
+            }
+        return 0.0;
 
+       }
+    
+     public static double getTotatRevenuePeriod(java.util.Date debut, java.util.Date fin) throws SQLException, DBException {
+    // La requête est correcte selon votre structure
+    String sql = "SELECT SUM(total) FROM commande WHERE date_commande BETWEEN ? AND ? AND etat = 'VALIDÉE'";
+    
+    try (Connection conn = DBConnection.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        
+        // On convertit les java.util.Date en java.sql.Timestamp pour la colonne datetime
+        ps.setTimestamp(1, new java.sql.Timestamp(debut.getTime()));
+        ps.setTimestamp(2, new java.sql.Timestamp(fin.getTime()));
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getDouble(1); // Retourne le total decimal(12,2)
+            }
+        }
+    }
+    return 0.0;
 }
+          
+}
+        
+  

@@ -76,6 +76,21 @@ public class produitDAO {
             return null;
         }
     }
+    
+    public static int getId(String nom) throws DBException, SQLException {
+        String sql = "SELECT id_produit FROM produit where nom=?";
+        Connection connection = DBConnection.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, nom);
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()){
+            return rs.getInt("id_produit");
+        }
+        
+        return 0;
+        
+    }
 
     public static void addproduit(produit p)
             throws DBException, SQLException {
@@ -112,6 +127,15 @@ public class produitDAO {
         ps.setInt(1, p.getId_produit());
         ps.executeUpdate();
     }
+    
+    public static void deleteproduit(int p) throws DBException, SQLException {
+        String sql = "DELETE FROM produit " + "WHERE id_produit=?";
+        Connection connection = DBConnection.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, p);
+        ps.executeUpdate();
+    }
+    
 
     public static int countLowStock() throws DBException, SQLException {
         String sql = "SELECT COUNT(*) FROM produit WHERE stock_actuel <= seuil_alerte";
