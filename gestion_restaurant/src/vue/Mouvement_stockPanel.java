@@ -49,7 +49,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     jPanel1.setBackground(grisClaire);
 
     // === TITRE ===
-    jLabel1.setText("⚙  Mouvement de stock");
+    jLabel1.setText("  Mouvement de stock");
     jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 26));
     jLabel1.setForeground(bleuFonce);
 
@@ -95,7 +95,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
         new java.awt.Color(209, 213, 219), 1));
 
     // Bouton Enregistrer (Bleu)
-    BouttonEnregistrer.setText("✚  Enregistrer");
+    BouttonEnregistrer.setText(" Enregistrer");
     BouttonEnregistrer.setBackground(bleuBtn);
     BouttonEnregistrer.setForeground(blanc);
     BouttonEnregistrer.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
@@ -106,7 +106,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     BouttonEnregistrer.putClientProperty("FlatLaf.style", "");
 
     // Bouton Nettoyer (Gris)
-    BouttonNettoye.setText("↺  Nettoyer");
+    BouttonNettoye.setText("  Nettoyer");
     BouttonNettoye.setBackground(grisBtnN);
     BouttonNettoye.setForeground(blanc);
     BouttonNettoye.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
@@ -465,7 +465,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
               int count  = produitDAO.countLowStock();
               List<produit> listeseuil = produitDAO.getProduitAlert();
               StringBuilder message = new StringBuilder();
-              message.append("⚠ Produits en alerte : ").append(count).append("\n\n");
+              message.append("Produits en alerte : ").append(count).append("\n\n");
               for (produit p : listeseuil){
                     message.append("- ")
                    .append(p.getNom())
