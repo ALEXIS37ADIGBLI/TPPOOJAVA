@@ -51,7 +51,7 @@ public class produitDAO {
 
     }
 
-    public static produit get(String produitnom) throws
+    public static produit Get(String produitnom) throws
             DBException, SQLException {
         String sql = "SELECT p.* FROM produit p JOIN categorie c ON p.id_categorie = c.id_categorie WHERE p.nom = ?";
         Connection connection;
@@ -103,6 +103,11 @@ public class produitDAO {
         ps.setInt(4, p.getSeuil_alerte());
         ps.setInt(5, p.getCategorie());
         ps.executeUpdate();
+    }
+    
+    public static boolean verifAdd(produit p) throws DBException, SQLException{
+       produit p1 = Get(p.getNom());
+       return p1!=null;
     }
 
     public static void updateproduit(produit p) throws DBException, SQLException {
@@ -156,5 +161,28 @@ public class produitDAO {
         }
         return 0;
     }
+    
+    public static List<produit> getAlertes() throws SQLException, DBException {
+    ArrayList<produit> list = new ArrayList<>();
+    String sql = "SELECT * FROM produit WHERE stock_actuel <= seuil_alerte";
+    
+    try (Connection conn = DBConnection.getConnection();
+         Statement st = conn.createStatement();
+         ResultSet rs = st.executeQuery(sql)) {
+        
+        while (rs.next()) {
+            produit p = new produit(
+    rs.getInt("id_produit"),
+    rs.getString("nom"),
+    rs.getDouble("prix_vente"),
+    rs.getInt("stock_actuel"),
+    rs.getInt("seuil_alerte"), // 'e' ajouté ici
+    rs.getInt("id_categorie")
+);    System.out.println("Total alertes 1: " + list.size()); // AJOUT
+            list.add(p);
+        }
+    }
+    return list;
+}
 
 }

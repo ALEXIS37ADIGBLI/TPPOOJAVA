@@ -5,6 +5,7 @@
 package vue;
 import controller.StatistiquesController;
 import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
 import outils.DBException;
 
 /**
@@ -18,13 +19,21 @@ public class Statistics extends javax.swing.JPanel {
      */
     public Statistics() throws DBException, SQLException {
         initComponents();
-        // Empêche la sélection de dates après l'instant présent
-        dateDebut.getJCalendar().setMaxSelectableDate(new java.util.Date());
-        dateFin.getJCalendar().setMaxSelectableDate(new java.util.Date());
+        StatistiquesController.remplirTableauAlertes(tabSeuil);
         StatistiquesController.ChiffreDay(ChiffreAffaireDay);
-//        StatistiquesController.ChiffrePeriode(ChiffreAffairePeriod, dateDebut, dateFin);
+        StatistiquesController.ChiffrePeriode(ChiffreAffairePeriod, period, listbest);
         
-
+        period.addActionListener(e -> {
+            try {
+                String selection = period.getSelectedItem().toString();
+                StatistiquesController.ChiffrePeriode(ChiffreAffairePeriod, period, listbest);
+            } catch (SQLException ex) {
+                System.getLogger(Statistics.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            } catch (DBException ex) {
+                System.getLogger(Statistics.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+          
+});
     }
 
     /**
@@ -40,10 +49,7 @@ public class Statistics extends javax.swing.JPanel {
         periode = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        datefin = new javax.swing.JLabel();
-        dateDebut = new com.toedter.calendar.JDateChooser();
-        datedebut = new javax.swing.JLabel();
-        dateFin = new com.toedter.calendar.JDateChooser();
+        period = new javax.swing.JComboBox<>();
         revenuday = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         ChiffreAffaireDay = new javax.swing.JLabel();
@@ -54,12 +60,12 @@ public class Statistics extends javax.swing.JPanel {
         meilleurVente = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jScrollPane2 = new javax.swing.JScrollPane();
-        listMeilVente = new javax.swing.JTable();
+        listbest = new javax.swing.JTable();
         prodSeuil = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabSeuil = new javax.swing.JTable();
 
         jLabel1.setFont(new java.awt.Font("sansserif", 1, 24)); // NOI18N
         jLabel1.setText("Statistiques");
@@ -71,11 +77,7 @@ public class Statistics extends javax.swing.JPanel {
 
         jSeparator1.setForeground(new java.awt.Color(204, 204, 204));
 
-        datefin.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        datefin.setText("Date debut");
-
-        datedebut.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        datedebut.setText("Date Fin");
+        period.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0 Mois", "1 Mois", "3 Mois", "6 Mois", "1 An" }));
 
         javax.swing.GroupLayout periodeLayout = new javax.swing.GroupLayout(periode);
         periode.setLayout(periodeLayout);
@@ -88,15 +90,8 @@ public class Statistics extends javax.swing.JPanel {
                     .addGroup(periodeLayout.createSequentialGroup()
                         .addGroup(periodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addGroup(periodeLayout.createSequentialGroup()
-                                .addComponent(datefin)
-                                .addGap(514, 514, 514)
-                                .addComponent(datedebut)))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(periodeLayout.createSequentialGroup()
-                        .addComponent(dateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(dateFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(period, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         periodeLayout.setVerticalGroup(
@@ -107,14 +102,8 @@ public class Statistics extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(periodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(datefin)
-                    .addComponent(datedebut))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(periodeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(dateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(26, Short.MAX_VALUE))
+                .addComponent(period, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         revenuday.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -172,7 +161,7 @@ public class Statistics extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addGap(18, 18, 18)
                 .addComponent(ChiffreAffairePeriod)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         meilleurVentes.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
@@ -180,7 +169,7 @@ public class Statistics extends javax.swing.JPanel {
         meilleurVente.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         meilleurVente.setText("Meilleur ventes");
 
-        listMeilVente.setModel(new javax.swing.table.DefaultTableModel(
+        listbest.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -206,9 +195,9 @@ public class Statistics extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        listMeilVente.setColumnSelectionAllowed(true);
-        jScrollPane2.setViewportView(listMeilVente);
-        listMeilVente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        listbest.setColumnSelectionAllowed(true);
+        jScrollPane2.setViewportView(listbest);
+        listbest.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         javax.swing.GroupLayout meilleurVentesLayout = new javax.swing.GroupLayout(meilleurVentes);
         meilleurVentes.setLayout(meilleurVentesLayout);
@@ -241,7 +230,7 @@ public class Statistics extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel4.setText("Produits sous seuil");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabSeuil.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -267,7 +256,7 @@ public class Statistics extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabSeuil);
 
         javax.swing.GroupLayout prodSeuilLayout = new javax.swing.GroupLayout(prodSeuil);
         prodSeuil.setLayout(prodSeuilLayout);
@@ -322,14 +311,14 @@ public class Statistics extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(periode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(revenuPeriod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(revenuday, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(revenuday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(revenuPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(meilleurVentes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(prodSeuil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -337,10 +326,6 @@ public class Statistics extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel ChiffreAffaireDay;
     private javax.swing.JLabel ChiffreAffairePeriod;
-    private com.toedter.calendar.JDateChooser dateDebut;
-    private com.toedter.calendar.JDateChooser dateFin;
-    private javax.swing.JLabel datedebut;
-    private javax.swing.JLabel datefin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -351,14 +336,15 @@ public class Statistics extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable listMeilVente;
+    private javax.swing.JTable listbest;
     private javax.swing.JLabel meilleurVente;
     private javax.swing.JPanel meilleurVentes;
+    private javax.swing.JComboBox<String> period;
     private javax.swing.JPanel periode;
     private javax.swing.JPanel prodSeuil;
     private javax.swing.JPanel revenuPeriod;
     private javax.swing.JPanel revenuday;
+    private javax.swing.JTable tabSeuil;
     // End of variables declaration//GEN-END:variables
 
 //    private void actualiserRevenuPeriodique() {
@@ -373,6 +359,16 @@ public class Statistics extends javax.swing.JPanel {
 //            ex.printStackTrace();
 //        }
 //    }
+    
+//    public void rechargerDonnees() {
+//    try {
+//        StatistiquesController.remplirTableauAlertes(tabSeuil);
+//        StatistiquesController.ChiffreDay(ChiffreAffaireDay);
+//        StatistiquesController.ChiffrePeriode(ChiffreAffairePeriod, period, listbest);
+//    } catch (DBException | SQLException e) {
+//        e.printStackTrace();
+//    }
+//}
 //}
 
 }

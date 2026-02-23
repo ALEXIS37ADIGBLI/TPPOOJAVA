@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import models.commande;
 import outils.DBConnection;
 import outils.DBException;
@@ -130,26 +131,73 @@ public class DBCommande {
 
        }
     
-     public static double getTotatRevenuePeriod(java.util.Date debut, java.util.Date fin) throws SQLException, DBException {
-    // La requête est correcte selon votre structure
-    String sql = "SELECT SUM(total) FROM commande WHERE date_commande BETWEEN ? AND ? AND etat = 'VALIDÉE'";
+//     public static double getTotatRevenuePeriod(java.util.Date debut, java.util.Date fin) throws SQLException, DBException {
+//    // La requête est correcte selon votre structure
+//    String sql = "SELECT SUM(total) FROM commande WHERE date_commande BETWEEN ? AND ? AND etat = 'VALIDÉE'";
+//    
+//    try (Connection conn = DBConnection.getConnection();
+//         PreparedStatement ps = conn.prepareStatement(sql)) {
+//        
+//        // On convertit les java.util.Date en java.sql.Timestamp pour la colonne datetime
+//        ps.setTimestamp(1, new java.sql.Timestamp(debut.getTime()));
+//        ps.setTimestamp(2, new java.sql.Timestamp(fin.getTime()));
+//        
+//        try (ResultSet rs = ps.executeQuery()) {
+//            if (rs.next()) {
+//                return rs.getDouble(1); // Retourne le total decimal(12,2)
+//            }
+//        }
+//    }
+//    return 0.0;
+//}
     
+        public static double getTotatRevenuePeriod(int nombreMois) throws SQLException, DBException {
+            String sql = "SELECT SUM(total) FROM commande " +
+                         "WHERE date_commande >= DATE_SUB(NOW(), INTERVAL ? MONTH) " +
+                         "AND etat = 'VALIDÉE'";
+
+            Connection conn = DBConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, nombreMois);
+            ResultSet rs = ps.executeQuery();
+            return rs.next() ? rs.getDouble(1) : 0.0;
+    
+    }
+        
+public static void chargerBestVente(DefaultTableModel model, int nombreMois) throws SQLException, DBException {
+    model.setRowCount(0);
+    System.out.println(">>> chargerBestVente démarré"); // AJOUT
+    
+    String sql = "SELECT p.id_produit, p.nom, SUM(l.quantite), SUM(l.montant_ligne) " +
+                 "FROM ligne_commande l " +
+                 "JOIN commande c ON l.id_commande = c.id_commande " +
+                 "JOIN produit p ON l.id_produit = p.id_produit " +
+                 "WHERE c.date_commande >= DATE_SUB(NOW(), INTERVAL ? MONTH) " +
+                 "AND c.etat = 'VALIDÉE' " +
+                 "GROUP BY p.id_produit, p.nom " +
+                 "ORDER BY SUM(l.quantite) DESC LIMIT 5";
     try (Connection conn = DBConnection.getConnection();
          PreparedStatement ps = conn.prepareStatement(sql)) {
         
-        // On convertit les java.util.Date en java.sql.Timestamp pour la colonne datetime
-        ps.setTimestamp(1, new java.sql.Timestamp(debut.getTime()));
-        ps.setTimestamp(2, new java.sql.Timestamp(fin.getTime()));
-        
-        try (ResultSet rs = ps.executeQuery()) {
-            if (rs.next()) {
-                return rs.getDouble(1); // Retourne le total decimal(12,2)
-            }
+        ps.setInt(1, nombreMois);
+        ResultSet rs = ps.executeQuery();
+        System.out.println(">>> Requête exécutée"); // AJOUT
+        int count = 0;
+        while (rs.next()) {
+            count++;
+            System.out.println(">>> Ligne : " + rs.getString(2)); // AJOUT
+           model.addRow(new Object[]{
+    rs.getInt(1),          // ID
+    rs.getString(2),       // Nom
+    rs.getInt(3),          // Quantité
+    rs.getDouble(4)        // Revenu -> double au lieu de String formaté
+});
         }
+        System.out.println(">>> Total : " + count + " lignes"); // AJOUT
     }
-    return 0.0;
+}
 }
           
-}
+
         
   

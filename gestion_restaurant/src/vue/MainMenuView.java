@@ -5,8 +5,10 @@
 package vue;
 
 import java.awt.CardLayout;
+import java.sql.SQLException;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import outils.DBException;
 
 /**
  *
@@ -17,7 +19,7 @@ public class MainMenuView extends javax.swing.JFrame {
     /**
      * Creates new form MainMenuView
      */
-    public MainMenuView() {
+    public MainMenuView() throws DBException, SQLException {
         initComponents();
 
         // 1. MAXIMISER ET NETTOYER
@@ -491,6 +493,10 @@ public class MainMenuView extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) jPanel3.getLayout();
         cl.show(jPanel3, "cardStats");
         setActiveButton(jButton7);
+        
+        
+        
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     // Remplace tes getters actuels par ceux-ci dans MainMenuView.java
@@ -548,7 +554,13 @@ public class MainMenuView extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainMenuView().setVisible(true);
+                try {
+                    new MainMenuView().setVisible(true);
+                } catch (DBException ex) {
+                    System.getLogger(MainMenuView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                } catch (SQLException ex) {
+                    System.getLogger(MainMenuView.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                }
             }
         });
     }

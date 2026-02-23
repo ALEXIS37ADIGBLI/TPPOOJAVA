@@ -52,11 +52,17 @@ public class LoginController {
                 afficherAlerte("Connexion réussie ! Bienvenue " + user.getLogin(), new Color(220, 252, 231), new Color(22, 101, 52));
 
                 Timer timer = new Timer(1500, (e) -> {
-                    view.dispose();
-                    vue.MainMenuView menu = new vue.MainMenuView();
-                    new controller.DashboardController(menu);
-                    menu.setVisible(true);
-                    System.out.println("Ouverture du menu principal...");
+                    try {
+                        view.dispose();
+                        vue.MainMenuView menu = new vue.MainMenuView();
+                        new controller.DashboardController(menu);
+                        menu.setVisible(true);
+                        System.out.println("Ouverture du menu principal...");
+                    } catch (DBException ex) {
+                        System.getLogger(LoginController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                    } catch (SQLException ex) {
+                        System.getLogger(LoginController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+                    }
                 });
                 timer.setRepeats(false);
                 timer.start();
