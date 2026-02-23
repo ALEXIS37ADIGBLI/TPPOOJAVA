@@ -15,56 +15,71 @@ public class LoginView extends javax.swing.JFrame {
      */
     public LoginView() {
         initComponents();
-        this.setLocationRelativeTo(null); // ← centré à l'écran
+        this.setLocationRelativeTo(null);
 
-        // === COULEURS IDENTIQUES À L'APPLICATION ===
+        // === COULEURS ===
         java.awt.Color bleuFonce = new java.awt.Color(11, 58, 102);
         java.awt.Color bleuBtn = new java.awt.Color(13, 79, 139);
         java.awt.Color blanc = new java.awt.Color(255, 255, 255);
         java.awt.Color grisClaire = new java.awt.Color(243, 244, 246);
         java.awt.Color grisTexte = new java.awt.Color(107, 114, 128);
         java.awt.Color texteSombre = new java.awt.Color(17, 24, 39);
+        java.awt.Color bordure = new java.awt.Color(209, 213, 219);
 
-        // Fond principal
-        jPanel1.setBackground(grisClaire);
+        // === FOND EXTÉRIEUR — dégradé simulé avec bleu très clair ===
+        jPanel1.setBackground(new java.awt.Color(235, 242, 250));
+        jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(40, 40, 40, 40));
 
-        // Card blanche
+        // === CARD CENTRALE — ombre simulée avec bordure ===
         jPanel2.setBackground(blanc);
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(
-                new java.awt.Color(229, 231, 235), 1));
+        jPanel2.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(new java.awt.Color(219, 228, 241), 1),
+                javax.swing.BorderFactory.createEmptyBorder(30, 35, 30, 35)
+        ));
 
-        // Titre
-        jLabel1.setText(" Gestion Restaurant");
+        // === TITRE — avec icône restaurant ===
+        jLabel1.setText("  Gestion Restaurant");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 22));
         jLabel1.setForeground(bleuFonce);
-        jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 24));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        // Sous-titre
+        // === SOUS-TITRE ===
+        jLabel3.setText("Connectez-vous à votre espace");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
         jLabel3.setForeground(grisTexte);
-        jLabel3.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        // Labels champs
+        // === LABELS CHAMPS ===
+        jLabel4.setText("Identifiant");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
         jLabel4.setForeground(texteSombre);
-        jLabel4.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-        jLabel5.setForeground(texteSombre);
-        jLabel5.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
 
-        // Champ login
+        jLabel5.setText("Mot de passe");
+        jLabel5.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 12));
+        jLabel5.setForeground(texteSombre);
+
+        // === CHAMP LOGIN ===
         txtLogin.setBackground(blanc);
         txtLogin.setForeground(texteSombre);
         txtLogin.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
-        txtLogin.setBorder(javax.swing.BorderFactory.createLineBorder(
-                new java.awt.Color(209, 213, 219), 1));
-        txtLogin.putClientProperty("JTextField.placeholderText", "Nom d'utilisateur...");
+        txtLogin.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(bordure, 1),
+                javax.swing.BorderFactory.createEmptyBorder(4, 10, 4, 10)
+        ));
+        txtLogin.putClientProperty("JTextField.placeholderText", "Entrez votre identifiant...");
 
-        // Champ password
+        // === CHAMP PASSWORD ===
         txtPassword.setBackground(blanc);
         txtPassword.setForeground(texteSombre);
-        txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(
-                new java.awt.Color(209, 213, 219), 1));
-        txtPassword.putClientProperty("JTextField.placeholderText", "Mot de passe...");
+        txtPassword.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        txtPassword.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(bordure, 1),
+                javax.swing.BorderFactory.createEmptyBorder(4, 10, 4, 10)
+        ));
+        txtPassword.putClientProperty("JTextField.placeholderText", "Entrez votre mot de passe...");
 
-        // Bouton Login
-        btnLogin.setText("Se connecter");
+        // === BOUTON SE CONNECTER ===
+        btnLogin.setText("→  Se connecter");
         btnLogin.setBackground(bleuBtn);
         btnLogin.setForeground(blanc);
         btnLogin.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
@@ -74,8 +89,58 @@ public class LoginView extends javax.swing.JFrame {
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.putClientProperty("FlatLaf.style", "");
 
+        // === MESSAGE (caché par défaut) ===
+        lblMessage.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 12));
+        lblMessage.setOpaque(true);
+        lblMessage.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(new java.awt.Color(187, 247, 208), 1),
+                javax.swing.BorderFactory.createEmptyBorder(4, 10, 4, 10)
+        ));
+
+        // === REPOSITIONNEMENT CENTRÉ dans AbsoluteLayout ===
+        // Titre centré
+        jPanel2.remove(jLabel1);
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 15, 440, 35));
+
+        // Sous-titre centré
+        jPanel2.remove(jLabel3);
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 440, 25));
+
+        // Séparateur visuel
+        javax.swing.JSeparator sep = new javax.swing.JSeparator();
+        sep.setForeground(new java.awt.Color(229, 231, 235));
+        jPanel2.add(sep, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 82, 380, 8));
+
+        // Label Login
+        jPanel2.remove(jLabel4);
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 95, 380, 18));
+
+        // Champ Login
+        jPanel2.remove(txtLogin);
+        jPanel2.add(txtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 118, 380, 40));
+
+        // Label Password
+        jPanel2.remove(jLabel5);
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 168, 380, 18));
+
+        // Champ Password
+        jPanel2.remove(txtPassword);
+        jPanel2.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 191, 380, 40));
+
+        // Bouton
+        jPanel2.remove(btnLogin);
+        jPanel2.add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 248, 380, 48));
+
+        // Message
+        jPanel2.remove(lblMessage);
+        jPanel2.add(lblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 308, 380, 32));
+
         // Lien inscription
         createRegisterLink();
+
+        // Redimensionner jPanel2 pour tout contenir
+        jPanel1.remove(jPanel2);
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 395));
 
         this.revalidate();
         this.repaint();
@@ -105,6 +170,7 @@ public class LoginView extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Restaurant-connection");
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(243, 244, 246));
         jPanel1.setBorder(javax.swing.BorderFactory.createEmptyBorder(30, 30, 30, 30));
@@ -171,24 +237,9 @@ public class LoginView extends javax.swing.JFrame {
         lblMessage.setOpaque(true);
         jPanel2.add(lblMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, 380, 30));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 490, 390));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 390));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, -1, 391));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

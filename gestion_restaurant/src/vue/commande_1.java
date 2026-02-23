@@ -64,7 +64,7 @@ public class commande_1 extends javax.swing.JPanel {
     TextFieldQuantité.putClientProperty("JTextField.placeholderText", "0");
 
     // Bouton Ajouter (Bleu)
-    BoutonAjouter.setText("✚  Ajouter à la commande");
+    BoutonAjouter.setText("  Ajouter à la commande");
     BoutonAjouter.setBackground(bleuBtn);
     BoutonAjouter.setForeground(blanc);
     BoutonAjouter.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
@@ -92,7 +92,7 @@ public class commande_1 extends javax.swing.JPanel {
     jTextField1.setText("0.00");
 
     // Bouton Valider (Vert)
-    BoutonValiderCommande.setText("✔  Valider la commande");
+    BoutonValiderCommande.setText("  Valider la commande");
     BoutonValiderCommande.setBackground(vert);
     BoutonValiderCommande.setForeground(blanc);
     BoutonValiderCommande.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
@@ -103,7 +103,7 @@ public class commande_1 extends javax.swing.JPanel {
     BoutonValiderCommande.putClientProperty("FlatLaf.style", "");
 
     // Bouton Annuler (Rouge)
-    BoutonAnnulerCommande.setText("✖  Annuler la commande");
+    BoutonAnnulerCommande.setText("  Annuler la commande");
     BoutonAnnulerCommande.setBackground(rouge);
     BoutonAnnulerCommande.setForeground(blanc);
     BoutonAnnulerCommande.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
@@ -272,6 +272,7 @@ public class commande_1 extends javax.swing.JPanel {
         BoutonValiderCommande.setBackground(new java.awt.Color(51, 255, 51));
         BoutonValiderCommande.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         BoutonValiderCommande.setText("Valider la commande");
+        BoutonValiderCommande.addActionListener(this::BoutonValiderCommandeActionPerformed);
 
         BoutonAnnulerCommande.setBackground(new java.awt.Color(255, 51, 51));
         BoutonAnnulerCommande.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -349,6 +350,10 @@ public class commande_1 extends javax.swing.JPanel {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void BoutonValiderCommandeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BoutonValiderCommandeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_BoutonValiderCommandeActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

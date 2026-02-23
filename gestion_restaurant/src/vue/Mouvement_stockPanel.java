@@ -35,32 +35,31 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
 
     // === COULEURS DU THÈME ===
     java.awt.Color bleuFonce  = new java.awt.Color(11, 58, 102);
-    java.awt.Color blanc       = new java.awt.Color(255, 255, 255);
-    java.awt.Color grisClaire  = new java.awt.Color(243, 244, 246);
-    java.awt.Color grisTexte   = new java.awt.Color(107, 114, 128);
-    java.awt.Color texteSombre = new java.awt.Color(31, 41, 55);
-    java.awt.Color bleuBtn     = new java.awt.Color(13, 79, 139);
-    java.awt.Color vert        = new java.awt.Color(22, 163, 74);
-    java.awt.Color rouge       = new java.awt.Color(220, 38, 38);
-    java.awt.Color grisBtnN    = new java.awt.Color(107, 114, 128);
+    java.awt.Color blanc      = new java.awt.Color(255, 255, 255);
+    java.awt.Color grisClaire = new java.awt.Color(243, 244, 246);
+    java.awt.Color texteSombre= new java.awt.Color(31, 41, 55);
+    java.awt.Color bleuBtn    = new java.awt.Color(13, 79, 139);
+    java.awt.Color rouge      = new java.awt.Color(220, 38, 38);
+    java.awt.Color grisBtnN   = new java.awt.Color(107, 114, 128);
+    java.awt.Color bordure    = new java.awt.Color(229, 231, 235);
 
     // === FOND GÉNÉRAL ===
     this.setBackground(grisClaire);
     jPanel1.setBackground(grisClaire);
 
     // === TITRE ===
-    jLabel1.setText("  Mouvement de stock");
+    jLabel1.setText("⚙  Mouvement de stock");
     jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 26));
     jLabel1.setForeground(bleuFonce);
 
     // === PANEL FORMULAIRE ===
     formulaire.setBackground(blanc);
     formulaire.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-        javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 235), 1),
+        javax.swing.BorderFactory.createLineBorder(bordure, 1),
         javax.swing.BorderFactory.createEmptyBorder(15, 15, 15, 15)
     ));
 
-    // Labels du formulaire
+    // Labels
     jLabel3.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
     jLabel3.setForeground(texteSombre);
     jLabel3.setText("Produit");
@@ -77,12 +76,11 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     jLabel7.setForeground(texteSombre);
     jLabel7.setText("Motif");
 
-    // ComboBox Produit
+    // ComboBoxes
     produitBox.setBackground(blanc);
     produitBox.setForeground(texteSombre);
     produitBox.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
 
-    // ComboBox Type
     typeBox.setBackground(blanc);
     typeBox.setForeground(texteSombre);
     typeBox.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
@@ -93,9 +91,10 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     textMotif.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
     textMotif.setBorder(javax.swing.BorderFactory.createLineBorder(
         new java.awt.Color(209, 213, 219), 1));
+    textMotif.putClientProperty("JTextField.placeholderText", "Raison du mouvement...");
 
-    // Bouton Enregistrer (Bleu)
-    BouttonEnregistrer.setText(" Enregistrer");
+    // Bouton Enregistrer
+    BouttonEnregistrer.setText("✚  Enregistrer");
     BouttonEnregistrer.setBackground(bleuBtn);
     BouttonEnregistrer.setForeground(blanc);
     BouttonEnregistrer.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
@@ -105,8 +104,8 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     BouttonEnregistrer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     BouttonEnregistrer.putClientProperty("FlatLaf.style", "");
 
-    // Bouton Nettoyer (Gris)
-    BouttonNettoye.setText("  Nettoyer");
+    // Bouton Nettoyer
+    BouttonNettoye.setText("↺  Nettoyer");
     BouttonNettoye.setBackground(grisBtnN);
     BouttonNettoye.setForeground(blanc);
     BouttonNettoye.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
@@ -115,15 +114,23 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     BouttonNettoye.setBorderPainted(false);
     BouttonNettoye.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     BouttonNettoye.putClientProperty("FlatLaf.style", "");
+    // Brancher Nettoyer (pas de listener dans initComponents)
+    BouttonNettoye.addActionListener(e -> {
+        textMotif.setText("");
+        QuantitéSpinner.setValue(0);
+        if (produitBox.getItemCount() > 0) produitBox.setSelectedIndex(0);
+        typeBox.setSelectedIndex(0);
+    });
 
     // === PANEL HISTORIQUE ===
     Historique.setBackground(blanc);
     Historique.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-        javax.swing.BorderFactory.createLineBorder(new java.awt.Color(229, 231, 235), 1),
+        javax.swing.BorderFactory.createLineBorder(bordure, 1),
         javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)
     ));
 
-    // Bouton Seuil d'alerte (Rouge)
+    // Bouton Seuil
+    BouttonSeuil.setText("⚠  Seuil d'alerte");
     BouttonSeuil.setBackground(rouge);
     BouttonSeuil.setForeground(blanc);
     BouttonSeuil.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
@@ -133,14 +140,41 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     BouttonSeuil.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
     BouttonSeuil.putClientProperty("FlatLaf.style", "");
 
-    // Label alerte seuil
+    // === LABEL ALERTE — auto-resize selon contenu ===
     LabelSeuilAlert.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
     LabelSeuilAlert.setForeground(new java.awt.Color(153, 27, 27));
     LabelSeuilAlert.setBackground(new java.awt.Color(254, 226, 226));
     LabelSeuilAlert.setOpaque(true);
-    LabelSeuilAlert.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12));
+    LabelSeuilAlert.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+        javax.swing.BorderFactory.createLineBorder(new java.awt.Color(252, 165, 165), 1),
+        javax.swing.BorderFactory.createEmptyBorder(8, 12, 8, 12)
+    ));
+    // Auto-resize : on écoute les changements de texte pour ajuster la hauteur
+    LabelSeuilAlert.addPropertyChangeListener("text", evt -> {
+        LabelSeuilAlert.revalidate();
+        // Recalcule la taille préférée selon le contenu HTML
+        java.awt.Dimension pref = LabelSeuilAlert.getPreferredSize();
+        LabelSeuilAlert.setPreferredSize(
+            new java.awt.Dimension(pref.width, pref.height + 16)
+        );
+        Historique.revalidate();
+        Historique.repaint();
+    });
 
     // === TABLEAU HISTORIQUE ===
+    // Modèle propre sans lignes null
+    DefaultTableModel modelHisto = new DefaultTableModel(
+        new Object[]{"ID", "Produit", "Type", "Quantité", "Date", "Motif"}, 0
+    ) {
+        Class[] types = new Class[]{
+            Integer.class, String.class, String.class,
+            Integer.class, Object.class, String.class
+        };
+        @Override public Class getColumnClass(int c) { return types[c]; }
+        @Override public boolean isCellEditable(int r, int c) { return false; }
+    };
+    Tablehisto.setModel(modelHisto);
+
     Tablehisto.setBackground(blanc);
     Tablehisto.setForeground(texteSombre);
     Tablehisto.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
@@ -152,13 +186,11 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     Tablehisto.setShowVerticalLines(false);
     Tablehisto.putClientProperty("FlatLaf.style", "");
 
-    // En-tête du tableau
     Tablehisto.getTableHeader().setBackground(bleuFonce);
     Tablehisto.getTableHeader().setForeground(blanc);
     Tablehisto.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
     Tablehisto.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
 
-    // ScrollPane
     jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
     jScrollPane1.getViewport().setBackground(blanc);
 
@@ -465,7 +497,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
               int count  = produitDAO.countLowStock();
               List<produit> listeseuil = produitDAO.getProduitAlert();
               StringBuilder message = new StringBuilder();
-              message.append("Produits en alerte : ").append(count).append("\n\n");
+              message.append("⚠ Produits en alerte : ").append(count).append("\n\n");
               for (produit p : listeseuil){
                     message.append("- ")
                    .append(p.getNom())

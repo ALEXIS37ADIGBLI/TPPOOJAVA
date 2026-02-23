@@ -4,11 +4,13 @@
  */
 package vue;
 
+import DAO.produitDAO;
 import models.produit;
 import java.util.List;
 import controller.produitController;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import outils.DBException;
 
 /**
@@ -23,18 +25,150 @@ public class UIProduit extends javax.swing.JPanel {
     private List<produit> ListP = null;
 
     public UIProduit() {
-        try {
-            initComponents();
-            produitController.remplirTableau(listeProduit);
-            produitController.chargerCategories(categorie);
-        } catch (DBException ex) {
-            System.getLogger(UIProduit.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        } catch (SQLException ex) {
-            System.getLogger(UIProduit.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-        }
+    initComponents();
 
+    // === COULEURS DU THÈME ===
+    java.awt.Color bleuFonce  = new java.awt.Color(11, 58, 102);
+    java.awt.Color blanc       = new java.awt.Color(255, 255, 255);
+    java.awt.Color grisClaire  = new java.awt.Color(243, 244, 246);
+    java.awt.Color texteSombre = new java.awt.Color(31, 41, 55);
+    java.awt.Color bordure     = new java.awt.Color(229, 231, 235);
+    java.awt.Color bleuBtn     = new java.awt.Color(13, 79, 139);
+    java.awt.Color vert        = new java.awt.Color(22, 163, 74);
+    java.awt.Color rouge       = new java.awt.Color(220, 38, 38);
+    java.awt.Color grisBtnN    = new java.awt.Color(107, 114, 128);
+
+    // === FOND GÉNÉRAL ===
+    this.setBackground(grisClaire);
+
+    // === TITRE ===
+    jLabel1.setText("Gestion des produits");
+    jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 26));
+    jLabel1.setForeground(bleuFonce);
+
+    // === PANEL FORMULAIRE ===
+    jPanel1.setBackground(blanc);
+    jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
+
+    // Labels
+    jLabel2.setText("Nom du produit");
+    jLabel2.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+    jLabel2.setForeground(texteSombre);
+
+    jLabel3.setText("Catégorie");
+    jLabel3.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+    jLabel3.setForeground(texteSombre);
+
+    jLabel4.setText("Prix");
+    jLabel4.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+    jLabel4.setForeground(texteSombre);
+
+    jLabel6.setText("Stock actuel");
+    jLabel6.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+    jLabel6.setForeground(texteSombre);
+
+    jLabel5.setText("Seuil alerte");
+    jLabel5.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+    jLabel5.setForeground(texteSombre);
+
+    // Champs texte
+    for (javax.swing.JTextField field : new javax.swing.JTextField[]{produitNom, prix, stock_actuel, seuil_alerte}) {
+        field.setBackground(blanc);
+        field.setForeground(texteSombre);
+        field.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        field.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
+    }
+    produitNom.putClientProperty("JTextField.placeholderText", "Nom du produit...");
+    prix.putClientProperty("JTextField.placeholderText", "0.00");
+    stock_actuel.putClientProperty("JTextField.placeholderText", "0");
+    seuil_alerte.putClientProperty("JTextField.placeholderText", "0");
+
+    // ComboBox Catégorie
+    categorie.setBackground(blanc);
+    categorie.setForeground(texteSombre);
+    categorie.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+
+    // Bouton Ajouter (Bleu)
+    addBtn.setText("  Ajouter");
+    addBtn.setBackground(bleuBtn);
+    addBtn.setForeground(blanc);
+    addBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+    addBtn.setOpaque(true);
+    addBtn.setFocusPainted(false);
+    addBtn.setBorderPainted(false);
+    addBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    addBtn.putClientProperty("FlatLaf.style", "");
+
+    // Bouton Modifier (Vert)
+    updateBtn.setText("  Modifier");
+    updateBtn.setBackground(vert);
+    updateBtn.setForeground(blanc);
+    updateBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+    updateBtn.setOpaque(true);
+    updateBtn.setFocusPainted(false);
+    updateBtn.setBorderPainted(false);
+    updateBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    updateBtn.putClientProperty("FlatLaf.style", "");
+
+    // Bouton Supprimer (Rouge)
+    deleteBtn.setText("  Supprimer");
+    deleteBtn.setBackground(rouge);
+    deleteBtn.setForeground(blanc);
+    deleteBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+    deleteBtn.setOpaque(true);
+    deleteBtn.setFocusPainted(false);
+    deleteBtn.setBorderPainted(false);
+    deleteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    deleteBtn.putClientProperty("FlatLaf.style", "");
+
+    // Bouton Effacer (Gris)
+    clearBtn.setText("  Effacer");
+    clearBtn.setBackground(grisBtnN);
+    clearBtn.setForeground(blanc);
+    clearBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+    clearBtn.setOpaque(true);
+    clearBtn.setFocusPainted(false);
+    clearBtn.setBorderPainted(false);
+    clearBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+    clearBtn.putClientProperty("FlatLaf.style", "");
+
+    // === PANEL TABLEAU ===
+    jPanel2.setBackground(blanc);
+    jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
+
+    // Tableau
+    listeProduit.setBackground(blanc);
+    listeProduit.setForeground(texteSombre);
+    listeProduit.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+    listeProduit.setRowHeight(38);
+    listeProduit.setGridColor(new java.awt.Color(243, 244, 246));
+    listeProduit.setSelectionBackground(new java.awt.Color(219, 234, 254));
+    listeProduit.setSelectionForeground(new java.awt.Color(30, 64, 175));
+    listeProduit.setShowHorizontalLines(true);
+    listeProduit.setShowVerticalLines(false);
+    listeProduit.putClientProperty("FlatLaf.style", "");
+
+    // En-tête du tableau
+    listeProduit.getTableHeader().setBackground(bleuFonce);
+    listeProduit.getTableHeader().setForeground(blanc);
+    listeProduit.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+    listeProduit.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
+
+    // ScrollPane
+    jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+    jScrollPane1.getViewport().setBackground(blanc);
+
+    // === CHARGEMENT ===
+    try {
+        produitController.remplirTableau(listeProduit);
+        produitController.chargerCategories(categorie);
+    } catch (DBException | SQLException ex) {
+        System.getLogger(UIProduit.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
     }
 
+    this.revalidate();
+    this.repaint();
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -107,6 +241,11 @@ public class UIProduit extends javax.swing.JPanel {
         });
 
         updateBtn.setText("Modifier");
+        updateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateBtnActionPerformed(evt);
+            }
+        });
 
         deleteBtn.setText("Supprimer");
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -211,24 +350,28 @@ public class UIProduit extends javax.swing.JPanel {
                 "ID", "Nom", "Categorie", "Prix", "Stock", "Seuil Alerte"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, true, true, true, true, true
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         listeProduit.setShowGrid(true);
+        listeProduit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                listeProduitMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(listeProduit);
-        if (listeProduit.getColumnModel().getColumnCount() > 0) {
-            listeProduit.getColumnModel().getColumn(0).setHeaderValue("ID");
-            listeProduit.getColumnModel().getColumn(1).setHeaderValue("Nom");
-            listeProduit.getColumnModel().getColumn(2).setHeaderValue("Categorie");
-            listeProduit.getColumnModel().getColumn(3).setHeaderValue("Prix");
-            listeProduit.getColumnModel().getColumn(4).setHeaderValue("Stock");
-            listeProduit.getColumnModel().getColumn(5).setHeaderValue("Seuil Alerte");
-        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -286,44 +429,38 @@ public class UIProduit extends javax.swing.JPanel {
 
 
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
-        if (produitNom.getText().trim().isEmpty() || prix.getText().trim().isEmpty() || stock_actuel.getText().trim().isEmpty() || seuil_alerte.getText().trim().isEmpty() || categorie.getSelectedItem() == null) {
-            JOptionPane.showMessageDialog(null, "Vous n'avez pas renseigné une information sur le produit");
-            return;
-        }
-        if (!produitController.ControlString(produitNom)) {
-            JOptionPane.showMessageDialog(null, "Vous avez mal saisie le nom du produit");
-            return;
-        }
-        if (!produitController.ControleDouble(prix)) {
-            JOptionPane.showMessageDialog(null, "Vous avez mal saisie le prix du produit");
-            return;
-        }
-        if (!produitController.ControlInt(stock_actuel)) {
-            JOptionPane.showMessageDialog(null, "Vous avez mal saisie le stock du produit");
-            return;
-        }
-        if (!produitController.ControlInt(seuil_alerte)) {
-            JOptionPane.showMessageDialog(null, "Vous avez mal saisie le seuil du produit");
+        if (!produitController.ControleAllSaisie(produitNom, prix, stock_actuel, seuil_alerte, categorie)) {
             return;
         }
 
         try {
+
+            produitDAO.Get(produitNom.getText());
             produitController.AddProduit(produitNom.getText(), Double.parseDouble(prix.getText()), Integer.parseInt(stock_actuel.getText()), Integer.parseInt(seuil_alerte.getText()), (String) categorie.getSelectedItem());
             JOptionPane.showMessageDialog(null, produitNom.getText() + " ajoute avec succes.");
             produitController.effacerEcran(produitNom, prix, categorie, stock_actuel, seuil_alerte);
             produitController.remplirTableau(listeProduit);
-        } catch (DBException ex) {
+        } catch (DBException | SQLException ex) {
             System.getLogger(UIProduit.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
             JOptionPane.showMessageDialog(null, ex);
             produitController.effacerEcran(produitNom, prix, categorie, stock_actuel, seuil_alerte);
-        } catch (SQLException ex) {
-            System.getLogger(UIProduit.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
+
     }//GEN-LAST:event_addBtnActionPerformed
 
 
     private void deleteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteBtnActionPerformed
         // TODO add your handling code here:
+        try {
+            produitController.DeleteProduit(listeProduit);
+            produitController.effacerEcran(produitNom, prix, categorie, stock_actuel, seuil_alerte);
+            produitController.remplirTableau(listeProduit);
+        } catch (DBException | SQLException ex) {
+            System.getLogger(UIProduit.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            JOptionPane.showMessageDialog(null, ex);
+
+        }
+
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void clearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearBtnActionPerformed
@@ -334,6 +471,31 @@ public class UIProduit extends javax.swing.JPanel {
     private void categorieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categorieActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_categorieActionPerformed
+
+    private void listeProduitMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listeProduitMouseReleased
+        // TODO add your handling code here:
+        produitController.remplirChampt(listeProduit, produitNom, prix, categorie, stock_actuel, seuil_alerte);
+    }//GEN-LAST:event_listeProduitMouseReleased
+
+    private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
+        // TODO add your handling code here:
+        if (!produitController.ControleAllSaisie(produitNom, prix, stock_actuel, seuil_alerte, categorie)) {
+            return;
+        }
+
+        try {
+            produitController.UpdateProduit(listeProduit, produitNom.getText(), Double.parseDouble(prix.getText()), Integer.parseInt(stock_actuel.getText()), Integer.parseInt(seuil_alerte.getText()), (String) categorie.getSelectedItem());
+            JOptionPane.showMessageDialog(null, produitNom.getText() + " modifie avec succes.");
+            produitController.effacerEcran(produitNom, prix, categorie, stock_actuel, seuil_alerte);
+            produitController.remplirTableau(listeProduit);
+        } catch (DBException | SQLException ex) {
+            System.getLogger(UIProduit.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
+            JOptionPane.showMessageDialog(null, ex);
+            produitController.effacerEcran(produitNom, prix, categorie, stock_actuel, seuil_alerte);
+
+        }
+
+    }//GEN-LAST:event_updateBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

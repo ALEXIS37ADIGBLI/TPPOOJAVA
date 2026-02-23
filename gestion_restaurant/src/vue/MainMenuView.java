@@ -41,7 +41,6 @@ public class MainMenuView extends javax.swing.JFrame {
         // 3. AJOUT DES PAGES AU CARDLAYOUT
         jPanel3.add(dashboardPage, "cardDashboard");
 
-        // APRÈS — les exceptions sont gérées
         try {
             commande_1 produitPage = new commande_1();
             jPanel3.add(produitPage, "cardCommande");
@@ -54,6 +53,12 @@ public class MainMenuView extends javax.swing.JFrame {
 
             Utilisateurs userPage = new Utilisateurs();
             jPanel3.add(userPage, "cardUser");
+            
+            Statistics staPage = new Statistics();
+            jPanel3.add(staPage, "cardSta");
+            
+            UIProduit prodPage = new UIProduit();
+            jPanel3.add(prodPage, "cardProd");
 
         } catch (Exception e) {
             javax.swing.JOptionPane.showMessageDialog(this,
@@ -285,6 +290,11 @@ public class MainMenuView extends javax.swing.JFrame {
         jButton6.setForeground(new java.awt.Color(75, 85, 99));
         jButton6.setText("Statistiques");
         jButton6.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(153, 153, 153)), javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10)));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton6);
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
@@ -462,7 +472,9 @@ public class MainMenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-
+        CardLayout cl = (CardLayout) jPanel3.getLayout();
+        cl.show(jPanel3, "cardProd");
+        setActiveButton(jButton9);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -492,6 +504,13 @@ public class MainMenuView extends javax.swing.JFrame {
         new controller.LoginController(loginPage);
         loginPage.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) jPanel3.getLayout();
+        cl.show(jPanel3, "cardSta");
+        setActiveButton(jButton6);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     // Remplace tes getters actuels par ceux-ci dans MainMenuView.java
     public JLabel getLblTotalProduits() {

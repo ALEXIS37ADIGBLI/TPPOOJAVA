@@ -113,6 +113,14 @@ public class produitDAO {
         ps.executeUpdate();
     }
 
+    public static void deleteproduit(int p) throws DBException, SQLException {
+        String sql = "DELETE FROM produit " + "WHERE id_produit=?";
+        Connection connection = DBConnection.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setInt(1, p);
+        ps.executeUpdate();
+    }
+
     public static int countLowStock() throws DBException, SQLException {
         String sql = "SELECT COUNT(*) FROM produit WHERE stock_actuel <= seuil_alerte";
         try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
@@ -140,57 +148,54 @@ public class produitDAO {
      * @throws DBException
      * @throws SQLException
      */
-    public static void modifierStock(int id_Produit, int nouvelleQuantite) 
-        throws DBException, SQLException {
+    public static void modifierStock(int id_Produit, int nouvelleQuantite)
+            throws DBException, SQLException {
 
-    String sql = "UPDATE produit SET stock_actuel = ? WHERE id_produit = ?";
+        String sql = "UPDATE produit SET stock_actuel = ? WHERE id_produit = ?";
 
-    try (Connection conn = DBConnection.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
 
-        ps.setInt(1, nouvelleQuantite);
-        ps.setInt(2, id_Produit);
-        ps.executeUpdate();
-    }
-}
-
-public produit getById(int id_produit, Connection conn) throws DBException {
-    String sql = "SELECT * FROM produit WHERE id_produit = ?";
-    try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-        pstmt.setInt(1, id_produit);
-        try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                return new produit(
-                    rs.getInt("id_produit"),
-                    rs.getString("nom"),
-                    rs.getDouble("prix_vente"),
-                    rs.getInt("stock_actuel"),
-                    rs.getInt("seuil_alerte"),
-                    rs.getInt("id_categorie")
-                );
-            }
+            ps.setInt(1, nouvelleQuantite);
+            ps.setInt(2, id_Produit);
+            ps.executeUpdate();
         }
-    } catch (SQLException e) {
-        throw new DBException("Erreur lors de la récupération du produit : " + e.getMessage());
     }
-    return null;
-}
 
-    public static List<produit> getProduitAlert() throws DBException, SQLException{
+    public produit getById(int id_produit, Connection conn) throws DBException {
+        String sql = "SELECT * FROM produit WHERE id_produit = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id_produit);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return new produit(
+                            rs.getInt("id_produit"),
+                            rs.getString("nom"),
+                            rs.getDouble("prix_vente"),
+                            rs.getInt("stock_actuel"),
+                            rs.getInt("seuil_alerte"),
+                            rs.getInt("id_categorie")
+                    );
+                }
+            }
+        } catch (SQLException e) {
+            throw new DBException("Erreur lors de la récupération du produit : " + e.getMessage());
+        }
+        return null;
+    }
+
+    public static List<produit> getProduitAlert() throws DBException, SQLException {
         String sql = "SELECT * FROM produit WHERE stock_actuel < seuil_alerte";
         List<produit> liste = new ArrayList<>();
-        try (Connection conn = DBConnection.getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql);
-         ResultSet rs = ps.executeQuery()){
-            
-            while (rs.next()){
+        try (Connection conn = DBConnection.getConnection(); PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
                 produit p;
                 p = new produit(
                         rs.getInt("id_produit"),
                         rs.getString("nom"),
                         rs.getDouble("prix_vente"),
                         rs.getInt("stock_actuel"),
-                        rs.getInt("seuil_alerte"),   
+                        rs.getInt("seuil_alerte"),
                         rs.getInt("id_categorie")
                 );
                 liste.add(p);
@@ -198,5 +203,53 @@ public produit getById(int id_produit, Connection conn) throws DBException {
         }
         return liste;
     }
+
+    public static List<produit> getAlertes() throws SQLException, DBException {
+        ArrayList<produit> list = new ArrayList<>();
+        String sql = "SELECT * FROM produit WHERE stock_actuel <= seuil_alerte";
+
+        try (Connection conn = DBConnection.getConnection(); Statement st = conn.createStatement(); ResultSet rs = st.executeQuery(sql)) {
+
+            while (rs.next()) {
+                produit p = new produit(
+                        rs.getInt("id_produit"),
+                        rs.getString("nom"),
+                        rs.getDouble("prix_vente"),
+                        rs.getInt("stock_actuel"),
+                        rs.getInt("seuil_alerte"), // 'e' ajouté ici
+                        rs.getInt("id_categorie")
+                );
+                System.out.println("Total alertes 1: " + list.size()); // AJOUT
+                list.add(p);
+            }
+        }
+        return list;
+    }
     
+    public static produit Get(String produitnom) throws
+            DBException, SQLException {
+        String sql = "SELECT p.* FROM produit p JOIN categorie c ON p.id_categorie = c.id_categorie WHERE p.nom = ?";
+        Connection connection;
+        connection = DBConnection.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql);
+        ps.setString(1, produitnom);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            int id_produit = rs.getInt("id_produit");
+            String nom = rs.getString("nom");
+            double prix_vente = rs.getDouble("prix_vente");
+            int stock_actuel = rs.getInt("stock_actuel");
+            int seuil_alerte = rs.getInt("seuil_alerte");
+            int id_categorie = rs.getInt("id_categorie");
+            rs.close();
+            produit p = new produit(id_produit, nom, prix_vente, stock_actuel, seuil_alerte, id_categorie);
+
+            return p;
+
+        } else {
+            rs.close();
+            return null;
+        }
+    }
+
 }

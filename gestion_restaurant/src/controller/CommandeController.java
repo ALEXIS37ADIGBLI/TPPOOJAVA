@@ -180,7 +180,7 @@ public class CommandeController {
             Connection conn = DBConnection.getConnection();
 
             // 1. Créer la commande et récupérer son ID généré
-            String sqlCommande = "INSERT INTO commande (date_commande, etat, total) VALUES (NOW(), 'EN_COURS', ?)";
+            String sqlCommande = "INSERT INTO commande (date_commande, etat, total) VALUES (NOW(), 'VALIDÉE', ?)";
             double total = lignesEnCours.stream().mapToDouble(ligne_commande::getMontant_ligne).sum();
 
             PreparedStatement psCommande = conn.prepareStatement(sqlCommande, Statement.RETURN_GENERATED_KEYS);
