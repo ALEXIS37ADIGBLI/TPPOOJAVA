@@ -18,7 +18,7 @@ import outils.DBException;
  *
  * @author bossmrpk
  */
-public class CategoriePanel extends javax.swing.JPanel {
+public class CategoriePanel extends javax.swing.JPanel implements Rafraichissable{
 
     DefaultTableModel model;
     CategorieDAO categorieDAO = new CategorieDAO();
@@ -34,7 +34,7 @@ public class CategoriePanel extends javax.swing.JPanel {
         jTable1.getTableHeader().setForeground(new java.awt.Color(255, 255, 255));
         jTable1.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
         jTable1.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
-        chargerTableCategorie();
+        rafraichir();
         ajouterEvenements();
 
         // --- DEBUT DE LA MODERNISATION ---
@@ -74,6 +74,12 @@ public class CategoriePanel extends javax.swing.JPanel {
         this.repaint();
         // --- FIN DE LA MODERNISATION ---
     }
+    
+    @Override
+    public void rafraichir() {
+        chargerTableCategorie();
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

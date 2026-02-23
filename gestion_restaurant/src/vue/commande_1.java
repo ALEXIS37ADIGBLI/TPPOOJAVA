@@ -10,7 +10,7 @@ import controller.CommandeController;
  *
  * @author agbeb
  */
-public class commande_1 extends javax.swing.JPanel {
+public class commande_1 extends javax.swing.JPanel implements Rafraichissable{
 
     /**
      * Creates new form commande
@@ -175,6 +175,11 @@ public class commande_1 extends javax.swing.JPanel {
     this.revalidate();
     this.repaint();
 }
+    
+    @Override
+    public void rafraichir() {
+        CommandeController.chargerProduits(ComboBoxProduit);
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

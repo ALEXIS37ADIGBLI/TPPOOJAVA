@@ -17,7 +17,7 @@ import outils.DBException;
  *
  * @author wilfried
  */
-public class UIProduit extends javax.swing.JPanel {
+public class UIProduit extends javax.swing.JPanel implements Rafraichissable {
 
     /**
      * Creates new form UIProduit
@@ -159,15 +159,20 @@ public class UIProduit extends javax.swing.JPanel {
     jScrollPane1.getViewport().setBackground(blanc);
 
     // === CHARGEMENT ===
-    try {
-        produitController.remplirTableau(listeProduit);
-        produitController.chargerCategories(categorie);
-    } catch (DBException | SQLException ex) {
-        System.getLogger(UIProduit.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
-    }
+    rafraichir();
 
     this.revalidate();
     this.repaint();
+}
+    
+    @Override
+    public void rafraichir() {
+    try {
+        produitController.remplirTableau(listeProduit);
+        produitController.chargerCategories(categorie);
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 }
     /**
      * This method is called from within the constructor to initialize the form.

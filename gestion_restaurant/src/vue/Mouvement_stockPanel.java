@@ -22,7 +22,7 @@ import outils.DBException;
  * @author bossmrpk
  */
 
-public class Mouvement_stockPanel extends javax.swing.JPanel {
+public class Mouvement_stockPanel extends javax.swing.JPanel implements Rafraichissable{
     private boolean alertVisible = false;
     produitDAO produitDAO = new produitDAO();
     List<produit> listeproduit;
@@ -48,7 +48,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     jPanel1.setBackground(grisClaire);
 
     // === TITRE ===
-    jLabel1.setText("⚙  Mouvement de stock");
+    jLabel1.setText("  Mouvement de stock");
     jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 26));
     jLabel1.setForeground(bleuFonce);
 
@@ -94,7 +94,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     textMotif.putClientProperty("JTextField.placeholderText", "Raison du mouvement...");
 
     // Bouton Enregistrer
-    BouttonEnregistrer.setText("✚  Enregistrer");
+    BouttonEnregistrer.setText("  Enregistrer");
     BouttonEnregistrer.setBackground(bleuBtn);
     BouttonEnregistrer.setForeground(blanc);
     BouttonEnregistrer.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
@@ -105,7 +105,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     BouttonEnregistrer.putClientProperty("FlatLaf.style", "");
 
     // Bouton Nettoyer
-    BouttonNettoye.setText("↺  Nettoyer");
+    BouttonNettoye.setText("  Nettoyer");
     BouttonNettoye.setBackground(grisBtnN);
     BouttonNettoye.setForeground(blanc);
     BouttonNettoye.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
@@ -130,7 +130,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     ));
 
     // Bouton Seuil
-    BouttonSeuil.setText("⚠  Seuil d'alerte");
+    BouttonSeuil.setText(" Seuil d'alerte");
     BouttonSeuil.setBackground(rouge);
     BouttonSeuil.setForeground(blanc);
     BouttonSeuil.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
@@ -197,12 +197,21 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
     // === CHARGEMENT ===
     LabelSeuilAlert.setVisible(false);
     jSeparator2.setVisible(false);
-    chargerproduitBox();
-    chargerHistorique();
+    rafraichir();
 
     this.revalidate();
     this.repaint();
 }
+    
+    @Override
+    public void rafraichir() {
+        try {
+            chargerproduitBox();
+            chargerHistorique();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static void main(String[] args) {
     javax.swing.SwingUtilities.invokeLater(() -> {
         javax.swing.JFrame frame = new javax.swing.JFrame("Test du Panel");
@@ -332,7 +341,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
                         .addComponent(produitBox, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE))
                     .addGroup(formulaireLayout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(formulaireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(formulaireLayout.createSequentialGroup()
                                 .addGap(7, 7, 7)
                                 .addComponent(textMotif, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE))
@@ -377,6 +386,9 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
         BouttonSeuil.setText("seuil d’alerte");
         BouttonSeuil.addActionListener(this::BouttonSeuilActionPerformed);
 
+        LabelSeuilAlert.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        LabelSeuilAlert.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
         javax.swing.GroupLayout HistoriqueLayout = new javax.swing.GroupLayout(Historique);
         Historique.setLayout(HistoriqueLayout);
         HistoriqueLayout.setHorizontalGroup(
@@ -396,7 +408,7 @@ public class Mouvement_stockPanel extends javax.swing.JPanel {
                 .addGap(7, 7, 7)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(LabelSeuilAlert, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(LabelSeuilAlert, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(62, 62, 62))
