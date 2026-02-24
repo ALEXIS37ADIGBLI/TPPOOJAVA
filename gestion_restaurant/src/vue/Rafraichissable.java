@@ -9,5 +9,6 @@ package vue;
  * @author Xisclever
  */
 public interface Rafraichissable {
+
     void rafraichir();
 }

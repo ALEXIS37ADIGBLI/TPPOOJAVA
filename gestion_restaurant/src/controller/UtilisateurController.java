@@ -40,8 +40,8 @@ public class UtilisateurController {
     }
 
     /**
-     * Ouvre une boîte de dialogue pour ajouter un utilisateur,
-     * l'insère en BDD, puis rafraîchit le tableau.
+     * Ouvre une boîte de dialogue pour ajouter un utilisateur, l'insère en BDD,
+     * puis rafraîchit le tableau.
      */
     public static void ajouterUtilisateur(JTable table) {
         // Récupérer le login

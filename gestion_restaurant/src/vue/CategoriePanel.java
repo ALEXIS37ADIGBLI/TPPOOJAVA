@@ -18,7 +18,7 @@ import outils.DBException;
  *
  * @author bossmrpk
  */
-public class CategoriePanel extends javax.swing.JPanel implements Rafraichissable{
+public class CategoriePanel extends javax.swing.JPanel implements Rafraichissable {
 
     DefaultTableModel model;
     CategorieDAO categorieDAO = new CategorieDAO();
@@ -74,12 +74,11 @@ public class CategoriePanel extends javax.swing.JPanel implements Rafraichissabl
         this.repaint();
         // --- FIN DE LA MODERNISATION ---
     }
-    
+
     @Override
     public void rafraichir() {
         chargerTableCategorie();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.

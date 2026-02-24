@@ -50,11 +50,11 @@ public class CommandeController {
     }
 
     /**
-     * Ajoute une ligne au tableau de commande (sans toucher à la BDD).
-     * La BDD sera mise à jour seulement lors de la validation.
+     * Ajoute une ligne au tableau de commande (sans toucher à la BDD). La BDD
+     * sera mise à jour seulement lors de la validation.
      */
     public static void ajouterLigne(JComboBox<String> combo, JTextField champQuantite,
-                                     JTable tableau, JTextField champTotal) {
+            JTable tableau, JTextField champTotal) {
         // Vérifier qu'un produit est sélectionné
         int idx = combo.getSelectedIndex();
         if (idx <= 0) {
@@ -68,7 +68,9 @@ public class CommandeController {
         int quantite;
         try {
             quantite = Integer.parseInt(champQuantite.getText().trim());
-            if (quantite <= 0) throw new NumberFormatException();
+            if (quantite <= 0) {
+                throw new NumberFormatException();
+            }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null,
                     "Veuillez saisir une quantité valide (nombre entier > 0).",
@@ -160,8 +162,8 @@ public class CommandeController {
     }
 
     /**
-     * Valide la commande : crée la commande en BDD, insère les lignes,
-     * le trigger SQL se charge de décrémenter le stock.
+     * Valide la commande : crée la commande en BDD, insère les lignes, le
+     * trigger SQL se charge de décrémenter le stock.
      */
     public static void validerCommande(JTable tableau, JTextField champTotal, JComboBox<String> combo) {
         if (lignesEnCours.isEmpty()) {
@@ -174,7 +176,9 @@ public class CommandeController {
         int confirmation = JOptionPane.showConfirmDialog(null,
                 "Confirmer la validation de la commande ?",
                 "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (confirmation != JOptionPane.YES_OPTION) return;
+        if (confirmation != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         try {
             Connection conn = DBConnection.getConnection();
@@ -188,7 +192,9 @@ public class CommandeController {
             psCommande.executeUpdate();
 
             ResultSet keys = psCommande.getGeneratedKeys();
-            if (!keys.next()) throw new SQLException("Impossible de récupérer l'ID de la commande.");
+            if (!keys.next()) {
+                throw new SQLException("Impossible de récupérer l'ID de la commande.");
+            }
             int idCommande = keys.getInt(1);
 
             // 2. Insérer chaque ligne (le trigger SQL gère la décrémentation du stock)
@@ -225,7 +231,9 @@ public class CommandeController {
         int confirmation = JOptionPane.showConfirmDialog(null,
                 "Annuler la commande en cours ? Toutes les lignes seront supprimées.",
                 "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if (confirmation != JOptionPane.YES_OPTION) return;
+        if (confirmation != JOptionPane.YES_OPTION) {
+            return;
+        }
 
         lignesEnCours.clear();
         DefaultTableModel model = (DefaultTableModel) tableau.getModel();

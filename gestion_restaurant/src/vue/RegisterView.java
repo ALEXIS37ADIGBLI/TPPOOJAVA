@@ -25,7 +25,6 @@ public class RegisterView extends javax.swing.JFrame {
         //chkAdmin.setBounds(38, 308, 250, 25); // ← juste sous le champ password
         //getContentPane().add(chkAdmin);
         //chkAdmin.getParent().setComponentZOrder(chkAdmin, 0); // ← passe au premier plan
-
         java.awt.Color bleuFonce = new java.awt.Color(11, 58, 102);
         java.awt.Color bleuBtn = new java.awt.Color(13, 79, 139);
         java.awt.Color blanc = new java.awt.Color(255, 255, 255);

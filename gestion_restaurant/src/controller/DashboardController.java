@@ -53,7 +53,7 @@ public class DashboardController {
             if (stockFaible > 0) {
                 view.getPanelAlerte().setVisible(true);
                 view.getLblMessageAlerte().setText("<html><b>⚠ Alerte de Stock</b><br/>"
-                    + stockFaible + " produit(s) sont en dessous du seuil. Vérifiez les stocks.</html>");
+                        + stockFaible + " produit(s) sont en dessous du seuil. Vérifiez les stocks.</html>");
             } else {
                 view.getPanelAlerte().setVisible(false);
             }

@@ -25,155 +25,156 @@ public class UIProduit extends javax.swing.JPanel implements Rafraichissable {
     private List<produit> ListP = null;
 
     public UIProduit() {
-    initComponents();
+        initComponents();
 
-    // === COULEURS DU THÈME ===
-    java.awt.Color bleuFonce  = new java.awt.Color(11, 58, 102);
-    java.awt.Color blanc       = new java.awt.Color(255, 255, 255);
-    java.awt.Color grisClaire  = new java.awt.Color(243, 244, 246);
-    java.awt.Color texteSombre = new java.awt.Color(31, 41, 55);
-    java.awt.Color bordure     = new java.awt.Color(229, 231, 235);
-    java.awt.Color bleuBtn     = new java.awt.Color(13, 79, 139);
-    java.awt.Color vert        = new java.awt.Color(22, 163, 74);
-    java.awt.Color rouge       = new java.awt.Color(220, 38, 38);
-    java.awt.Color grisBtnN    = new java.awt.Color(107, 114, 128);
+        // === COULEURS DU THÈME ===
+        java.awt.Color bleuFonce = new java.awt.Color(11, 58, 102);
+        java.awt.Color blanc = new java.awt.Color(255, 255, 255);
+        java.awt.Color grisClaire = new java.awt.Color(243, 244, 246);
+        java.awt.Color texteSombre = new java.awt.Color(31, 41, 55);
+        java.awt.Color bordure = new java.awt.Color(229, 231, 235);
+        java.awt.Color bleuBtn = new java.awt.Color(13, 79, 139);
+        java.awt.Color vert = new java.awt.Color(22, 163, 74);
+        java.awt.Color rouge = new java.awt.Color(220, 38, 38);
+        java.awt.Color grisBtnN = new java.awt.Color(107, 114, 128);
 
-    // === FOND GÉNÉRAL ===
-    this.setBackground(grisClaire);
+        // === FOND GÉNÉRAL ===
+        this.setBackground(grisClaire);
 
-    // === TITRE ===
-    jLabel1.setText("Gestion des produits");
-    jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 26));
-    jLabel1.setForeground(bleuFonce);
+        // === TITRE ===
+        jLabel1.setText("Gestion des produits");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 26));
+        jLabel1.setForeground(bleuFonce);
 
-    // === PANEL FORMULAIRE ===
-    jPanel1.setBackground(blanc);
-    jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
+        // === PANEL FORMULAIRE ===
+        jPanel1.setBackground(blanc);
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
 
-    // Labels
-    jLabel2.setText("Nom du produit");
-    jLabel2.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    jLabel2.setForeground(texteSombre);
+        // Labels
+        jLabel2.setText("Nom du produit");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        jLabel2.setForeground(texteSombre);
 
-    jLabel3.setText("Catégorie");
-    jLabel3.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    jLabel3.setForeground(texteSombre);
+        jLabel3.setText("Catégorie");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        jLabel3.setForeground(texteSombre);
 
-    jLabel4.setText("Prix");
-    jLabel4.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    jLabel4.setForeground(texteSombre);
+        jLabel4.setText("Prix");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        jLabel4.setForeground(texteSombre);
 
-    jLabel6.setText("Stock actuel");
-    jLabel6.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    jLabel6.setForeground(texteSombre);
+        jLabel6.setText("Stock actuel");
+        jLabel6.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        jLabel6.setForeground(texteSombre);
 
-    jLabel5.setText("Seuil alerte");
-    jLabel5.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    jLabel5.setForeground(texteSombre);
+        jLabel5.setText("Seuil alerte");
+        jLabel5.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        jLabel5.setForeground(texteSombre);
 
-    // Champs texte
-    for (javax.swing.JTextField field : new javax.swing.JTextField[]{produitNom, prix, stock_actuel, seuil_alerte}) {
-        field.setBackground(blanc);
-        field.setForeground(texteSombre);
-        field.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
-        field.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
+        // Champs texte
+        for (javax.swing.JTextField field : new javax.swing.JTextField[]{produitNom, prix, stock_actuel, seuil_alerte}) {
+            field.setBackground(blanc);
+            field.setForeground(texteSombre);
+            field.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+            field.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
+        }
+        produitNom.putClientProperty("JTextField.placeholderText", "Nom du produit...");
+        prix.putClientProperty("JTextField.placeholderText", "0.00");
+        stock_actuel.putClientProperty("JTextField.placeholderText", "0");
+        seuil_alerte.putClientProperty("JTextField.placeholderText", "0");
+
+        // ComboBox Catégorie
+        categorie.setBackground(blanc);
+        categorie.setForeground(texteSombre);
+        categorie.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+
+        // Bouton Ajouter (Bleu)
+        addBtn.setText("  Ajouter");
+        addBtn.setBackground(bleuBtn);
+        addBtn.setForeground(blanc);
+        addBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        addBtn.setOpaque(true);
+        addBtn.setFocusPainted(false);
+        addBtn.setBorderPainted(false);
+        addBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        addBtn.putClientProperty("FlatLaf.style", "");
+
+        // Bouton Modifier (Vert)
+        updateBtn.setText("  Modifier");
+        updateBtn.setBackground(vert);
+        updateBtn.setForeground(blanc);
+        updateBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        updateBtn.setOpaque(true);
+        updateBtn.setFocusPainted(false);
+        updateBtn.setBorderPainted(false);
+        updateBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        updateBtn.putClientProperty("FlatLaf.style", "");
+
+        // Bouton Supprimer (Rouge)
+        deleteBtn.setText("  Supprimer");
+        deleteBtn.setBackground(rouge);
+        deleteBtn.setForeground(blanc);
+        deleteBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        deleteBtn.setOpaque(true);
+        deleteBtn.setFocusPainted(false);
+        deleteBtn.setBorderPainted(false);
+        deleteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        deleteBtn.putClientProperty("FlatLaf.style", "");
+
+        // Bouton Effacer (Gris)
+        clearBtn.setText("  Effacer");
+        clearBtn.setBackground(grisBtnN);
+        clearBtn.setForeground(blanc);
+        clearBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        clearBtn.setOpaque(true);
+        clearBtn.setFocusPainted(false);
+        clearBtn.setBorderPainted(false);
+        clearBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        clearBtn.putClientProperty("FlatLaf.style", "");
+
+        // === PANEL TABLEAU ===
+        jPanel2.setBackground(blanc);
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
+
+        // Tableau
+        listeProduit.setBackground(blanc);
+        listeProduit.setForeground(texteSombre);
+        listeProduit.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        listeProduit.setRowHeight(38);
+        listeProduit.setGridColor(new java.awt.Color(243, 244, 246));
+        listeProduit.setSelectionBackground(new java.awt.Color(219, 234, 254));
+        listeProduit.setSelectionForeground(new java.awt.Color(30, 64, 175));
+        listeProduit.setShowHorizontalLines(true);
+        listeProduit.setShowVerticalLines(false);
+        listeProduit.putClientProperty("FlatLaf.style", "");
+
+        // En-tête du tableau
+        listeProduit.getTableHeader().setBackground(bleuFonce);
+        listeProduit.getTableHeader().setForeground(blanc);
+        listeProduit.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        listeProduit.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
+
+        // ScrollPane
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        jScrollPane1.getViewport().setBackground(blanc);
+
+        // === CHARGEMENT ===
+        rafraichir();
+
+        this.revalidate();
+        this.repaint();
     }
-    produitNom.putClientProperty("JTextField.placeholderText", "Nom du produit...");
-    prix.putClientProperty("JTextField.placeholderText", "0.00");
-    stock_actuel.putClientProperty("JTextField.placeholderText", "0");
-    seuil_alerte.putClientProperty("JTextField.placeholderText", "0");
 
-    // ComboBox Catégorie
-    categorie.setBackground(blanc);
-    categorie.setForeground(texteSombre);
-    categorie.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
-
-    // Bouton Ajouter (Bleu)
-    addBtn.setText("  Ajouter");
-    addBtn.setBackground(bleuBtn);
-    addBtn.setForeground(blanc);
-    addBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    addBtn.setOpaque(true);
-    addBtn.setFocusPainted(false);
-    addBtn.setBorderPainted(false);
-    addBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    addBtn.putClientProperty("FlatLaf.style", "");
-
-    // Bouton Modifier (Vert)
-    updateBtn.setText("  Modifier");
-    updateBtn.setBackground(vert);
-    updateBtn.setForeground(blanc);
-    updateBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    updateBtn.setOpaque(true);
-    updateBtn.setFocusPainted(false);
-    updateBtn.setBorderPainted(false);
-    updateBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    updateBtn.putClientProperty("FlatLaf.style", "");
-
-    // Bouton Supprimer (Rouge)
-    deleteBtn.setText("  Supprimer");
-    deleteBtn.setBackground(rouge);
-    deleteBtn.setForeground(blanc);
-    deleteBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    deleteBtn.setOpaque(true);
-    deleteBtn.setFocusPainted(false);
-    deleteBtn.setBorderPainted(false);
-    deleteBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    deleteBtn.putClientProperty("FlatLaf.style", "");
-
-    // Bouton Effacer (Gris)
-    clearBtn.setText("  Effacer");
-    clearBtn.setBackground(grisBtnN);
-    clearBtn.setForeground(blanc);
-    clearBtn.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    clearBtn.setOpaque(true);
-    clearBtn.setFocusPainted(false);
-    clearBtn.setBorderPainted(false);
-    clearBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    clearBtn.putClientProperty("FlatLaf.style", "");
-
-    // === PANEL TABLEAU ===
-    jPanel2.setBackground(blanc);
-    jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
-
-    // Tableau
-    listeProduit.setBackground(blanc);
-    listeProduit.setForeground(texteSombre);
-    listeProduit.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
-    listeProduit.setRowHeight(38);
-    listeProduit.setGridColor(new java.awt.Color(243, 244, 246));
-    listeProduit.setSelectionBackground(new java.awt.Color(219, 234, 254));
-    listeProduit.setSelectionForeground(new java.awt.Color(30, 64, 175));
-    listeProduit.setShowHorizontalLines(true);
-    listeProduit.setShowVerticalLines(false);
-    listeProduit.putClientProperty("FlatLaf.style", "");
-
-    // En-tête du tableau
-    listeProduit.getTableHeader().setBackground(bleuFonce);
-    listeProduit.getTableHeader().setForeground(blanc);
-    listeProduit.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    listeProduit.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
-
-    // ScrollPane
-    jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-    jScrollPane1.getViewport().setBackground(blanc);
-
-    // === CHARGEMENT ===
-    rafraichir();
-
-    this.revalidate();
-    this.repaint();
-}
-    
     @Override
     public void rafraichir() {
-    try {
-        produitController.remplirTableau(listeProduit);
-        produitController.chargerCategories(categorie);
-    } catch (Exception e) {
-        e.printStackTrace();
+        try {
+            produitController.remplirTableau(listeProduit);
+            produitController.chargerCategories(categorie);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-}
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

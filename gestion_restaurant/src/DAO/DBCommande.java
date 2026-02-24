@@ -118,7 +118,6 @@ public class DBCommande {
         return 0.0;
     }
 
-
     public static double getTotatRevenueDay() throws DBException, SQLException {
         String sql = "SELECT SUM(total) FROM commande WHERE DATE(date_commande) = CURDATE() AND etat = 'VALIDÉE'";
         Connection conn = DBConnection.getConnection();

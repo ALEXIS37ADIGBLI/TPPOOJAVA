@@ -13,7 +13,7 @@ import outils.DBException;
  *
  * @author wilfried
  */
-public class Statistics extends javax.swing.JPanel implements Rafraichissable{
+public class Statistics extends javax.swing.JPanel implements Rafraichissable {
 
     /**
      * Creates new form statistics
@@ -154,21 +154,27 @@ public class Statistics extends javax.swing.JPanel implements Rafraichissable{
         this.revalidate();
         this.repaint();
     }
-    
-     @Override
+
+    @Override
     public void rafraichir() {
         try {
             DefaultTableModel modelSeuil = new DefaultTableModel(
-                new Object[]{"ID", "Nom", "Stock Actuel", "Seuil Alerte"}, 0
+                    new Object[]{"ID", "Nom", "Stock Actuel", "Seuil Alerte"}, 0
             ) {
-                @Override public boolean isCellEditable(int r, int c) { return false; }
+                @Override
+                public boolean isCellEditable(int r, int c) {
+                    return false;
+                }
             };
             tabSeuil.setModel(modelSeuil);
 
             DefaultTableModel modelBest = new DefaultTableModel(
-                new Object[]{"ID", "Nom", "Quantité vendue", "Prix Total"}, 0
+                    new Object[]{"ID", "Nom", "Quantité vendue", "Prix Total"}, 0
             ) {
-                @Override public boolean isCellEditable(int r, int c) { return false; }
+                @Override
+                public boolean isCellEditable(int r, int c) {
+                    return false;
+                }
             };
             listbest.setModel(modelBest);
 

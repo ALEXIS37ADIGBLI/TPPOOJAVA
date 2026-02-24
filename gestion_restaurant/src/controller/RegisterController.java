@@ -35,20 +35,20 @@ public class RegisterController {
     private void enregistrerUtilisateur() {
 
         // Récupération des valeurs saisies
-        String login    = view.txtLogin.getText().trim();
+        String login = view.txtLogin.getText().trim();
         String password = new String(view.txtPassword.getPassword());
 
         // Vérification : champs vides
         if (login.isEmpty() || password.isEmpty()) {
             afficherAlerte("Veuillez remplir tous les champs !",
-                new Color(254, 226, 226), new Color(153, 27, 27));
+                    new Color(254, 226, 226), new Color(153, 27, 27));
             return;
         }
 
         // Vérification : mot de passe trop court
         if (password.length() < 4) {
             afficherAlerte("Le mot de passe doit avoir au moins 4 caractères.",
-                new Color(254, 226, 226), new Color(153, 27, 27));
+                    new Color(254, 226, 226), new Color(153, 27, 27));
             return;
         }
 
@@ -61,7 +61,7 @@ public class RegisterController {
 
             // Succès : message de confirmation
             afficherAlerte("Compte créé avec succès ! Redirection...",
-                new Color(220, 252, 231), new Color(22, 101, 52));
+                    new Color(220, 252, 231), new Color(22, 101, 52));
 
             // Redirection vers le login après 1,5 secondes
             Timer timer = new Timer(1500, (e) -> {
@@ -76,7 +76,7 @@ public class RegisterController {
         } catch (DBException | SQLException ex) {
             // Erreur base de données
             afficherAlerte("Erreur : " + ex.getMessage(),
-                new Color(255, 237, 213), new Color(154, 52, 18));
+                    new Color(255, 237, 213), new Color(154, 52, 18));
         }
     }
 

@@ -225,7 +225,7 @@ public class produitDAO {
         }
         return list;
     }
-    
+
     public static produit Get(String produitnom) throws
             DBException, SQLException {
         String sql = "SELECT p.* FROM produit p JOIN categorie c ON p.id_categorie = c.id_categorie WHERE p.nom = ?";

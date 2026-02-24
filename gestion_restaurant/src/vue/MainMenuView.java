@@ -18,10 +18,9 @@ public class MainMenuView extends javax.swing.JFrame {
      * Creates new form MainMenuView
      */
     public MainMenuView() {
-        
+
         initComponents();
 
-        
         setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
         jPanel3.removeAll();
         jPanel3.setLayout(new java.awt.CardLayout());
@@ -55,10 +54,10 @@ public class MainMenuView extends javax.swing.JFrame {
 
             Utilisateurs userPage = new Utilisateurs();
             jPanel3.add(userPage, "cardUser");
-            
+
             Statistics staPage = new Statistics();
             jPanel3.add(staPage, "cardSta");
-            
+
             UIProduit prodPage = new UIProduit();
             jPanel3.add(prodPage, "cardProd");
 
@@ -75,13 +74,13 @@ public class MainMenuView extends javax.swing.JFrame {
         // Bouton Dashboard
         setupMenuButton(jButton1, "images/layout-dashboard.svg", iconSize, true, margin);
         //jButton1.addActionListener(e -> {
-           // ((java.awt.CardLayout) jPanel3.getLayout()).show(jPanel3, "cardDashboard");
+        // ((java.awt.CardLayout) jPanel3.getLayout()).show(jPanel3, "cardDashboard");
         //});
 
         // Bouton Produits
         setupMenuButton(jButton2, "images/package.svg", iconSize, false, margin);
         // L'action est déjà gérée par NetBeans dans jButton2ActionPerformed*
-        
+
         setupMenuButton(jButton9, "images/package.svg", iconSize, false, margin);
         // L'action est déjà gérée par NetBeans dans jButton2ActionPerformed
 
@@ -124,24 +123,22 @@ public class MainMenuView extends javax.swing.JFrame {
     }
 
     private void afficherCarte(String nomCarte, javax.swing.JButton btnActif) {
-    java.awt.CardLayout cl = (java.awt.CardLayout) jPanel3.getLayout();
-    cl.show(jPanel3, nomCarte);
-    setActiveButton(btnActif);
+        java.awt.CardLayout cl = (java.awt.CardLayout) jPanel3.getLayout();
+        cl.show(jPanel3, nomCarte);
+        setActiveButton(btnActif);
 
-    // Chercher le composant visible APRÈS le show()
-    // CardLayout rend visible uniquement la carte active
-    javax.swing.SwingUtilities.invokeLater(() -> {
-        for (java.awt.Component comp : jPanel3.getComponents()) {
-            if (comp.isVisible() && comp instanceof Rafraichissable) {
-                ((Rafraichissable) comp).rafraichir();
-                break;
+        // Chercher le composant visible APRÈS le show()
+        // CardLayout rend visible uniquement la carte active
+        javax.swing.SwingUtilities.invokeLater(() -> {
+            for (java.awt.Component comp : jPanel3.getComponents()) {
+                if (comp.isVisible() && comp instanceof Rafraichissable) {
+                    ((Rafraichissable) comp).rafraichir();
+                    break;
+                }
             }
-        }
-    });
-}
-    
-    
-    
+        });
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -487,7 +484,7 @@ public class MainMenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         afficherCarte("cardCategorie", jButton3);
         //CardLayout cl = (CardLayout) jPanel3.getLayout();
         //cl.show(jPanel3, "cardCategorie");
@@ -495,7 +492,7 @@ public class MainMenuView extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         afficherCarte("cardDashboard", jButton1);
+        afficherCarte("cardDashboard", jButton1);
         //setActiveButton(jButton1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -517,13 +514,13 @@ public class MainMenuView extends javax.swing.JFrame {
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         this.dispose();
-    vue.LoginView loginPage = new vue.LoginView();
-    new controller.LoginController(loginPage);
-    loginPage.setVisible(true);
+        vue.LoginView loginPage = new vue.LoginView();
+        new controller.LoginController(loginPage);
+        loginPage.setVisible(true);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-         afficherCarte("cardSta", jButton6);
+        afficherCarte("cardSta", jButton6);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     // Remplace tes getters actuels par ceux-ci dans MainMenuView.java

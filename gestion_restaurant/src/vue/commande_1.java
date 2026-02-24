@@ -10,172 +10,172 @@ import controller.CommandeController;
  *
  * @author agbeb
  */
-public class commande_1 extends javax.swing.JPanel implements Rafraichissable{
+public class commande_1 extends javax.swing.JPanel implements Rafraichissable {
 
     /**
      * Creates new form commande
      */
     public commande_1() {
-    initComponents();
+        initComponents();
 
-    // === COULEURS DU THÈME ===
-    java.awt.Color bleuFonce  = new java.awt.Color(11, 58, 102);
-    java.awt.Color blanc       = new java.awt.Color(255, 255, 255);
-    java.awt.Color grisClaire  = new java.awt.Color(243, 244, 246);
-    java.awt.Color texteSombre = new java.awt.Color(31, 41, 55);
-    java.awt.Color grisLabel   = new java.awt.Color(107, 114, 128);
-    java.awt.Color bleuBtn     = new java.awt.Color(13, 79, 139);
-    java.awt.Color vert        = new java.awt.Color(22, 163, 74);
-    java.awt.Color rouge       = new java.awt.Color(220, 38, 38);
-    java.awt.Color bordure     = new java.awt.Color(229, 231, 235);
+        // === COULEURS DU THÈME ===
+        java.awt.Color bleuFonce = new java.awt.Color(11, 58, 102);
+        java.awt.Color blanc = new java.awt.Color(255, 255, 255);
+        java.awt.Color grisClaire = new java.awt.Color(243, 244, 246);
+        java.awt.Color texteSombre = new java.awt.Color(31, 41, 55);
+        java.awt.Color grisLabel = new java.awt.Color(107, 114, 128);
+        java.awt.Color bleuBtn = new java.awt.Color(13, 79, 139);
+        java.awt.Color vert = new java.awt.Color(22, 163, 74);
+        java.awt.Color rouge = new java.awt.Color(220, 38, 38);
+        java.awt.Color bordure = new java.awt.Color(229, 231, 235);
 
-    // === FOND GÉNÉRAL ===
-    this.setBackground(grisClaire);
-    jPanel1.setBackground(grisClaire);
+        // === FOND GÉNÉRAL ===
+        this.setBackground(grisClaire);
+        jPanel1.setBackground(grisClaire);
 
-    // === TITRE ===
-    jLabel1.setText("Gestion des Commandes");
-    jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 26));
-    jLabel1.setForeground(bleuFonce);
+        // === TITRE ===
+        jLabel1.setText("Gestion des Commandes");
+        jLabel1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 26));
+        jLabel1.setForeground(bleuFonce);
 
-    // === PANEL FORMULAIRE (jPanel2) ===
-    jPanel2.setBackground(blanc);
-    jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
+        // === PANEL FORMULAIRE (jPanel2) ===
+        jPanel2.setBackground(blanc);
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
 
-    // Labels
-    jLabel2.setText("Produit");
-    jLabel2.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    jLabel2.setForeground(texteSombre);
+        // Labels
+        jLabel2.setText("Produit");
+        jLabel2.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        jLabel2.setForeground(texteSombre);
 
-    jLabel3.setText("Quantité");
-    jLabel3.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    jLabel3.setForeground(texteSombre);
+        jLabel3.setText("Quantité");
+        jLabel3.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        jLabel3.setForeground(texteSombre);
 
-    // ComboBox Produit
-    ComboBoxProduit.setBackground(blanc);
-    ComboBoxProduit.setForeground(texteSombre);
-    ComboBoxProduit.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        // ComboBox Produit
+        ComboBoxProduit.setBackground(blanc);
+        ComboBoxProduit.setForeground(texteSombre);
+        ComboBoxProduit.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
 
-    // Champ Quantité
-    TextFieldQuantité.setBackground(blanc);
-    TextFieldQuantité.setForeground(texteSombre);
-    TextFieldQuantité.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
-    TextFieldQuantité.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
-    TextFieldQuantité.putClientProperty("JTextField.placeholderText", "0");
+        // Champ Quantité
+        TextFieldQuantité.setBackground(blanc);
+        TextFieldQuantité.setForeground(texteSombre);
+        TextFieldQuantité.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        TextFieldQuantité.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
+        TextFieldQuantité.putClientProperty("JTextField.placeholderText", "0");
 
-    // Bouton Ajouter (Bleu)
-    BoutonAjouter.setText("  Ajouter à la commande");
-    BoutonAjouter.setBackground(bleuBtn);
-    BoutonAjouter.setForeground(blanc);
-    BoutonAjouter.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    BoutonAjouter.setOpaque(true);
-    BoutonAjouter.setFocusPainted(false);
-    BoutonAjouter.setBorderPainted(false);
-    BoutonAjouter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    BoutonAjouter.putClientProperty("FlatLaf.style", "");
+        // Bouton Ajouter (Bleu)
+        BoutonAjouter.setText("  Ajouter à la commande");
+        BoutonAjouter.setBackground(bleuBtn);
+        BoutonAjouter.setForeground(blanc);
+        BoutonAjouter.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        BoutonAjouter.setOpaque(true);
+        BoutonAjouter.setFocusPainted(false);
+        BoutonAjouter.setBorderPainted(false);
+        BoutonAjouter.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BoutonAjouter.putClientProperty("FlatLaf.style", "");
 
-    // === PANEL TABLEAU (jPanel3) ===
-    jPanel3.setBackground(blanc);
-    jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
+        // === PANEL TABLEAU (jPanel3) ===
+        jPanel3.setBackground(blanc);
+        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
 
-    // Label Total
-    jLabel4.setText("Total : ");
-    jLabel4.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
-    jLabel4.setForeground(bleuFonce);
+        // Label Total
+        jLabel4.setText("Total : ");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 14));
+        jLabel4.setForeground(bleuFonce);
 
-    // Champ Total (non éditable)
-    jTextField1.setEditable(false);
-    jTextField1.setBackground(grisClaire);
-    jTextField1.setForeground(bleuFonce);
-    jTextField1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
-    jTextField1.setText("0.00");
+        // Champ Total (non éditable)
+        jTextField1.setEditable(false);
+        jTextField1.setBackground(grisClaire);
+        jTextField1.setForeground(bleuFonce);
+        jTextField1.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(bordure, 1));
+        jTextField1.setText("0.00");
 
-    // Bouton Valider (Vert)
-    BoutonValiderCommande.setText("  Valider la commande");
-    BoutonValiderCommande.setBackground(vert);
-    BoutonValiderCommande.setForeground(blanc);
-    BoutonValiderCommande.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    BoutonValiderCommande.setOpaque(true);
-    BoutonValiderCommande.setFocusPainted(false);
-    BoutonValiderCommande.setBorderPainted(false);
-    BoutonValiderCommande.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    BoutonValiderCommande.putClientProperty("FlatLaf.style", "");
+        // Bouton Valider (Vert)
+        BoutonValiderCommande.setText("  Valider la commande");
+        BoutonValiderCommande.setBackground(vert);
+        BoutonValiderCommande.setForeground(blanc);
+        BoutonValiderCommande.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        BoutonValiderCommande.setOpaque(true);
+        BoutonValiderCommande.setFocusPainted(false);
+        BoutonValiderCommande.setBorderPainted(false);
+        BoutonValiderCommande.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BoutonValiderCommande.putClientProperty("FlatLaf.style", "");
 
-    // Bouton Annuler (Rouge)
-    BoutonAnnulerCommande.setText("  Annuler la commande");
-    BoutonAnnulerCommande.setBackground(rouge);
-    BoutonAnnulerCommande.setForeground(blanc);
-    BoutonAnnulerCommande.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    BoutonAnnulerCommande.setOpaque(true);
-    BoutonAnnulerCommande.setFocusPainted(false);
-    BoutonAnnulerCommande.setBorderPainted(false);
-    BoutonAnnulerCommande.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-    BoutonAnnulerCommande.putClientProperty("FlatLaf.style", "");
+        // Bouton Annuler (Rouge)
+        BoutonAnnulerCommande.setText("  Annuler la commande");
+        BoutonAnnulerCommande.setBackground(rouge);
+        BoutonAnnulerCommande.setForeground(blanc);
+        BoutonAnnulerCommande.setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        BoutonAnnulerCommande.setOpaque(true);
+        BoutonAnnulerCommande.setFocusPainted(false);
+        BoutonAnnulerCommande.setBorderPainted(false);
+        BoutonAnnulerCommande.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        BoutonAnnulerCommande.putClientProperty("FlatLaf.style", "");
 
-    // === TABLEAU ===
-    TableauCommande.setBackground(blanc);
-    TableauCommande.setForeground(texteSombre);
-    TableauCommande.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
-    TableauCommande.setRowHeight(38);
-    TableauCommande.setGridColor(new java.awt.Color(243, 244, 246));
-    TableauCommande.setSelectionBackground(new java.awt.Color(219, 234, 254));
-    TableauCommande.setSelectionForeground(new java.awt.Color(30, 64, 175));
-    TableauCommande.setShowHorizontalLines(true);
-    TableauCommande.setShowVerticalLines(false);
-    TableauCommande.putClientProperty("FlatLaf.style", "");
+        // === TABLEAU ===
+        TableauCommande.setBackground(blanc);
+        TableauCommande.setForeground(texteSombre);
+        TableauCommande.setFont(new java.awt.Font("Segoe UI", java.awt.Font.PLAIN, 13));
+        TableauCommande.setRowHeight(38);
+        TableauCommande.setGridColor(new java.awt.Color(243, 244, 246));
+        TableauCommande.setSelectionBackground(new java.awt.Color(219, 234, 254));
+        TableauCommande.setSelectionForeground(new java.awt.Color(30, 64, 175));
+        TableauCommande.setShowHorizontalLines(true);
+        TableauCommande.setShowVerticalLines(false);
+        TableauCommande.putClientProperty("FlatLaf.style", "");
 
-    // En-tête du tableau
-    TableauCommande.getTableHeader().setBackground(bleuFonce);
-    TableauCommande.getTableHeader().setForeground(blanc);
-    TableauCommande.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
-    TableauCommande.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
+        // En-tête du tableau
+        TableauCommande.getTableHeader().setBackground(bleuFonce);
+        TableauCommande.getTableHeader().setForeground(blanc);
+        TableauCommande.getTableHeader().setFont(new java.awt.Font("Segoe UI", java.awt.Font.BOLD, 13));
+        TableauCommande.getTableHeader().setPreferredSize(new java.awt.Dimension(0, 42));
 
-    // ScrollPane
-    jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-    jScrollPane1.getViewport().setBackground(blanc);
+        // ScrollPane
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        jScrollPane1.getViewport().setBackground(blanc);
 
-    // === MODÈLE DU TABLEAU ===
-    javax.swing.table.DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(
-        new Object[][]{},
-        new String[]{"Produit", "Quantité", "Prix unitaire", "Total ligne", "Action"}
-    ) {
-        @Override
-        public boolean isCellEditable(int row, int column) {
-            return false;
-        }
-    };
-    TableauCommande.setModel(tableModel);
-
-    // === CHARGEMENT ET ACTIONS ===
-    CommandeController.chargerProduits(ComboBoxProduit);
-
-    BoutonAjouter.addActionListener(e -> {
-        CommandeController.ajouterLigne(ComboBoxProduit, TextFieldQuantité, TableauCommande, jTextField1);
-    });
-
-    BoutonValiderCommande.addActionListener(e -> {
-        CommandeController.validerCommande(TableauCommande, jTextField1, ComboBoxProduit);
-    });
-
-    BoutonAnnulerCommande.addActionListener(e -> {
-        CommandeController.annulerCommande(TableauCommande, jTextField1, ComboBoxProduit);
-    });
-
-    // Clic sur colonne "Action" pour retirer une ligne
-    TableauCommande.addMouseListener(new java.awt.event.MouseAdapter() {
-        @Override
-        public void mouseClicked(java.awt.event.MouseEvent e) {
-            if (TableauCommande.columnAtPoint(e.getPoint()) == 4) {
-                CommandeController.retirerLigne(TableauCommande, jTextField1);
+        // === MODÈLE DU TABLEAU ===
+        javax.swing.table.DefaultTableModel tableModel = new javax.swing.table.DefaultTableModel(
+                new Object[][]{},
+                new String[]{"Produit", "Quantité", "Prix unitaire", "Total ligne", "Action"}
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
             }
-        }
-    });
+        };
+        TableauCommande.setModel(tableModel);
 
-    this.revalidate();
-    this.repaint();
-}
-    
+        // === CHARGEMENT ET ACTIONS ===
+        CommandeController.chargerProduits(ComboBoxProduit);
+
+        BoutonAjouter.addActionListener(e -> {
+            CommandeController.ajouterLigne(ComboBoxProduit, TextFieldQuantité, TableauCommande, jTextField1);
+        });
+
+        BoutonValiderCommande.addActionListener(e -> {
+            CommandeController.validerCommande(TableauCommande, jTextField1, ComboBoxProduit);
+        });
+
+        BoutonAnnulerCommande.addActionListener(e -> {
+            CommandeController.annulerCommande(TableauCommande, jTextField1, ComboBoxProduit);
+        });
+
+        // Clic sur colonne "Action" pour retirer une ligne
+        TableauCommande.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent e) {
+                if (TableauCommande.columnAtPoint(e.getPoint()) == 4) {
+                    CommandeController.retirerLigne(TableauCommande, jTextField1);
+                }
+            }
+        });
+
+        this.revalidate();
+        this.repaint();
+    }
+
     @Override
     public void rafraichir() {
         CommandeController.chargerProduits(ComboBoxProduit);
